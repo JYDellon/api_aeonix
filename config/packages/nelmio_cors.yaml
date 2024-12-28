@@ -1,13 +1,13 @@
 nelmio_cors:
     defaults:
         allow_credentials: true
-        allow_origin: ['https://aeonix-chi.vercel.app'] # URL du frontend
+        allow_origin: ['https://aeonix-chi.vercel.app','https;//aeonix-ajyxlwmys-dellons-projects.vercel.app'] # URL du frontend
         allow_headers: ['Content-Type', 'Authorization']
         allow_methods: ['GET', 'POST', 'OPTIONS', 'DELETE', 'PUT']
         max_age: 3600
     paths:
         '^/api/':
-            allow_origin: ['https://aeonix-chi.vercel.app']
+            allow_origin: ['https://aeonix-chi.vercel.app','https;//aeonix-ajyxlwmys-dellons-projects.vercel.app']
             allow_headers: ['Content-Type', 'Authorization']
             allow_methods: ['GET', 'POST', 'OPTIONS', 'DELETE', 'PUT']
             max_age: 3600
