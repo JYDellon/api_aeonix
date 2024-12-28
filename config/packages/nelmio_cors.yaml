@@ -1,6 +1,6 @@
 nelmio_cors:
     defaults:
-        allow_origin: ['https://aeonix-chi.vercel.app'] # Frontend autorisé
+        allow_origin: ['https://aeonix-chi.vercel.app','*'] # Frontend autorisé
         allow_credentials: true
         allow_headers: ['Content-Type', 'Authorization', 'X-Requested-With']
         expose_headers: ['Authorization']
@@ -8,6 +8,6 @@ nelmio_cors:
         max_age: 3600
     paths:
         '^/api/': # Appliquer les règles aux routes de l'API
-            allow_origin: ['https://aeonix-chi.vercel.app']
+            allow_origin: ['https://aeonix-chi.vercel.app','*']
             allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
             allow_headers: ['Content-Type', 'Authorization', 'X-Requested-With']
