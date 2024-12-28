@@ -7,11 +7,13 @@ use App\Repository\PageVisitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PageVisitController extends AbstractController
 {
+    /**
+     * Enregistrer une visite pour une page donnée
+     */
     #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST'])]
     public function recordVisit(
         string $pageUrl,
@@ -21,29 +23,14 @@ class PageVisitController extends AbstractController
         // Normalisation de l'URL
         $pageUrl = rtrim(strtolower($pageUrl), '/');
 
-        // Ne pas enregistrer les visites pour la page "dashboard"
-        if ($pageUrl === 'dashboard') {
-            return new JsonResponse([
-                'message' => 'Les visites pour cette page ne sont pas enregistrées.',
-                'pageUrl' => $pageUrl,
-            ], JsonResponse::HTTP_NO_CONTENT);
-        }
-
-        // Verrouillage transactionnel pour éviter les doublons
-        $entityManager->beginTransaction();
-
         try {
-            $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]);
+            // Vérifier si la page existe déjà
+            $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
+            $pageVisit->setPageUrl($pageUrl);
+            $pageVisit->incrementVisitCount(); // Incrémentation du compteur
 
-            if (!$pageVisit) {
-                $pageVisit = new PageVisit();
-                $pageVisit->setPageUrl($pageUrl);
-            }
-
-            $pageVisit->incrementVisitCount();
             $entityManager->persist($pageVisit);
             $entityManager->flush();
-            $entityManager->commit();
 
             return new JsonResponse([
                 'message' => 'Visite enregistrée avec succès.',
@@ -51,14 +38,16 @@ class PageVisitController extends AbstractController
                 'visitCount' => $pageVisit->getVisitCount(),
             ]);
         } catch (\Exception $e) {
-            $entityManager->rollback();
             return new JsonResponse([
-                'message' => 'Une erreur s\'est produite lors de l\'enregistrement de la visite.',
+                'message' => 'Erreur lors de l\'enregistrement de la visite.',
                 'error' => $e->getMessage(),
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
+    /**
+     * Récupérer toutes les visites enregistrées
+     */
     #[Route('/api/visit', name: 'api_get_visits', methods: ['GET'])]
     public function getVisits(PageVisitRepository $repository): JsonResponse
     {
@@ -74,6 +63,9 @@ class PageVisitController extends AbstractController
         return new JsonResponse($data);
     }
 
+    /**
+     * Réinitialiser toutes les visites enregistrées
+     */
     #[Route('/api/visit', name: 'api_reset_visits', methods: ['DELETE'])]
     public function resetVisits(PageVisitRepository $repository, EntityManagerInterface $entityManager): JsonResponse
     {

@@ -21,3 +21,83 @@ api_reset_visits:
     controller: App\Controller\PageVisitController::resetVisits
     methods: [DELETE]
 
+# api_contact:
+#     path: /api/contact
+#     controller: App\Controller\ProspectController::handleContact
+#     methods: ['POST']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Routes pour la gestion des prospects
+api_contact:
+    path: /api/contact
+    controller: App\Controller\ProspectController::handleContact
+    methods: POST
+
+api_devis:
+    path: /api/devis
+    controller: App\Controller\ProspectController::handleDevis
+    methods: POST
+
+api_prospects_list:
+    path: /api/prospects
+    controller: App\Controller\ProspectController::listProspects
+    methods: GET
+
+api_prospects_create:
+    path: /api/prospects
+    controller: App\Controller\ProspectController::createProspect
+    methods: POST
+
+api_prospect_update:
+    path: /api/prospect/{id}
+    controller: App\Controller\ProspectController::updateProspect
+    methods: PUT
+
+api_prospect_delete:
+    path: /api/prospect/{id}
+    controller: App\Controller\ProspectController::deleteProspect
+    methods: DELETE
+
+api_prospects_bulk_delete:
+    path: /api/prospects/delete
+    controller: App\Controller\ProspectController::deleteMultipleProspects
+    methods: POST
+
+# Routes pour la gestion des visites
+api_visits:
+    path: /api/visit
+    controller: App\Controller\VisitController::listVisits
+    methods: GET
+
+api_visit_reset:
+    path: /api/visit/reset
+    controller: App\Controller\VisitController::resetVisits
+    methods: DELETE
+
+
+
+send_email:
+  path: /api/send-email
+  controller: App\Controller\EmailController::sendEmail
+  methods: [POST]
