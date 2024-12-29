@@ -18,7 +18,11 @@
     "MESSENGER_TRANSPORT_DSN": "doctrine://default?auto_setup=0",
     "CORS_ALLOW_ORIGIN": "^https?://(localhost|127\\.0\\.0\\.1)(:[0-9]+)?$"
   },
+  
   "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
         {
           "key": "Access-Control-Allow-Origin",
           "value": "https://aeonix-blue.vercel.app"
@@ -32,7 +36,7 @@
           "value": "Content-Type, Authorization"
         }
       ]
-    
-  
+    }
+  ]
 }
 
