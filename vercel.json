@@ -17,5 +17,28 @@
     "MAILER_DSN": "smtp://jy.dellon@gmail.com:kora%%20xtrq%%20fzgk%%20iasj@smtp.gmail.com:587",
     "MESSENGER_TRANSPORT_DSN": "doctrine://default?auto_setup=0",
     "CORS_ALLOW_ORIGIN": "^https?://(localhost|127\\.0\\.0\\.1)(:[0-9]+)?$"
-  }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://aeonix-blue.vercel.app"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, OPTIONS, PUT, DELETE"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        }
+      ]
+    }
+  ]
 }
