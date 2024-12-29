@@ -1,10 +1,13 @@
-
 {
   "version": 2,
   "builds": [
     {
       "src": "public/index.php",
-      "use": "@vercel/node"
+      "use": "@vercel/php",
+      "config": {
+        "maxDuration": 10, 
+        "memory": 1024  
+      }
     }
   ],
   "routes": [
@@ -16,6 +19,20 @@
   "env": {
     "APP_ENV": "prod",
     "APP_DEBUG": "0",
-    "DATABASE_URL": "mysql://admin:abcdefgh@database-1.clis8kiwc2pt.eu-north-1.rds.amazonaws.com:3306/database-1?serverVersion=8.0.32&charset=utf8mb4"
+    "APP_SECRET": "123456789azertyuiop123456789", 
+    "DATABASE_URL": "mysql://admin:abcdefgh@database-1.clis8kiwc2pt.eu-north-1.rds.amazonaws.com:3306/database-1?serverVersion=8.0.32&charset=utf8mb4",
+    "MAILER_DSN": "smtp://jy.dellon@gmail.com:kora%20xtrq%20fzgk%20iasj@smtp.gmail.com:587",
+    "CORS_ALLOW_ORIGIN": "https://aeonix-psi.vercel.app" 
+  },
+  "functions": {
+    "api/*.php": {
+      "runtime": "vercel-php@0.5.0",
+      "includeFiles": [
+        "vendor/**",
+        "public/**", 
+        "config/**", 
+        ".env"       
+      ]
+    }
   }
 }
