@@ -21,7 +21,12 @@ controllers:
 #     controller: App\Controller\PageVisitController::resetVisits
 #     methods: [DELETE]
 
-
+api_record_visit:
+    path: /api/visit/{pageUrl}
+    controller: App\Controller\PageVisitController::recordVisit
+    methods: ['POST', 'OPTIONS']
+    requirements:
+        pageUrl: '[a-zA-Z0-9\-_]+'
 
 
 
@@ -36,10 +41,8 @@ api_reset_visits:
     controller: App\Controller\VisitController::resetVisits
     methods: ['DELETE']
 
-api_record_visit:
-    path: /api/visit/{pageUrl}
-    controller: App\Controller\PageVisitController::recordVisit
-    methods: ['POST', 'OPTIONS']
+
+
 
 
 
