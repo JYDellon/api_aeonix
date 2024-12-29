@@ -16,23 +16,6 @@
       "destination": "/public/$1"
     }
   ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/public/index.php"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/public/$1"
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/",
-      "destination": "/index.php",
-      "permanent": false
-    }
-  ],
   "env": {
     "APP_ENV": "prod",
     "APP_DEBUG": "0",
