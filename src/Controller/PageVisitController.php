@@ -3,48 +3,95 @@
 namespace App\Controller;
 
 use App\Entity\PageVisit;
+use Psr\Log\LoggerInterface;
 use App\Repository\PageVisitRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PageVisitController extends AbstractController
 {
     /**
      * Enregistrer une visite pour une page donnée
      */
+    // #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST'])]
+    // public function recordVisit(
+    //     string $pageUrl,
+    //     PageVisitRepository $repository,
+    //     EntityManagerInterface $entityManager
+    // ): JsonResponse {
+    //     // Normalisation de l'URL
+    //     $pageUrl = rtrim(strtolower($pageUrl), '/');
+
+    //     try {
+    //         // Vérifier si la page existe déjà
+    //         $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
+    //         $pageVisit->setPageUrl($pageUrl);
+    //         $pageVisit->incrementVisitCount(); // Incrémentation du compteur
+
+    //         $entityManager->persist($pageVisit);
+    //         $entityManager->flush();
+
+    //         return new JsonResponse([
+    //             'message' => 'Visite enregistrée avec succès.',
+    //             'pageUrl' => $pageVisit->getPageUrl(),
+    //             'visitCount' => $pageVisit->getVisitCount(),
+    //         ]);
+    //     } catch (\Exception $e) {
+    //         return new JsonResponse([
+    //             'message' => 'Erreur lors de l\'enregistrement de la visite.',
+    //             'error' => $e->getMessage(),
+    //         ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+    //     }
+    // }
+
+
+
+
+    use LoggerInterface;
+
     #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST'])]
     public function recordVisit(
         string $pageUrl,
         PageVisitRepository $repository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        LoggerInterface $logger
     ): JsonResponse {
-        // Normalisation de l'URL
+        $logger->info("Enregistrement d'une visite pour : $pageUrl");
+    
         $pageUrl = rtrim(strtolower($pageUrl), '/');
-
+    
         try {
-            // Vérifier si la page existe déjà
             $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
             $pageVisit->setPageUrl($pageUrl);
-            $pageVisit->incrementVisitCount(); // Incrémentation du compteur
-
+            $pageVisit->incrementVisitCount();
+    
             $entityManager->persist($pageVisit);
             $entityManager->flush();
-
+    
+            $logger->info("Visite enregistrée avec succès : $pageUrl");
+    
             return new JsonResponse([
                 'message' => 'Visite enregistrée avec succès.',
                 'pageUrl' => $pageVisit->getPageUrl(),
                 'visitCount' => $pageVisit->getVisitCount(),
             ]);
         } catch (\Exception $e) {
+            $logger->error("Erreur lors de l'enregistrement de la visite : " . $e->getMessage());
+    
             return new JsonResponse([
                 'message' => 'Erreur lors de l\'enregistrement de la visite.',
                 'error' => $e->getMessage(),
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+    
 
+
+
+    
+    
     /**
      * Récupérer toutes les visites enregistrées
      */
