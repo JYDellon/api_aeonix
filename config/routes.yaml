@@ -55,6 +55,9 @@ cors_preflight:
         path: .*
 
 
+test_route:
+    path: /test
+    controller: App\Controller\TestController::index
 
 
 
