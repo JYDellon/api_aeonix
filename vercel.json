@@ -19,7 +19,7 @@
       "src": "/api/(.*)",
       "dest": "/public/index.php",
       "headers": {
-        "Access-Control-Allow-Origin": "https://your-frontend-domain.vercel.app",
+        "Access-Control-Allow-Origin": "https://aeonix-nine.vercel.app",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization"
       }
