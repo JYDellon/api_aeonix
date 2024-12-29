@@ -3,7 +3,6 @@
   "builds": [
     {
       "src": "public/index.php",
-      "use": "@vercel/php",
       "config": {
         "maxDuration": 10,
         "memory": 1024
