@@ -49,7 +49,6 @@ class PageVisitController extends AbstractController
 
 
 
-    use LoggerInterface;
 
     #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST'])]
     public function recordVisit(
