@@ -6,6 +6,16 @@
       "use": "@vercel/php"
     }
   ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/public/index.php"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/public/$1"
+    }
+  ],
   "routes": [
     {
       "src": "/api/(.*)",
@@ -16,10 +26,17 @@
       "dest": "/public/$1"
     }
   ],
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/api/(.*)",
-      "destination": "/public/index.php"
+      "source": "/",
+      "destination": "/index.php",
+      "permanent": false
     }
-  ]
+  ],
+  "env": {
+    "APP_ENV": "prod",
+    "APP_DEBUG": "0",
+    "APP_SECRET": "your_app_secret_here",
+    "DATABASE_URL": "your_database_url_here"
+  }
 }
