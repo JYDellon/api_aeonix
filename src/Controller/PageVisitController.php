@@ -46,7 +46,11 @@ class PageVisitController extends AbstractController
     //     }
     // }
 
-
+    #[Route('/', name: 'home', methods: ['GET'])]
+    public function home(): JsonResponse
+    {
+        return new JsonResponse(['message' => 'Bienvenue sur l\'API de gestion des visites.']);
+    }
 
 
 

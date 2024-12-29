@@ -3,6 +3,7 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+    
 
 # config/routes.yaml
 
@@ -37,6 +38,10 @@ api_reset_visits:
 
 
 
+home:
+    path: /
+    controller: App\Controller\PageVisitController::home
+    methods: [GET]
 
 
 
