@@ -1,6 +1,6 @@
 nelmio_cors:
     defaults:
-        allow_origin: ['https://aeonix-psi.vercel.app'] # Remplacez par l'URL de votre frontend
+        allow_origin: ['https://aeonix-psi.vercel.app'] # URL du frontend
         allow_credentials: true
         allow_headers: ['Content-Type', 'Authorization']
         expose_headers: []
