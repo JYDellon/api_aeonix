@@ -71,13 +71,6 @@
 
 
 
-
-
-
-
-
-
-
 monolog:
     channels:
         - deprecation # Canal dédié aux dépréciations
