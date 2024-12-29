@@ -1,6 +1,25 @@
 {
-    "rewrites": [
-      { "source": "/api/(.*)", "destination": "/public/index.php" }
-    ]
-  }
-  
+  "version": 2,
+  "builds": [
+    {
+      "src": "public/index.php",
+      "use": "@vercel/php"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/public/index.php"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/public/index.php"
+    }
+  ]
+}
