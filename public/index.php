@@ -1,9 +1,24 @@
 <?php
 
-use App\Kernel;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Runtime\SymfonyRuntime;
 
-require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
+require_once dirname(__DIR__).'/vendor/autoload.php';
 
 return function (array $context) {
-    return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
+    $runtime = new SymfonyRuntime();
+
+    // Résoudre le kernel à partir du contexte
+    [$handler, $arguments] = $runtime->getResolver($context)->resolve();
+
+    // Initialisation de la requête
+    $request = Request::createFromGlobals();
+
+    // Exécuter le gestionnaire et retourner la réponse
+    $response = $handler(...$arguments)->handle($request);
+
+    // Envoyer la réponse
+    $response->send();
+
+    return $response;
 };
