@@ -1,29 +1,21 @@
-{
 
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "public/index.php",
+      "use": "@vercel/php"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/public/index.php"
+    }
+  ],
   "env": {
     "APP_ENV": "prod",
     "APP_DEBUG": "0",
     "DATABASE_URL": "mysql://admin:abcdefgh@database-1.clis8kiwc2pt.eu-north-1.rds.amazonaws.com:3306/database-1?serverVersion=8.0.32&charset=utf8mb4"
-  },
-
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/*.php",
-      "use": "@vercel/php"
-    }
-  ],
-
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/public/index.php",
-      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-      "headers": {
-        "Access-Control-Allow-Origin": "https://aeonix-nine.vercel.app",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization"
-      }
-    }
-  ]
+  }
 }
