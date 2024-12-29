@@ -11,6 +11,9 @@ api_record_visit:
     controller: App\Controller\PageVisitController::recordVisit
     methods: [POST]
 
+
+
+
 api_get_visits:
     path: /api/visit
     controller: App\Controller\PageVisitController::getVisits
