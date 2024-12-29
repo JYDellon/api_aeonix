@@ -4,42 +4,30 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-
-# api_record_visit:
-#     path: /api/visit/{pageUrl}
-#     controller: App\Controller\PageVisitController::recordVisit
-#     methods: ['POST', 'OPTIONS']
-
-
-# api_get_visits:
-#     path: /api/visit
-#     controller: App\Controller\PageVisitController::getVisits
-#     methods: [GET]
-
-# api_reset_visits:
-#     path: /api/visit
-#     controller: App\Controller\PageVisitController::resetVisits
-#     methods: [DELETE]
+# config/routes.yaml
 
 api_record_visit:
     path: /api/visit/{pageUrl}
     controller: App\Controller\PageVisitController::recordVisit
-    methods: ['POST', 'OPTIONS']
-    requirements:
-        pageUrl: '[a-zA-Z0-9\-_]+'
-
-
-
+    methods: [POST]
 
 api_get_visits:
     path: /api/visit
-    controller: App\Controller\VisitController::getVisits
-    methods: ['GET']
+    controller: App\Controller\PageVisitController::getVisits
+    methods: [GET]
 
 api_reset_visits:
     path: /api/visit
-    controller: App\Controller\VisitController::resetVisits
-    methods: ['DELETE']
+    controller: App\Controller\PageVisitController::resetVisits
+    methods: [DELETE]
+
+# api_contact:
+#     path: /api/contact
+#     controller: App\Controller\ProspectController::handleContact
+#     methods: ['POST']
+
+
+
 
 
 
