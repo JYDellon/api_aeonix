@@ -14,7 +14,7 @@
   ],
   "env": {
     "APP_ENV": "prod",
-    "APP_SECRET": "123456789azertyuiop123456789",
+    "APP_SECRET": "8e928ce6ea9f6255a74cbbdd664820d0",
     "DATABASE_URL": "mysql://admin:abcdefgh@database-1.clis8kiwc2pt.eu-north-1.rds.amazonaws.com:3306/database-1?serverVersion=8.0.32&charset=utf8mb4",
     "MAILER_DSN": "smtp://jy.dellon@gmail.com:kora%%20xtrq%%20fzgk%%20iasj@smtp.gmail.com:587",
     "MESSENGER_TRANSPORT_DSN": "doctrine://default?auto_setup=0",
