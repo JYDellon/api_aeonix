@@ -1,0 +1,6 @@
+/tests
+/.env
+/var/*
+!var/.keep
+/.git
+/node_modules
