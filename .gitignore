@@ -23,9 +23,3 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
-
-.vercel
-
-###> bref/symfony-bridge ###
-/.serverless/
-###< bref/symfony-bridge ###

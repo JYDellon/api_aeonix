@@ -3,27 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\PageVisit;
-use Psr\Log\LoggerInterface;
 use App\Repository\PageVisitRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Annotation\Route;
 
 class PageVisitController extends AbstractController
 {
-
-
-
-
-    #[Route('/', name: 'home', methods: ['GET'])]
-    public function home(): JsonResponse
-    {
-        return new JsonResponse(['message' => 'Bienvenue sur l\'API de gestion des visites.']);
-    }
-
-
-    
     /**
      * Enregistrer une visite pour une page donnée
      */
@@ -56,8 +43,8 @@ class PageVisitController extends AbstractController
                 'error' => $e->getMessage(),
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
-    } 
-    
+    }
+
     /**
      * Récupérer toutes les visites enregistrées
      */
@@ -92,13 +79,4 @@ class PageVisitController extends AbstractController
 
         return new JsonResponse(['message' => 'Toutes les visites ont été réinitialisées.']);
     }
-
-
-
-
-
-
-
-
-    
 }

@@ -3,7 +3,6 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
-    
 
 # config/routes.yaml
 
@@ -38,26 +37,13 @@ api_reset_visits:
 
 
 
-home:
-    path: /
-    controller: App\Controller\PageVisitController::home
-    methods: [GET]
 
 
 
 
 
-cors_preflight:
-    path: /{path}
-    methods: OPTIONS
-    defaults: { _controller: 'App\Controller\CorsController::preflight', path: null }
-    requirements:
-        path: .*
 
 
-test_route:
-    path: /test
-    controller: App\Controller\TestController::index
 
 
 
@@ -115,4 +101,3 @@ send_email:
   path: /api/send-email
   controller: App\Controller\EmailController::sendEmail
   methods: [POST]
-
