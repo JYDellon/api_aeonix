@@ -36,7 +36,6 @@
   "env": {
     "APP_ENV": "prod",
     "APP_DEBUG": "0",
-    "APP_SECRET": "123456789azertyuiop123456789",
     "DATABASE_URL": "mysql://admin:abcdefgh@database-1.clis8kiwc2pt.eu-north-1.rds.amazonaws.com:3306/database-1?serverVersion=8.0.32&charset=utf8mb4"
   }
 }
