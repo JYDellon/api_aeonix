@@ -36,6 +36,7 @@ parameters:
     # Ajoutez ici des paramètres personnalisés si nécessaire
 
 services:
+
     # Configuration par défaut pour les services dans ce fichier
     _defaults:
         autowire: true      # Injection automatique des dépendances dans vos services.
