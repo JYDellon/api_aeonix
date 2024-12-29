@@ -14,88 +14,36 @@ class PageVisitController extends AbstractController
     /**
      * Enregistrer une visite pour une page donnée
      */
-    // #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST'])]
-    // public function recordVisit(
-    //     string $pageUrl,
-    //     PageVisitRepository $repository,
-    //     EntityManagerInterface $entityManager
-    // ): JsonResponse {
-    //     // Normalisation de l'URL
-    //     $pageUrl = rtrim(strtolower($pageUrl), '/');
-
-    //     try {
-    //         // Vérifier si la page existe déjà
-    //         $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
-    //         $pageVisit->setPageUrl($pageUrl);
-    //         $pageVisit->incrementVisitCount(); // Incrémentation du compteur
-
-    //         $entityManager->persist($pageVisit);
-    //         $entityManager->flush();
-
-    //         return new JsonResponse([
-    //             'message' => 'Visite enregistrée avec succès.',
-    //             'pageUrl' => $pageVisit->getPageUrl(),
-    //             'visitCount' => $pageVisit->getVisitCount(),
-    //         ]);
-    //     } catch (\Exception $e) {
-    //         return new JsonResponse([
-    //             'message' => 'Erreur lors de l\'enregistrement de la visite.',
-    //             'error' => $e->getMessage(),
-    //         ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
-    //     }
-    // }
-
-
-
-
     #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST'])]
-public function recordVisit(
-    string $pageUrl,
-    PageVisitRepository $repository,
-    EntityManagerInterface $entityManager
-): JsonResponse {
-    // Normalisation de l'URL
-    $pageUrl = rtrim(strtolower($pageUrl), '/');
+    public function recordVisit(
+        string $pageUrl,
+        PageVisitRepository $repository,
+        EntityManagerInterface $entityManager
+    ): JsonResponse {
+        // Normalisation de l'URL
+        $pageUrl = rtrim(strtolower($pageUrl), '/');
 
-    // Validation de l'URL
-    if (!filter_var('http://example.com/' . $pageUrl, FILTER_VALIDATE_URL)) {
-        return new JsonResponse([
-            'status' => 'error',
-            'message' => 'URL invalide.',
-            'pageUrl' => $pageUrl,
-        ], JsonResponse::HTTP_BAD_REQUEST);
-    }
+        try {
+            // Vérifier si la page existe déjà
+            $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
+            $pageVisit->setPageUrl($pageUrl);
+            $pageVisit->incrementVisitCount(); // Incrémentation du compteur
 
-    try {
-        // Vérifier si la page existe déjà ou en créer une nouvelle
-        $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
-        $pageVisit->setPageUrl($pageUrl);
-        $pageVisit->incrementVisitCount();
+            $entityManager->persist($pageVisit);
+            $entityManager->flush();
 
-        $entityManager->persist($pageVisit);
-        $entityManager->flush();
-
-        return new JsonResponse([
-            'status' => 'success',
-            'message' => 'Visite enregistrée avec succès.',
-            'data' => [
+            return new JsonResponse([
+                'message' => 'Visite enregistrée avec succès.',
                 'pageUrl' => $pageVisit->getPageUrl(),
                 'visitCount' => $pageVisit->getVisitCount(),
-            ],
-        ]);
-    } catch (\Exception $e) {
-        return new JsonResponse([
-            'status' => 'error',
-            'message' => 'Erreur lors de l\'enregistrement de la visite.',
-            'error' => $e->getMessage(),
-        ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+            ]);
+        } catch (\Exception $e) {
+            return new JsonResponse([
+                'message' => 'Erreur lors de l\'enregistrement de la visite.',
+                'error' => $e->getMessage(),
+            ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
-}
-
-
-
-
-    
 
     /**
      * Récupérer toutes les visites enregistrées
