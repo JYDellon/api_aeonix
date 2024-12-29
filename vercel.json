@@ -1,20 +1,22 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "public/index.php",
-      "use": "@vercel/static-build"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/public/index.php"
-    }
-  ],
+
   "env": {
     "APP_ENV": "prod",
     "APP_DEBUG": "0",
     "DATABASE_URL": "mysql://admin:abcdefgh@database-1.clis8kiwc2pt.eu-north-1.rds.amazonaws.com:3306/database-1?serverVersion=8.0.32&charset=utf8mb4"
-  }
+  },
+
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/*.php",
+      "use": "@vercel/php"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.php"
+    }
+  ]
 }
