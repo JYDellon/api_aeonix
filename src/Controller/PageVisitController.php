@@ -124,9 +124,9 @@ class PageVisitController extends AbstractController
                 'Access-Control-Allow-Origin' => 'https://aeonix-blue.vercel.app',
                 'Access-Control-Allow-Methods' => 'POST, OPTIONS',
                 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
-                'Access-Control-Allow-Credentials' => 'true',
             ]);
         }
+        
     
         // Normalisation de l'URL
         $pageUrl = rtrim(strtolower($pageUrl), '/');
