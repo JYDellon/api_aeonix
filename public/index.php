@@ -5,13 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
-// Crée une requête Symfony à partir des variables globales
-$request = Request::createFromGlobals();
-
-// Initialise le Kernel Symfony
-$kernel = new Kernel('prod', (bool) ($_SERVER['APP_DEBUG'] ?? false));
-
-// Gère la requête et renvoie la réponse
-$response = $kernel->handle($request);
-$response->send();
-$kernel->terminate($request, $response);
+// Crée l'instance de Kernel
+return function (array $context) {
+    return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
+};
