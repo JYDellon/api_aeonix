@@ -101,3 +101,9 @@ send_email:
   path: /api/send-email
   controller: App\Controller\EmailController::sendEmail
   methods: [POST]
+
+# Route spécifique pour `/api/visit/accueil` (si nécessaire)
+api_visit_accueil:
+    path: /api/visit/accueil
+    controller: App\Controller\VisitController::accueil
+    methods: GET

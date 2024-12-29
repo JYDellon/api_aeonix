@@ -79,4 +79,19 @@ class PageVisitController extends AbstractController
 
         return new JsonResponse(['message' => 'Toutes les visites ont été réinitialisées.']);
     }
+
+
+
+
+
+    #[Route('/api/visit/accueil', name: 'api_visit_accueil', methods: ['GET'])]
+    public function accueil(): JsonResponse
+    {
+        return new JsonResponse(['message' => 'Welcome to Accueil'], 200);
+    }
+
+
+
+
+    
 }
