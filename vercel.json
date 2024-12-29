@@ -6,10 +6,15 @@
       "use": "@vercel/static-build"
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "/public/index.php"
+      "src": "/api/(.*)",
+      "dest": "/public/index.php"
     }
-  ]
+  ],
+  "env": {
+    "APP_ENV": "prod",
+    "APP_DEBUG": "0",
+    "DATABASE_URL": "mysql://admin:abcdefgh@database-1.clis8kiwc2pt.eu-north-1.rds.amazonaws.com:3306/database-1?serverVersion=8.0.32&charset=utf8mb4"
+  }
 }
