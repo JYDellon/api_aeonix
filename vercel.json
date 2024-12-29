@@ -3,12 +3,12 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/public/index.php"
+      "dest": "/public/https://aeonix-blue.vercel.app"
     }
   ],
   "builds": [
     {
-      "src": "public/index.php",
+      "src": "public/https://aeonix-blue.vercel.app",
       "use": "@vercel/node"
     }
   ],
