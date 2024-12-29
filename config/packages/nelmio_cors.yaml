@@ -6,7 +6,7 @@ nelmio_cors:
         allow_methods: ['GET', 'POST', 'OPTIONS', 'DELETE', 'PUT']
         max_age: 3600
     paths:
-        '^/':
+        '^/api/':
             allow_origin: ['https://aeonix-blue.vercel.app']
             allow_headers: ['Content-Type', 'Authorization']
             allow_methods: ['GET', 'POST', 'OPTIONS', 'DELETE', 'PUT']
