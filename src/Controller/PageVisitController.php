@@ -48,6 +48,57 @@ class PageVisitController extends AbstractController
     // }
 
 
+    // #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
+    // public function recordVisit(
+    //     string $pageUrl,
+    //     PageVisitRepository $repository,
+    //     EntityManagerInterface $entityManager
+    // ): JsonResponse {
+    //     // Normalisation de l'URL
+    //     $pageUrl = rtrim(strtolower($pageUrl), '/');
+
+    //     // Vérifie si c'est une requête OPTIONS (pré-vol CORS)
+    //     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    //         return new JsonResponse(null, Response::HTTP_NO_CONTENT, [
+    //             'Access-Control-Allow-Origin' => '*', // Remplace "*" par une origine spécifique si nécessaire
+    //             'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+    //             'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+    //         ]);
+    //     }
+
+    //     try {
+    //         // Vérifier si la page existe déjà
+    //         $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
+    //         $pageVisit->setPageUrl($pageUrl);
+    //         $pageVisit->incrementVisitCount(); // Incrémentation du compteur
+
+    //         $entityManager->persist($pageVisit);
+    //         $entityManager->flush();
+
+    //         // Réponse JSON avec en-têtes CORS
+    //         return new JsonResponse([
+    //             'message' => 'Visite enregistrée avec succès.',
+    //             'pageUrl' => $pageVisit->getPageUrl(),
+    //             'visitCount' => $pageVisit->getVisitCount(),
+    //         ], JsonResponse::HTTP_OK, [
+    //             'Access-Control-Allow-Origin' => '*', // Remplace "*" par l'URL de ton frontend (ex. https://monfrontend.vercel.app)
+    //             'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+    //             'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+    //         ]);
+    //     } catch (\Exception $e) {
+    //         // Réponse d'erreur avec en-têtes CORS
+    //         return new JsonResponse([
+    //             'message' => 'Erreur lors de l\'enregistrement de la visite.',
+    //             'error' => $e->getMessage(),
+    //         ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, [
+    //             'Access-Control-Allow-Origin' => '*',
+    //             'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+    //             'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+    //         ]);
+    //     }
+    // }
+
+
 
 
 
@@ -68,50 +119,50 @@ class PageVisitController extends AbstractController
         PageVisitRepository $repository,
         EntityManagerInterface $entityManager
     ): JsonResponse {
-        // Normalisation de l'URL
+        // Normalisation de l'URL pour éviter les incohérences
         $pageUrl = rtrim(strtolower($pageUrl), '/');
-    
-        // Vérifie si c'est une requête OPTIONS (pré-vol CORS)
+
+        // Vérifie si la requête est de type OPTIONS (pré-vol CORS)
         if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
             return new JsonResponse(null, Response::HTTP_NO_CONTENT, [
-                'Access-Control-Allow-Origin' => '*', // Remplace "*" par une origine spécifique si nécessaire
+                'Access-Control-Allow-Origin' => 'https://aeonix-blue.vercel.app', // Remplace par l'URL de ton frontend
                 'Access-Control-Allow-Methods' => 'POST, OPTIONS',
                 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+                'Access-Control-Max-Age' => '3600', // Cache la réponse CORS pendant 1 heure
             ]);
         }
-    
+
         try {
-            // Vérifier si la page existe déjà
+            // Vérifie si la page existe déjà dans la base de données
             $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
             $pageVisit->setPageUrl($pageUrl);
-            $pageVisit->incrementVisitCount(); // Incrémentation du compteur
-    
+            $pageVisit->incrementVisitCount(); // Incrémente le compteur de visites
+
             $entityManager->persist($pageVisit);
             $entityManager->flush();
-    
-            // Réponse JSON avec en-têtes CORS
+
+            // Retourne une réponse JSON avec les en-têtes CORS
             return new JsonResponse([
                 'message' => 'Visite enregistrée avec succès.',
                 'pageUrl' => $pageVisit->getPageUrl(),
                 'visitCount' => $pageVisit->getVisitCount(),
             ], JsonResponse::HTTP_OK, [
-                'Access-Control-Allow-Origin' => '*', // Remplace "*" par l'URL de ton frontend (ex. https://monfrontend.vercel.app)
+                'Access-Control-Allow-Origin' => 'https://aeonix-blue.vercel.app', // Remplace par l'URL de ton frontend
                 'Access-Control-Allow-Methods' => 'POST, OPTIONS',
                 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
             ]);
         } catch (\Exception $e) {
-            // Réponse d'erreur avec en-têtes CORS
+            // En cas d'erreur, retourne une réponse JSON avec les en-têtes CORS
             return new JsonResponse([
                 'message' => 'Erreur lors de l\'enregistrement de la visite.',
                 'error' => $e->getMessage(),
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, [
-                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Origin' => 'https://aeonix-blue.vercel.app',
                 'Access-Control-Allow-Methods' => 'POST, OPTIONS',
                 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
             ]);
         }
     }
-    
 
 
 
@@ -130,7 +181,8 @@ class PageVisitController extends AbstractController
 
 
 
-    
+
+
     /**
      * Récupérer toutes les visites enregistrées
      */
