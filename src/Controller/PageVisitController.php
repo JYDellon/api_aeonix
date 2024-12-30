@@ -39,7 +39,7 @@ class PageVisitController extends AbstractController
             ]);
     
             // Ajout des en-têtes CORS ou autres
-            $response->headers->set('Access-Control-Allow-Origin', '*');
+            $response->headers->set('Access-Control-Allow-Origin', 'https://aeonix-blue.vercel.app/');
             $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
             $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
     
@@ -51,7 +51,7 @@ class PageVisitController extends AbstractController
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
     
             // Ajout des en-têtes à la réponse d'erreur
-            $response->headers->set('Access-Control-Allow-Origin', '*');
+            $response->headers->set('Access-Control-Allow-Origin', 'https://aeonix-blue.vercel.app/');
             $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
             $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
     
