@@ -4,8 +4,6 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-# config/routes.yaml
-
 api_record_visit:
     path: /api/visit/{pageUrl}
     controller: App\Controller\PageVisitController::recordVisit
@@ -21,10 +19,6 @@ api_reset_visits:
     controller: App\Controller\PageVisitController::resetVisits
     methods: [DELETE]
 
-# api_contact:
-#     path: /api/contact
-#     controller: App\Controller\ProspectController::handleContact
-#     methods: ['POST']
 
 
 
@@ -43,12 +37,6 @@ api_reset_visits:
 
 
 
-
-
-
-
-
-# Routes pour la gestion des prospects
 api_contact:
     path: /api/contact
     controller: App\Controller\ProspectController::handleContact
@@ -84,7 +72,6 @@ api_prospects_bulk_delete:
     controller: App\Controller\ProspectController::deleteMultipleProspects
     methods: POST
 
-# Routes pour la gestion des visites
 api_visits:
     path: /api/visit
     controller: App\Controller\VisitController::listVisits
