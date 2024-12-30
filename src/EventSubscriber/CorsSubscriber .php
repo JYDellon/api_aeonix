@@ -21,7 +21,7 @@ KernelEvents::RESPONSE => 'onKernelResponse',
 public function onKernelResponse(ResponseEvent $event): void
 {
 $response = $event->getResponse();
-$response->headers->set('Access-Control-Allow-Origin', 'https://tonfrontend.vercel.app');
+$response->headers->set('Access-Control-Allow-Origin', 'https://aeonix-blue.vercel.app');
 $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
 $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 }
