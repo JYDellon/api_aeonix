@@ -20,4 +20,5 @@
     "MAILER_DSN": "smtp://jy.dellon@gmail.com:kora%%20xtrq%%20fzgk%%20iasj@smtp.gmail.com:587",
     "CORS_ALLOW_ORIGIN": "^https?://(localhost|127\\.0\\.0\\.1)(:[0-9]+)?$"
   }
+  
 }
