@@ -2,40 +2,22 @@ service: symfony-app
 
 provider:
   name: aws
-  region: us-east-1
-  runtime: provided.al2  # Runtime personnalisé pour PHP via Bref
-  memorySize: 1024
-  timeout: 30
-
+  runtime: provided.al2 
 plugins:
   - ./vendor/bref/bref
 
 functions:
   web:
-    handler: public/index.php
-    runtime: provided.al2  # Runtime pour PHP
+    handler: index.php
     layers:
-      - ${bref:layer.php-81-fpm}  # Layer PHP 8.1 pour Symfony
+      - ${bref:layer.php-81} # Runtime PHP 8.1 pour AWS Lambda
     events:
       - httpApi: '*'
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+resources:
+  Resources:
+    MyApiGateway:
+      Type: AWS::ApiGatewayV2::Api
+      Properties:
+        ProtocolType: HTTP

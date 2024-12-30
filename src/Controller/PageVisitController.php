@@ -5,10 +5,9 @@ namespace App\Controller;
 use App\Entity\PageVisit;
 use App\Repository\PageVisitRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Annotation\Route;
 
 class PageVisitController extends AbstractController
 {
@@ -23,64 +22,28 @@ class PageVisitController extends AbstractController
     ): JsonResponse {
         // Normalisation de l'URL
         $pageUrl = rtrim(strtolower($pageUrl), '/');
-    
+
         try {
             // Vérifier si la page existe déjà
             $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
             $pageVisit->setPageUrl($pageUrl);
             $pageVisit->incrementVisitCount(); // Incrémentation du compteur
-    
+
             $entityManager->persist($pageVisit);
             $entityManager->flush();
-    
-            $response = new JsonResponse([
+
+            return new JsonResponse([
                 'message' => 'Visite enregistrée avec succès.',
                 'pageUrl' => $pageVisit->getPageUrl(),
                 'visitCount' => $pageVisit->getVisitCount(),
             ]);
-    
-            // Ajout des en-têtes CORS ou autres
-            $response->headers->set('Access-Control-Allow-Origin', '*');
-            $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
-    
-            return $response;
         } catch (\Exception $e) {
-            $response = new JsonResponse([
+            return new JsonResponse([
                 'message' => 'Erreur lors de l\'enregistrement de la visite.',
                 'error' => $e->getMessage(),
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
-    
-            // Ajout des en-têtes à la réponse d'erreur
-            $response->headers->set('Access-Control-Allow-Origin', '*');
-            $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
-    
-            return $response;
         }
     }
-    
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
     /**
      * Récupérer toutes les visites enregistrées
