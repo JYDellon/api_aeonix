@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2bacbfea155d3a2c32ae43209f25b909",
+    "content-hash": "e894e1b2b02f0c957f9d9493a3dde4e9",
     "packages": [
         {
             "name": "bref/bref",
