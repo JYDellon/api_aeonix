@@ -18,3 +18,24 @@ functions:
       - ${bref:layer.php-81-fpm}  # Layer PHP 8.1 pour Symfony
     events:
       - httpApi: '*'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
