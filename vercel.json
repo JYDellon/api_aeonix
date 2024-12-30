@@ -12,8 +12,8 @@
       "APP_SECRET": "123456789azertyuiop123456789",
       "DATABASE_URL": "mysql://admin:abcdefgh@database-1.clis8kiwc2pt.eu-north-1.rds.amazonaws.com:3306/database-1?serverVersion=8.0.32&charset=utf8mb4",
       "MAILER_DSN": "smtp://jy.dellon@gmail.com:kora%%20xtrq%%20fzgk%%20iasj@smtp.gmail.com:587",
-      "MESSENGER_TRANSPORT_DSN": "doctrine://default?auto_setup=0",
-      "CORS_ALLOW_ORIGIN": "^https?://(localhost|127\\.0\\.0\\.1)(:[0-9]+)?$"
+      "MESSENGER_TRANSPORT_DSN": "doctrine://default?auto_setup=0",     
+      "CORS_ALLOW_ORIGIN": "https://aeonix-blue.vercel.app"
     }
   }
   
