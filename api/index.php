@@ -2,26 +2,25 @@
 
 use App\Kernel;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 require_once dirname(__DIR__) . '/vendor/autoload_runtime.php';
 
-// Serverless adaptation
+// Adaptation pour serverless
 return function (array $context) {
     $kernel = new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
 
-    // Create Symfony request object
+    // Créer une requête HTTP à partir des variables globales
     $request = Request::createFromGlobals();
 
-    // Handle request
+    // Gérer la requête
     $response = $kernel->handle($request);
 
-    // Add CORS headers if needed
+    // Ajouter les en-têtes CORS (si nécessaire)
     $response->headers->set('Access-Control-Allow-Origin', '*');
     $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    
-    // Send response
+
+    // Envoyer la réponse
     $response->send();
 
     $kernel->terminate($request, $response);
