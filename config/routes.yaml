@@ -29,6 +29,9 @@ api_reset_visits:
 
 
 
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
 
 
 
