@@ -112,7 +112,7 @@ class PageVisitController extends AbstractController
     //     // Vérifie si la requête est de type OPTIONS (pré-vol CORS)
     //     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     //         return new JsonResponse(null, Response::HTTP_NO_CONTENT, [
-    //             'Access-Control-Allow-Origin' => 'https://aeonix-blue.vercel.app', // Remplace par l'URL de ton frontend
+    //             'Access-Control-Allow-Origin' => 'https://aeonix-lake.vercel.app', // Remplace par l'URL de ton frontend
     //             'Access-Control-Allow-Methods' => 'POST, OPTIONS',
     //             'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
     //             'Access-Control-Max-Age' => '3600', // Cache la réponse CORS pendant 1 heure
@@ -134,7 +134,7 @@ class PageVisitController extends AbstractController
     //             'pageUrl' => $pageVisit->getPageUrl(),
     //             'visitCount' => $pageVisit->getVisitCount(),
     //         ], JsonResponse::HTTP_OK, [
-    //             'Access-Control-Allow-Origin' => 'https://aeonix-blue.vercel.app', // Remplace par l'URL de ton frontend
+    //             'Access-Control-Allow-Origin' => 'https://aeonix-lake.vercel.app', // Remplace par l'URL de ton frontend
     //             'Access-Control-Allow-Methods' => 'POST, OPTIONS',
     //             'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
     //         ]);
@@ -144,7 +144,7 @@ class PageVisitController extends AbstractController
     //             'message' => 'Erreur lors de l\'enregistrement de la visite.',
     //             'error' => $e->getMessage(),
     //         ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, [
-    //             'Access-Control-Allow-Origin' => 'https://aeonix-blue.vercel.app',
+    //             'Access-Control-Allow-Origin' => 'https://aeonix-lake.vercel.app',
     //             'Access-Control-Allow-Methods' => 'POST, OPTIONS',
     //             'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
     //         ]);
@@ -176,51 +176,51 @@ class PageVisitController extends AbstractController
 
 
     #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
-public function recordVisit(
-    string $pageUrl,
-    PageVisitRepository $repository,
-    EntityManagerInterface $entityManager
-): JsonResponse {
-    // Gestion des requêtes OPTIONS
-    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, [
-            'Access-Control-Allow-Origin' => $_ENV['CORS_ALLOW_ORIGIN'] ?? '*',
-            'Access-Control-Allow-Methods' => 'POST, OPTIONS',
-            'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
-        ]);
+    public function recordVisit(
+        string $pageUrl,
+        PageVisitRepository $repository,
+        EntityManagerInterface $entityManager
+    ): JsonResponse {
+        // Gestion des requêtes OPTIONS
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, [
+                'Access-Control-Allow-Origin' => $_ENV['CORS_ALLOW_ORIGIN'] ?? '*',
+                'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+                'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+            ]);
+        }
+
+        // Traitement normal des requêtes POST
+        $pageUrl = rtrim(strtolower($pageUrl), '/');
+
+        try {
+            $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
+            $pageVisit->setPageUrl($pageUrl);
+            $pageVisit->incrementVisitCount();
+
+            $entityManager->persist($pageVisit);
+            $entityManager->flush();
+
+            return new JsonResponse([
+                'message' => 'Visite enregistrée avec succès.',
+                'pageUrl' => $pageVisit->getPageUrl(),
+                'visitCount' => $pageVisit->getVisitCount(),
+            ], JsonResponse::HTTP_OK, [
+                'Access-Control-Allow-Origin' => $_ENV['CORS_ALLOW_ORIGIN'] ?? '*',
+                'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+                'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+            ]);
+        } catch (\Exception $e) {
+            return new JsonResponse([
+                'message' => 'Erreur lors de l\'enregistrement de la visite.',
+                'error' => $e->getMessage(),
+            ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, [
+                'Access-Control-Allow-Origin' => $_ENV['CORS_ALLOW_ORIGIN'] ?? '*',
+                'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+                'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+            ]);
+        }
     }
-
-    // Traitement normal des requêtes POST
-    $pageUrl = rtrim(strtolower($pageUrl), '/');
-
-    try {
-        $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
-        $pageVisit->setPageUrl($pageUrl);
-        $pageVisit->incrementVisitCount();
-
-        $entityManager->persist($pageVisit);
-        $entityManager->flush();
-
-        return new JsonResponse([
-            'message' => 'Visite enregistrée avec succès.',
-            'pageUrl' => $pageVisit->getPageUrl(),
-            'visitCount' => $pageVisit->getVisitCount(),
-        ], JsonResponse::HTTP_OK, [
-            'Access-Control-Allow-Origin' => $_ENV['CORS_ALLOW_ORIGIN'] ?? '*',
-            'Access-Control-Allow-Methods' => 'POST, OPTIONS',
-            'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
-        ]);
-    } catch (\Exception $e) {
-        return new JsonResponse([
-            'message' => 'Erreur lors de l\'enregistrement de la visite.',
-            'error' => $e->getMessage(),
-        ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, [
-            'Access-Control-Allow-Origin' => $_ENV['CORS_ALLOW_ORIGIN'] ?? '*',
-            'Access-Control-Allow-Methods' => 'POST, OPTIONS',
-            'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
-        ]);
-    }
-}
 
 
 
