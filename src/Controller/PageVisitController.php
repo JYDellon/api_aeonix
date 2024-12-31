@@ -609,9 +609,9 @@ public function recordVisit(
     // En-têtes CORS
     $responseHeaders = [
         'Access-Control-Allow-Origin' => $allowedOrigin,
-        'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
-        'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
-        'Access-Control-Allow-Credentials' => 'true',
+        // 'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
+        // 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+        // 'Access-Control-Allow-Credentials' => 'true',
     ];
 
     // Gestion des requêtes OPTIONS
