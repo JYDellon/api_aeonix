@@ -95,7 +95,7 @@ class PageVisitController extends AbstractController
                 'pageUrl' => $pageVisit->getPageUrl(),
                 'visitCount' => $pageVisit->getVisitCount(),
             ], JsonResponse::HTTP_OK, [
-                'Access-Control-Allow-Origin' => 'http://localhost:3000', // Remplace "*" par l'URL de ton frontend (ex. https://monfrontend.vercel.app)
+                'Access-Control-Allow-Origin' => '*', // Remplace "*" par l'URL de ton frontend (ex. https://monfrontend.vercel.app)
                 'Access-Control-Allow-Methods' => 'POST, OPTIONS',
                 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
             ]);
@@ -105,7 +105,7 @@ class PageVisitController extends AbstractController
                 'message' => 'Erreur lors de l\'enregistrement de la visite.',
                 'error' => $e->getMessage(),
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, [
-                'Access-Control-Allow-Origin' => 'http://localhost:3000',
+                'Access-Control-Allow-Origin' => '*',
                 'Access-Control-Allow-Methods' => 'POST, OPTIONS',
                 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
             ]);
