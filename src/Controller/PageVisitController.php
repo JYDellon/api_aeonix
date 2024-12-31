@@ -95,7 +95,7 @@ class PageVisitController extends AbstractController
                 'pageUrl' => $pageVisit->getPageUrl(),
                 'visitCount' => $pageVisit->getVisitCount(),
             ], JsonResponse::HTTP_OK, [
-                'Access-Control-Allow-Origin' => '*', // Remplace "*" par l'URL de ton frontend (ex. https://monfrontend.vercel.app)
+                'Access-Control-Allow-Origin' => 'https://aeonix-lake.vercel.app',
                 'Access-Control-Allow-Methods' => 'POST, OPTIONS',
                 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
             ]);
