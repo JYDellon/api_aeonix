@@ -1,25 +1,39 @@
+version: '3.8'
 
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-16}-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
-    healthcheck:
-      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
-      timeout: 5s
-      retries: 5
-      start_period: 60s
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aeonix_app
+    ports:
+      - "8000:8000"
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+      - .:/app
+    environment:
+      APP_ENV: dev
+      APP_SECRET: 123456789azertyuiop123456789
+      DATABASE_URL: "mysql://admin:abcdefgh@database-1.clis8kiwc2pt.eu-north-1.rds.amazonaws.com:3306/database-1?serverVersion=8.0.32&charset=utf8mb4"
+      MAILER_DSN: "smtp://jy.dellon@gmail.com:kora%%20xtrq%%20fzgk%%20iasj@smtp.gmail.com:587"
+      MESSENGER_TRANSPORT_DSN: "doctrine://default?auto_setup=0"
+    depends_on:
+      - database
+      - mailer
 
-volumes:
-###> doctrine/doctrine-bundle ###
-  database_data:
-###< doctrine/doctrine-bundle ###
+  database:
+    image: mysql:8.0
+    container_name: database-1
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: database-1
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: abcdefgh
+    ports:
+      - "3306:3306"
+
+  mailer:
+    image: mailhog/mailhog
+    container_name: mailer-1
+    ports:
+      - "1025:1025"
+      - "8025:8025"

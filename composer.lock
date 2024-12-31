@@ -10289,7 +10289,7 @@
             "type": "symfony-bundle",
             "autoload": {
                 "psr-4": {
-                    "App\\": "src/"
+                    "Symfony\\Bundle\\WebProfilerBundle\\": ""
                 },
                 "exclude-from-classmap": [
                     "/Tests/"

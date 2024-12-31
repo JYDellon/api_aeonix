@@ -72,6 +72,7 @@ return array(
     'Symfony\\Component\\BrowserKit\\' => array($vendorDir . '/symfony/browser-kit'),
     'Symfony\\Component\\Asset\\' => array($vendorDir . '/symfony/asset'),
     'Symfony\\Component\\AssetMapper\\' => array($vendorDir . '/symfony/asset-mapper'),
+    'Symfony\\Bundle\\WebProfilerBundle\\' => array($vendorDir . '/symfony/web-profiler-bundle'),
     'Symfony\\Bundle\\TwigBundle\\' => array($vendorDir . '/symfony/twig-bundle'),
     'Symfony\\Bundle\\SecurityBundle\\' => array($vendorDir . '/symfony/security-bundle'),
     'Symfony\\Bundle\\MonologBundle\\' => array($vendorDir . '/symfony/monolog-bundle'),
@@ -117,5 +118,5 @@ return array(
     'Composer\\Semver\\' => array($vendorDir . '/composer/semver/src'),
     'Bref\\' => array($vendorDir . '/bref/bref/src'),
     'App\\Tests\\' => array($baseDir . '/tests'),
-    'App\\' => array($baseDir . '/src', $vendorDir . '/symfony/web-profiler-bundle/src'),
+    'App\\' => array($baseDir . '/src'),
 );

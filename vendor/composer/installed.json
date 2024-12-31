@@ -10399,7 +10399,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "App\\": "src/"
+                    "Symfony\\Bundle\\WebProfilerBundle\\": ""
                 },
                 "exclude-from-classmap": [
                     "/Tests/"
