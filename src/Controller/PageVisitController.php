@@ -74,9 +74,9 @@ class PageVisitController extends AbstractController
         // Vérifie si c'est une requête OPTIONS (pré-vol CORS)
         if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
             return new JsonResponse(null, Response::HTTP_NO_CONTENT, [
-                // 'Access-Control-Allow-Origin' => 'https://aeonix-lake.vercel.app', // Remplace "*" par une origine spécifique si nécessaire
-                // 'Access-Control-Allow-Methods' => 'POST, OPTIONS',
-                // 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+                'Access-Control-Allow-Origin' => 'https://aeonix-lake.vercel.app', // Remplace "*" par une origine spécifique si nécessaire
+                'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+                'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
             ]);
         }
     
@@ -95,9 +95,7 @@ class PageVisitController extends AbstractController
                 'pageUrl' => $pageVisit->getPageUrl(),
                 'visitCount' => $pageVisit->getVisitCount(),
             ], JsonResponse::HTTP_OK, [
-                // 'Access-Control-Allow-Origin' => 'https://aeonix-lake.vercel.app',
-                // 'Access-Control-Allow-Methods' => 'POST, OPTIONS',
-                // 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+                'Access-Control-Allow-Origin' => 'https://aeonix-lake.vercel.app',
             ]);
         } catch (\Exception $e) {
             // Réponse d'erreur avec en-têtes CORS
@@ -105,9 +103,7 @@ class PageVisitController extends AbstractController
                 'message' => 'Erreur lors de l\'enregistrement de la visite.',
                 'error' => $e->getMessage(),
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, [
-                // 'Access-Control-Allow-Origin' => 'https://aeonix-lake.vercel.app',
-                // 'Access-Control-Allow-Methods' => 'POST, OPTIONS',
-                // 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+                'Access-Control-Allow-Origin' => 'https://aeonix-lake.vercel.app',
             ]);
         }
     }
