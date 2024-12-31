@@ -475,33 +475,103 @@ class PageVisitController extends AbstractController
 
 
 
+// #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
+// public function recordVisit(
+//     string $pageUrl,
+//     PageVisitRepository $repository,
+//     EntityManagerInterface $entityManager
+// ): JsonResponse {
+//     // Origine autorisée
+//     $origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
+
+//     // Gestion des requêtes OPTIONS
+//     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+//         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, [
+//             'Access-Control-Allow-Origin' => $origin,
+//             'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
+//             'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+//             'Access-Control-Allow-Credentials' => 'true',
+//         ]);
+//     }
+
+//     // Logique principale pour POST
+//     try {
+//         $pageUrl = rtrim(strtolower($pageUrl), '/');
+
+//         $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
+//         $pageVisit->setPageUrl($pageUrl);
+//         $pageVisit->incrementVisitCount();
+
+//         $entityManager->persist($pageVisit);
+//         $entityManager->flush();
+
+//         return new JsonResponse([
+//             'message' => 'Visite enregistrée avec succès.',
+//             'pageUrl' => $pageVisit->getPageUrl(),
+//             'visitCount' => $pageVisit->getVisitCount(),
+//         ], JsonResponse::HTTP_OK, [
+//             'Access-Control-Allow-Origin' => $origin,
+//             'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
+//             'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+//             'Access-Control-Allow-Credentials' => 'true',
+//         ]);
+//     } catch (\Exception $e) {
+//         return new JsonResponse([
+//             'message' => 'Erreur lors de l\'enregistrement de la visite.',
+//             'error' => $e->getMessage(),
+//         ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, [
+//             'Access-Control-Allow-Origin' => $origin,
+//         ]);
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
 public function recordVisit(
     string $pageUrl,
     PageVisitRepository $repository,
     EntityManagerInterface $entityManager
 ): JsonResponse {
-    // Origine autorisée
-    $origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
+    // Liste des origines autorisées
+    $allowedOrigins = ['https://aeonix-lake.vercel.app', 'http://localhost:3000'];
+    $origin = in_array($_SERVER['HTTP_ORIGIN'] ?? '', $allowedOrigins, true) ? $_SERVER['HTTP_ORIGIN'] : '*';
+
+    // En-têtes CORS
+    $responseHeaders = [
+        'Access-Control-Allow-Origin' => $origin,
+        'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+        'Access-Control-Allow-Credentials' => 'true',
+    ];
 
     // Gestion des requêtes OPTIONS
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, [
-            'Access-Control-Allow-Origin' => $origin,
-            'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
-            'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
-            'Access-Control-Allow-Credentials' => 'true',
-        ]);
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, $responseHeaders);
     }
 
     // Logique principale pour POST
     try {
         $pageUrl = rtrim(strtolower($pageUrl), '/');
 
+        // Rechercher ou créer une visite pour l'URL donnée
         $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
         $pageVisit->setPageUrl($pageUrl);
         $pageVisit->incrementVisitCount();
 
+        // Sauvegarde en base de données
         $entityManager->persist($pageVisit);
         $entityManager->flush();
 
@@ -509,21 +579,16 @@ public function recordVisit(
             'message' => 'Visite enregistrée avec succès.',
             'pageUrl' => $pageVisit->getPageUrl(),
             'visitCount' => $pageVisit->getVisitCount(),
-        ], JsonResponse::HTTP_OK, [
-            'Access-Control-Allow-Origin' => $origin,
-            'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
-            'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
-            'Access-Control-Allow-Credentials' => 'true',
-        ]);
+        ], JsonResponse::HTTP_OK, $responseHeaders);
     } catch (\Exception $e) {
         return new JsonResponse([
             'message' => 'Erreur lors de l\'enregistrement de la visite.',
             'error' => $e->getMessage(),
-        ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, [
-            'Access-Control-Allow-Origin' => $origin,
-        ]);
+        ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, $responseHeaders);
     }
 }
+
+
 
 
 
