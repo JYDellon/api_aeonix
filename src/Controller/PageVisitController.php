@@ -604,7 +604,7 @@ public function recordVisit(
     EntityManagerInterface $entityManager
 ): JsonResponse {
     // Origine autorisée unique
-    $allowedOrigin = 'https://aeonix-lake.vercel.app';
+    $allowedOrigin = '*';
 
     // En-têtes CORS
     $responseHeaders = [
