@@ -18,14 +18,32 @@
 
 
 
+# nelmio_cors:
+#     defaults:
+#         allow_origin: ['https://aeonix-lake.vercel.app'] # Remplacez * par l'URL de votre frontend
+#         allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+#         allow_headers: ['Content-Type', 'Authorization']
+#         expose_headers: ['Content-Type', 'Authorization']
+#         max_age: 3600
+#         allow_credentials: true
+#     paths:
+#         '^/api/': # Appliquer uniquement sur les endpoints commençant par /api/
+#             allow_origin: ['https://aeonix-lake.vercel.app']
+
+
+
+
+
+
+
 nelmio_cors:
     defaults:
-        allow_origin: ['https://aeonix-lake.vercel.app'] # Remplacez * par l'URL de votre frontend
+        allow_origin: ['https://aeonix-lake.vercel.app']
         allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
         allow_headers: ['Content-Type', 'Authorization']
-        expose_headers: ['Content-Type', 'Authorization']
-        max_age: 3600
         allow_credentials: true
+        expose_headers: ['Content-Type']
+        max_age: 3600
     paths:
-        '^/api/': # Appliquer uniquement sur les endpoints commençant par /api/
+        '^/api/':
             allow_origin: ['https://aeonix-lake.vercel.app']
