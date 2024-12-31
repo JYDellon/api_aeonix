@@ -80,7 +80,51 @@
 
 
 
-namespace App\EventListener;
+// namespace App\EventListener;
+
+
+
+// use Symfony\Component\HttpKernel\Event\RequestEvent;
+// use Symfony\Component\HttpKernel\Event\ResponseEvent;
+// use Symfony\Component\HttpFoundation\JsonResponse;
+
+// class CORSListener
+// {
+//     public function onKernelRequest(RequestEvent $event)
+//     {
+//         $request = $event->getRequest();
+
+//         // Gérer les requêtes OPTIONS
+//         if ($request->getMethod() === 'OPTIONS') {
+//             $response = new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, [
+//                 'Access-Control-Allow-Origin' => $request->headers->get('Origin', '*'),
+//                 'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
+//                 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+//                 'Access-Control-Allow-Credentials' => 'true',
+//             ]);
+//             $event->setResponse($response);
+//         }
+//     }
+
+//     public function onKernelResponse(ResponseEvent $event)
+//     {
+//         $response = $event->getResponse();
+//         $request = $event->getRequest();
+
+//         // Ajouter les en-têtes CORS à toutes les réponses
+//         $response->headers->set('Access-Control-Allow-Origin', $request->headers->get('Origin', '*'));
+//         $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+//         $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//         $response->headers->set('Access-Control-Allow-Credentials', 'true');
+//     }
+// }namespace App\EventListener;
+
+
+
+
+
+
+
 
 
 
@@ -88,19 +132,25 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+
+
+
+
+
 class CORSListener
 {
     public function onKernelRequest(RequestEvent $event)
     {
         $request = $event->getRequest();
 
-        // Gérer les requêtes OPTIONS
+        // Réponse aux requêtes OPTIONS (pré-volantes)
         if ($request->getMethod() === 'OPTIONS') {
             $response = new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, [
                 'Access-Control-Allow-Origin' => $request->headers->get('Origin', '*'),
-                'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
+                'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, OPTIONS',
                 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
                 'Access-Control-Allow-Credentials' => 'true',
+                'Access-Control-Max-Age' => '3600',
             ]);
             $event->setResponse($response);
         }
@@ -113,7 +163,7 @@ class CORSListener
 
         // Ajouter les en-têtes CORS à toutes les réponses
         $response->headers->set('Access-Control-Allow-Origin', $request->headers->get('Origin', '*'));
-        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
         $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
         $response->headers->set('Access-Control-Allow-Credentials', 'true');
     }
