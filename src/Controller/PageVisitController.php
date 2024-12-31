@@ -311,14 +311,26 @@ public function recordVisit(
     }
 
     // Gestion des requêtes OPTIONS
+    // if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    //     return new JsonResponse(null, Response::HTTP_NO_CONTENT, [
+    //         'Access-Control-Allow-Origin' => $origin,
+    //         'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+    //         'Access-Control-Allow-Headers' => 'Content-Type',
+    //     ]);
+    // }
+
+
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         return new JsonResponse(null, Response::HTTP_NO_CONTENT, [
-            'Access-Control-Allow-Origin' => $origin,
-            'Access-Control-Allow-Methods' => 'POST, OPTIONS',
-            'Access-Control-Allow-Headers' => 'Content-Type',
+            'Access-Control-Allow-Origin' => $_SERVER['HTTP_ORIGIN'] ?? '*',
+            'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+            'Access-Control-Allow-Credentials' => 'true',
         ]);
     }
-
+    
+    
+    
     // Logique principale
     try {
         // Normalisation de l'URL
