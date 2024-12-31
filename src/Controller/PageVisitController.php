@@ -604,19 +604,19 @@ public function recordVisit(
     EntityManagerInterface $entityManager
 ): JsonResponse {
     // Origine autorisée unique
-    $allowedOrigin = "https://apiaeonix-production.up.railway.app";
+    $allowedOrigin = 'https;//apiaeonix-production.up.railway.app';
 
     // En-têtes CORS
     $responseHeaders = [
-        'Access-Control-Allow-Origin' => $allowedOrigin,
+        'Access-Control-Allow-Origin' => 'https://apiaeonix-production.up.railway.app',
         // 'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
-        // 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
-        // 'Access-Control-Allow-Credentials' => 'true',
+    //     // 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+    //     // 'Access-Control-Allow-Credentials' => 'true',
     ];
 
     // Gestion des requêtes OPTIONS
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, );
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, $responseHeaders);
     }
 
     // Logique principale pour POST
