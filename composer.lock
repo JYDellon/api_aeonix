@@ -10288,13 +10288,14 @@
             },
             "type": "symfony-bundle",
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Bundle\\WebProfilerBundle\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
+    "psr-4": {
+        "App\\": "src/"
+    },
+    "exclude-from-classmap": [
+        "/Tests/"
+    ]
+}
+,
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"

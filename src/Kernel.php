@@ -3,7 +3,6 @@
 namespace App;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-// use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
 class Kernel extends BaseKernel
@@ -17,7 +16,6 @@ class Kernel extends BaseKernel
         ];
 
         if ($this->getEnvironment() === 'dev') {
-            // $bundles[] = new WebProfilerBundle();
         }
 
         return $bundles;
