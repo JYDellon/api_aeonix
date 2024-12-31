@@ -74,9 +74,10 @@ class PageVisitController extends AbstractController
         // Vérifie si c'est une requête OPTIONS (pré-vol CORS)
         if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
             return new JsonResponse(null, Response::HTTP_NO_CONTENT, [
-                'Access-Control-Allow-Origin' => 'https://aeonix-lake.vercel.app', // Remplace "*" par une origine spécifique si nécessaire
+                'Access-Control-Allow-Origin' => 'https://aeonix-lake.vercel.app',
                 'Access-Control-Allow-Methods' => 'POST, OPTIONS',
                 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+                'Access-Control-Allow-Credentials' => 'true',
             ]);
         }
     
