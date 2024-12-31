@@ -420,6 +420,59 @@ class PageVisitController extends AbstractController
 
 
 
+// 200ok avec cette methode pour options
+
+// #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
+// public function recordVisit(
+//     string $pageUrl,
+//     PageVisitRepository $repository,
+//     EntityManagerInterface $entityManager
+// ): JsonResponse {
+//     $origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
+
+//     // Gestion des requêtes OPTIONS (pré-vol CORS)
+//     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+//         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, [
+//             'Access-Control-Allow-Origin' => $origin,
+//             'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+//             'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+//             'Access-Control-Allow-Credentials' => 'true',
+//         ]);
+//     }
+
+//     // Logique principale pour POST
+//     try {
+//         $pageUrl = rtrim(strtolower($pageUrl), '/');
+
+//         $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
+//         $pageVisit->setPageUrl($pageUrl);
+//         $pageVisit->incrementVisitCount();
+
+//         $entityManager->persist($pageVisit);
+//         $entityManager->flush();
+
+//         return new JsonResponse([
+//             'message' => 'Visite enregistrée avec succès.',
+//             'pageUrl' => $pageVisit->getPageUrl(),
+//             'visitCount' => $pageVisit->getVisitCount(),
+//         ], JsonResponse::HTTP_OK, [
+//             'Access-Control-Allow-Origin' => $origin,
+//         ]);
+//     } catch (\Exception $e) {
+//         return new JsonResponse([
+//             'message' => 'Erreur lors de l\'enregistrement de la visite.',
+//             'error' => $e->getMessage(),
+//         ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, [
+//             'Access-Control-Allow-Origin' => $origin,
+//         ]);
+//     }
+// }
+
+
+
+
+
+
 
 
 #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
@@ -428,9 +481,10 @@ public function recordVisit(
     PageVisitRepository $repository,
     EntityManagerInterface $entityManager
 ): JsonResponse {
+    // Origine autorisée
     $origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
 
-    // Gestion des requêtes OPTIONS (pré-vol CORS)
+    // Gestion des requêtes OPTIONS
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, [
             'Access-Control-Allow-Origin' => $origin,
@@ -457,6 +511,9 @@ public function recordVisit(
             'visitCount' => $pageVisit->getVisitCount(),
         ], JsonResponse::HTTP_OK, [
             'Access-Control-Allow-Origin' => $origin,
+            'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+            'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+            'Access-Control-Allow-Credentials' => 'true',
         ]);
     } catch (\Exception $e) {
         return new JsonResponse([
@@ -467,14 +524,6 @@ public function recordVisit(
         ]);
     }
 }
-
-
-
-
-
-
-
-
 
 
 
