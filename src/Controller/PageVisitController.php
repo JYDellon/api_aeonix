@@ -597,6 +597,133 @@ class PageVisitController extends AbstractController
 
 
 
+// #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
+// public function recordVisit(
+//     string $pageUrl,
+//     PageVisitRepository $repository,
+//     EntityManagerInterface $entityManager
+// ): JsonResponse {
+//     // Origine autorisée unique
+//     $allowedOrigin = 'https;//apiaeonix-production.up.railway.app';
+
+//     // En-têtes CORS
+//     $responseHeaders = [
+//         'Access-Control-Allow-Origin' => $allowedOrigin,
+//         'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
+//         'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+//         'Access-Control-Allow-Credentials' => 'true',
+//     ];
+
+//     // Gestion des requêtes OPTIONS
+//     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+//         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, $responseHeaders);
+//     }
+
+//     // Logique principale pour POST
+//     try {
+//         $pageUrl = rtrim(strtolower($pageUrl), '/');
+
+//         $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
+//         $pageVisit->setPageUrl($pageUrl);
+//         $pageVisit->incrementVisitCount();
+
+//         $entityManager->persist($pageVisit);
+//         $entityManager->flush();
+
+//         return new JsonResponse([
+//             'message' => 'Visite enregistrée avec succès.',
+//             'pageUrl' => $pageVisit->getPageUrl(),
+//             'visitCount' => $pageVisit->getVisitCount(),
+//         ], JsonResponse::HTTP_OK, $responseHeaders);
+//     } catch (\Exception $e) {
+//         return new JsonResponse([
+//             'message' => 'Erreur lors de l\'enregistrement de la visite.',
+//             'error' => $e->getMessage(),
+//         ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, $responseHeaders);
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
+// public function recordVisit(
+//     string $pageUrl,
+//     PageVisitRepository $repository,
+//     EntityManagerInterface $entityManager
+// ): JsonResponse {
+//     // Liste des origines autorisées
+//     $allowedOrigins = ['https://votre-frontend.com', 'https://autre-domaine.com'];
+//     $origin = in_array($_SERVER['HTTP_ORIGIN'] ?? '', $allowedOrigins, true) ? $_SERVER['HTTP_ORIGIN'] : '*';
+
+//     // En-têtes CORS
+//     $responseHeaders = [
+//         'Access-Control-Allow-Origin' => $origin,
+//         'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
+//         'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+//         'Access-Control-Allow-Credentials' => 'true',
+//     ];
+
+//     // Gestion des requêtes OPTIONS
+//     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+//         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, $responseHeaders);
+//     }
+
+//     // Logique principale pour POST
+//     try {
+//         $pageUrl = rtrim(strtolower($pageUrl), '/');
+
+//         // Rechercher ou créer une visite pour l'URL donnée
+//         $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
+//         $pageVisit->setPageUrl($pageUrl);
+//         $pageVisit->incrementVisitCount();
+
+//         // Sauvegarde en base de données
+//         $entityManager->persist($pageVisit);
+//         $entityManager->flush();
+
+//         return new JsonResponse([
+//             'message' => 'Visite enregistrée avec succès.',
+//             'pageUrl' => $pageVisit->getPageUrl(),
+//             'visitCount' => $pageVisit->getVisitCount(),
+//         ], JsonResponse::HTTP_OK, $responseHeaders);
+//     } catch (\Exception $e) {
+//         return new JsonResponse([
+//             'message' => 'Erreur lors de l\'enregistrement de la visite.',
+//             'error' => $e->getMessage(),
+//         ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, $responseHeaders);
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
 #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
 public function recordVisit(
     string $pageUrl,
@@ -604,14 +731,14 @@ public function recordVisit(
     EntityManagerInterface $entityManager
 ): JsonResponse {
     // Origine autorisée unique
-    $allowedOrigin = 'https;//apiaeonix-production.up.railway.app';
+    $allowedOrigin = 'https://aeonix-lake.vercel.app';
 
     // En-têtes CORS
     $responseHeaders = [
         'Access-Control-Allow-Origin' => $allowedOrigin,
         'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
-        // 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
-        // 'Access-Control-Allow-Credentials' => 'true',
+        'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+        'Access-Control-Allow-Credentials' => 'true',
     ];
 
     // Gestion des requêtes OPTIONS
@@ -621,8 +748,10 @@ public function recordVisit(
 
     // Logique principale pour POST
     try {
+        // Normalisation de l'URL
         $pageUrl = rtrim(strtolower($pageUrl), '/');
 
+        // Vérification et mise à jour de la base de données
         $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
         $pageVisit->setPageUrl($pageUrl);
         $pageVisit->incrementVisitCount();
@@ -630,18 +759,21 @@ public function recordVisit(
         $entityManager->persist($pageVisit);
         $entityManager->flush();
 
+        // Réponse avec succès
         return new JsonResponse([
             'message' => 'Visite enregistrée avec succès.',
             'pageUrl' => $pageVisit->getPageUrl(),
             'visitCount' => $pageVisit->getVisitCount(),
         ], JsonResponse::HTTP_OK, $responseHeaders);
     } catch (\Exception $e) {
+        // Réponse en cas d'erreur
         return new JsonResponse([
             'message' => 'Erreur lors de l\'enregistrement de la visite.',
             'error' => $e->getMessage(),
         ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, $responseHeaders);
     }
 }
+
 
 
 
