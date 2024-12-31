@@ -359,46 +359,98 @@ class PageVisitController extends AbstractController
 
 
 
+// #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
+// public function recordVisit(
+//     string $pageUrl,
+//     PageVisitRepository $repository,
+//     EntityManagerInterface $entityManager
+// ): JsonResponse {
+//     // Récupération de l'origine de la requête
+//     $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+
+//     // Origines autorisées (ajoutez d'autres domaines si nécessaire)
+//     $allowedOrigins = ['https://aeonix-lake.vercel.app'];
+
+//     // Vérification de l'origine
+//     if (!in_array($origin, $allowedOrigins)) {
+//         return new JsonResponse(['error' => 'Origin not allowed'], 403);
+//     }
+
+//     // Gestion des requêtes OPTIONS
+//     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+//         return new JsonResponse(null, Response::HTTP_NO_CONTENT, [
+//             'Access-Control-Allow-Origin' => $origin,
+//             'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+//             'Access-Control-Allow-Headers' => 'Content-Type',
+//         ]);
+//     }
+
+//     // Logique principale
+//     try {
+//         // Normalisation de l'URL
+//         $pageUrl = rtrim(strtolower($pageUrl), '/');
+
+//         // Vérifier si la page existe déjà ou créer une nouvelle entrée
+//         $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
+//         $pageVisit->setPageUrl($pageUrl);
+//         $pageVisit->incrementVisitCount(); // Incrémentation du compteur
+
+//         $entityManager->persist($pageVisit);
+//         $entityManager->flush();
+
+//         // Réponse JSON
+//         return new JsonResponse([
+//             'message' => 'Visite enregistrée avec succès.',
+//             'pageUrl' => $pageVisit->getPageUrl(),
+//             'visitCount' => $pageVisit->getVisitCount(),
+//         ], JsonResponse::HTTP_OK, [
+//             'Access-Control-Allow-Origin' => $origin,
+//         ]);
+//     } catch (\Exception $e) {
+//         return new JsonResponse([
+//             'message' => 'Erreur lors de l\'enregistrement de la visite.',
+//             'error' => $e->getMessage(),
+//         ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, [
+//             'Access-Control-Allow-Origin' => $origin,
+//         ]);
+//     }
+// }
+
+
+
+
+
+
+
 #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
 public function recordVisit(
     string $pageUrl,
     PageVisitRepository $repository,
     EntityManagerInterface $entityManager
 ): JsonResponse {
-    // Récupération de l'origine de la requête
-    $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+    $origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
 
-    // Origines autorisées (ajoutez d'autres domaines si nécessaire)
-    $allowedOrigins = ['https://aeonix-lake.vercel.app'];
-
-    // Vérification de l'origine
-    if (!in_array($origin, $allowedOrigins)) {
-        return new JsonResponse(['error' => 'Origin not allowed'], 403);
-    }
-
-    // Gestion des requêtes OPTIONS
+    // Gestion des requêtes OPTIONS (pré-vol CORS)
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-        return new JsonResponse(null, Response::HTTP_NO_CONTENT, [
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, [
             'Access-Control-Allow-Origin' => $origin,
             'Access-Control-Allow-Methods' => 'POST, OPTIONS',
-            'Access-Control-Allow-Headers' => 'Content-Type',
+            'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+            'Access-Control-Allow-Credentials' => 'true',
         ]);
     }
 
-    // Logique principale
+    // Logique principale pour POST
     try {
-        // Normalisation de l'URL
         $pageUrl = rtrim(strtolower($pageUrl), '/');
 
-        // Vérifier si la page existe déjà ou créer une nouvelle entrée
         $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
         $pageVisit->setPageUrl($pageUrl);
-        $pageVisit->incrementVisitCount(); // Incrémentation du compteur
+        $pageVisit->incrementVisitCount();
 
         $entityManager->persist($pageVisit);
         $entityManager->flush();
 
-        // Réponse JSON
         return new JsonResponse([
             'message' => 'Visite enregistrée avec succès.',
             'pageUrl' => $pageVisit->getPageUrl(),
@@ -415,6 +467,16 @@ public function recordVisit(
         ]);
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

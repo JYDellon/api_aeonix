@@ -44,10 +44,6 @@ api_reset_visits:
 
 
 
-
-
-
-
 # Routes pour la gestion des prospects
 api_contact:
     path: /api/contact

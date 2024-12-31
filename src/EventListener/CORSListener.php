@@ -6,8 +6,8 @@
 
 namespace App\EventListener;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CORSListener
 {
@@ -15,7 +15,7 @@ class CORSListener
     {
         $request = $event->getRequest();
 
-        // Intercepter les requêtes OPTIONS
+        // Intercepter uniquement les requêtes OPTIONS
         if ($request->getMethod() === 'OPTIONS') {
             $response = new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, [
                 'Access-Control-Allow-Origin' => $request->headers->get('Origin', '*'),
