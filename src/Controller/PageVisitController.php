@@ -97,6 +97,9 @@ class PageVisitController extends AbstractController
                 'visitCount' => $pageVisit->getVisitCount(),
             ], JsonResponse::HTTP_OK, [
                 'Access-Control-Allow-Origin' => 'https://aeonix-lake.vercel.app',
+                'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+                'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+                'Access-Control-Allow-Credentials' => 'true',
             ]);
         } catch (\Exception $e) {
             // Réponse d'erreur avec en-têtes CORS
@@ -105,6 +108,9 @@ class PageVisitController extends AbstractController
                 'error' => $e->getMessage(),
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, [
                 'Access-Control-Allow-Origin' => 'https://aeonix-lake.vercel.app',
+                'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+                'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+                'Access-Control-Allow-Credentials' => 'true',
             ]);
         }
     }
