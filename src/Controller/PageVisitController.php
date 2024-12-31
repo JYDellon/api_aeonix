@@ -488,7 +488,7 @@ public function recordVisit(
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT, [
             'Access-Control-Allow-Origin' => $origin,
-            'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+            'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
             'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
             'Access-Control-Allow-Credentials' => 'true',
         ]);
@@ -511,7 +511,7 @@ public function recordVisit(
             'visitCount' => $pageVisit->getVisitCount(),
         ], JsonResponse::HTTP_OK, [
             'Access-Control-Allow-Origin' => $origin,
-            'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+            'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
             'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
             'Access-Control-Allow-Credentials' => 'true',
         ]);
