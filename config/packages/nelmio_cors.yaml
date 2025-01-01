@@ -1,10 +1,32 @@
+# nelmio_cors:
+#   defaults:
+#     allow_origin: ['https://aeonix-lake.vercel.app']
+#     allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+#     allow_headers: ['Content-Type', 'Authorization']
+#     expose_headers: ['Link']
+#     max_age: 3600
+#     allow_credentials: false # Mettez à "false" si je n'utilisez pas de cookies ou identifiants
+#   paths:
+#     '^/api/': ~
+
+
+
+
+
+
+
+
+
+
+
+
 nelmio_cors:
   defaults:
-    allow_origin: ['https://aeonix-lake.vercel.app']
-    allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-    allow_headers: ['Content-Type', 'Authorization']
-    expose_headers: ['Link']
-    max_age: 3600
-    allow_credentials: false # Mettez à "false" si je n'utilisez pas de cookies ou identifiants
+    allow_origin: ['https://aeonix-lake.vercel.app'] # Seulement Vercel
+    allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'] # Méthodes autorisées
+    allow_headers: ['Content-Type'] # En-têtes autorisés (pas besoin de 'Authorization' ici)
+    expose_headers: ['Link'] # Exposer d'autres en-têtes si nécessaire
+    max_age: 3600 # Durée de mise en cache des pré-requêtes
+    allow_credentials: false # False si vous ne gérez pas les cookies
   paths:
-    '^/api/': ~
+    '^/api/': ~ # Toutes les routes API sont autorisées

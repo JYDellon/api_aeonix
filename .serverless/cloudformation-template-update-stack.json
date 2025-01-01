@@ -91,7 +91,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "serverless-framework-deployments-us-east-1-2f9871d6-5b05",
-          "S3Key": "serverless/symfony-app/dev/1735752071638-2025-01-01T17:21:11.638Z/symfony-app.zip"
+          "S3Key": "serverless/symfony-app/dev/1735753879278-2025-01-01T17:51:19.278Z/symfony-app.zip"
         },
         "Handler": "public/index.php",
         "Runtime": "provided.al2",
@@ -118,14 +118,14 @@
         "WebLogGroup"
       ]
     },
-    "WebLambdaVersiona4dvLKwKf1bYFzFklbNuTRRaeARdGzMSBKf2UozA": {
+    "WebLambdaVersionCMbSG10TW5lqYKUPuHgCvgUeoxfhyFT8QV3tQlPQ18": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "WebLambdaFunction"
         },
-        "CodeSha256": "1QZ32qPQ/NHhRjRI89DinDUF1F9t/wwoCPTByZC0nC0="
+        "CodeSha256": "pQ9eKDFOhM0bvmgFEYV5QAJHsbC2fnVX5YLZxO2Yry8="
       }
     },
     "HttpApi": {
@@ -257,7 +257,7 @@
     "WebLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "WebLambdaVersiona4dvLKwKf1bYFzFklbNuTRRaeARdGzMSBKf2UozA"
+        "Ref": "WebLambdaVersionCMbSG10TW5lqYKUPuHgCvgUeoxfhyFT8QV3tQlPQ18"
       },
       "Export": {
         "Name": "sls-symfony-app-dev-WebLambdaFunctionQualifiedArn"
