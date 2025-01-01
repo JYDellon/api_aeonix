@@ -104,7 +104,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-2f9871d6-5b05",
-                "S3Key": "serverless/symfony-app/dev/1735751215591-2025-01-01T17:06:55.591Z/symfony-app.zip"
+                "S3Key": "serverless/symfony-app/dev/1735752071638-2025-01-01T17:21:11.638Z/symfony-app.zip"
               },
               "Handler": "public/index.php",
               "Runtime": "provided.al2",
@@ -395,7 +395,7 @@
     "artifact": "D:\\Martinique\\aeonixbackend\\.serverless\\symfony-app.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/symfony-app/dev/1735751215591-2025-01-01T17:06:55.591Z",
+    "artifactDirectoryName": "serverless/symfony-app/dev/1735752071638-2025-01-01T17:21:11.638Z",
     "artifact": "symfony-app.zip"
   }
 }
