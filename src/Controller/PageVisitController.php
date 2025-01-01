@@ -127,7 +127,7 @@ class PageVisitController extends AbstractController
 
 
 
-    #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST'])]
+    #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
     public function recordVisit(
         string $pageUrl,
         PageVisitRepository $repository,
