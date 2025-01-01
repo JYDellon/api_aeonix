@@ -4,7 +4,6 @@
 
 
 
-
 namespace App\EventListener;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -45,37 +44,15 @@ class CorsListener
         $this->logger->info('CORS headers applied to response');
     }
 
-    // private function addCorsHeaders(Response $response, $request): void
-    // {
-    //     // Applique les en-têtes CORS uniquement si la requête est sur /api/
-    //     if (strpos($request->getPathInfo(), '/api/') === 0) {
-    //         $origin = $request->headers->get('Origin');
-            
-    //         // Permet uniquement une origine spécifique
-    //         if ($origin === 'https://aeonix-lake.vercel.app') {
-    //             $response->headers->set('Access-Control-Allow-Origin', $origin);
-    //             $this->logger->info('CORS header set for origin: ' . $origin);
-    //         } else {
-    //             $this->logger->warning('Origin not allowed: ' . $origin);
-    //         }
-
-    //         // Autres en-têtes nécessaires pour CORS
-    //         $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    //         $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
-    //         $response->headers->set('Access-Control-Allow-Credentials', 'true');
-    //         $response->headers->set('Access-Control-Max-Age', '3600');
-    //     }
-    // }
-
-
+    // Ajout des en-têtes CORS dans la réponse
     private function addCorsHeaders(Response $response, $request): void
     {
         // Applique les en-têtes CORS uniquement si la requête est sur /api/
         if (strpos($request->getPathInfo(), '/api/') === 0) {
-            // Autoriser toutes les origines (ou une autre logique selon ce que vous préférez)
+            // Récupère l'origine de la requête
             $origin = $request->headers->get('Origin');
             
-            // Ajouter l'en-tête Access-Control-Allow-Origin avec la valeur de l'origin de la requête
+            // Ajouter l'en-tête Access-Control-Allow-Origin avec la valeur de l'origine de la requête
             $response->headers->set('Access-Control-Allow-Origin', $origin);
             
             // Autres en-têtes nécessaires pour CORS
@@ -84,11 +61,8 @@ class CorsListener
             $response->headers->set('Access-Control-Allow-Credentials', 'true');
             $response->headers->set('Access-Control-Max-Age', '3600');
             
-            // Log
+            // Log pour vérifier que les en-têtes ont bien été ajoutés
             $this->logger->info('CORS header set for origin: ' . $origin);
         }
     }
-    
-
-    
 }
