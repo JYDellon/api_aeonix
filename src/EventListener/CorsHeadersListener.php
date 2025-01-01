@@ -24,7 +24,7 @@ $response->headers->set('Access-Control-Allow-Origin', $origin);
 }
 
 $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-$response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+$response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
 $response->headers->set('Access-Control-Allow-Credentials', 'false'); // Changez si nécessaire
 }
 }
