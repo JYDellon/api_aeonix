@@ -3,7 +3,6 @@
 
 
 
-
 namespace App\EventListener;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -53,6 +52,7 @@ class CorsListener
             $origin = $request->headers->get('Origin');
             
             // Ajouter l'en-tête Access-Control-Allow-Origin avec la valeur de l'origine de la requête
+            // Permet toutes les origines (ou une autre logique selon ce que vous préférez)
             $response->headers->set('Access-Control-Allow-Origin', $origin);
             
             // Autres en-têtes nécessaires pour CORS
