@@ -1,3 +1,5 @@
+# config/services.yaml
+
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 
@@ -20,5 +22,12 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    # CorsListener for handling OPTIONS requests
+    App\EventListener\CorsListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, priority: 10 }
+
+    # CorsHeadersListener for adding CORS headers to responses
+    App\EventListener\CorsHeadersListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.response }
