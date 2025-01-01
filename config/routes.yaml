@@ -21,12 +21,10 @@ api_reset_visits:
     controller: App\Controller\PageVisitController::resetVisits
     methods: [DELETE]
 
-# api_contact:
-#     path: /api/contact
-#     controller: App\Controller\ProspectController::handleContact
-#     methods: ['POST']
-
-
+api_options:
+    path: /api/{path}
+    methods: [OPTIONS]
+    controller: App\Controller\ApiController::options
 
 
 
