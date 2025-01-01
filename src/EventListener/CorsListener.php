@@ -45,9 +45,6 @@
 
 
 
-
-
-
 namespace App\EventListener;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -60,9 +57,10 @@ class CorsListener
     {
         $request = $event->getRequest();
 
+        // Vérifie si c'est une pré-requête OPTIONS (pour gérer les requêtes CORS)
         if ($request->getMethod() === 'OPTIONS') {
             $response = new Response();
-            $this->addCorsHeaders($response);
+            $this->addCorsHeaders($response, $request);
             $event->setResponse($response);
         }
     }
@@ -70,14 +68,25 @@ class CorsListener
     public function onKernelResponse(ResponseEvent $event): void
     {
         $response = $event->getResponse();
-        $this->addCorsHeaders($response);
+        $this->addCorsHeaders($response, $event->getRequest());
     }
 
-    private function addCorsHeaders(Response $response): void
+    private function addCorsHeaders(Response $response, $request): void
     {
-        $response->headers->set('Access-Control-Allow-Origin', 'https://aeonix-lake.vercel.app'); // Définir votre URL frontend ici
-        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
-        $response->headers->set('Access-Control-Allow-Credentials', 'true');
+        // Applique les en-têtes CORS uniquement si la requête est sur /api/
+        if (strpos($request->getPathInfo(), '/api/') === 0) {
+            $origin = $request->headers->get('Origin');
+            
+            // Permet uniquement une origine spécifique, vous pouvez ajouter plus de logique ici si nécessaire
+            if ($origin === 'https://aeonix-lake.vercel.app') {
+                $response->headers->set('Access-Control-Allow-Origin', $origin);
+            }
+            
+            // Autres en-têtes nécessaires pour CORS
+            $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
+            $response->headers->set('Access-Control-Allow-Credentials', 'true');
+            $response->headers->set('Access-Control-Max-Age', '3600');
+        }
     }
 }
