@@ -52,9 +52,59 @@
 
 
 
+// namespace App\EventListener;
+
+// use Symfony\Component\HttpFoundation\JsonResponse;
+// use Symfony\Component\HttpKernel\Event\RequestEvent;
+// use Symfony\Component\HttpKernel\Event\ResponseEvent;
+
+// class CorsListener
+// {
+//     public function onKernelRequest(RequestEvent $event): void
+//     {
+//         $request = $event->getRequest();
+
+//         if ($request->getMethod() === 'OPTIONS') {
+//             $response = new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
+//             $this->addCorsHeaders($response, $request);
+//             $event->setResponse($response);
+//         }
+//     }
+
+//     public function onKernelResponse(ResponseEvent $event): void
+//     {
+//         $response = $event->getResponse();
+//         $request = $event->getRequest();
+
+//         if (strpos($request->getPathInfo(), '/api/') === 0) {
+//             $this->addCorsHeaders($response, $request);
+//         }
+//     }
+
+//     private function addCorsHeaders(JsonResponse $response, $request): void
+//     {
+//         $response->headers->set('Access-Control-Allow-Origin', 'https://aeonix-lake.vercel.app');
+//         $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+//         $response->headers->set('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+//         $response->headers->set('Access-Control-Allow-Credentials', 'true');
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
 namespace App\EventListener;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
@@ -65,8 +115,8 @@ class CorsListener
         $request = $event->getRequest();
 
         if ($request->getMethod() === 'OPTIONS') {
-            $response = new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
-            $this->addCorsHeaders($response, $request);
+            $response = new Response();
+            $this->addCorsHeaders($response);
             $event->setResponse($response);
         }
     }
@@ -74,16 +124,12 @@ class CorsListener
     public function onKernelResponse(ResponseEvent $event): void
     {
         $response = $event->getResponse();
-        $request = $event->getRequest();
-
-        if (strpos($request->getPathInfo(), '/api/') === 0) {
-            $this->addCorsHeaders($response, $request);
-        }
+        $this->addCorsHeaders($response);
     }
 
-    private function addCorsHeaders(JsonResponse $response, $request): void
+    private function addCorsHeaders(Response $response): void
     {
-        $response->headers->set('Access-Control-Allow-Origin', 'https://aeonix-lake.vercel.app');
+        $response->headers->set('Access-Control-Allow-Origin', 'https://aeonix-lake.vercel.app'); // Définir votre URL frontend ici
         $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
         $response->headers->set('Access-Control-Allow-Headers', 'Authorization, Content-Type');
         $response->headers->set('Access-Control-Allow-Credentials', 'true');
