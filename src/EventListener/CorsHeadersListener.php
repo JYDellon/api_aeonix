@@ -53,7 +53,7 @@ class CorsHeadersListener
         $response = $event->getResponse();
 
         // Appliquez uniquement aux routes /api/
-        if (strpos($request->getPathInfo(), '/api/') === 0) {
+        if (strpos($request->getPathInfo(), '/api/*') === 0) {
             // Récupère l'origine de la requête
             $origin = $request->headers->get('Origin');
             
@@ -68,7 +68,7 @@ class CorsHeadersListener
             // Autres en-têtes nécessaires pour CORS
             $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
             $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
-            // $response->headers->set('Access-Control-Allow-Credentials', 'true');
+            $response->headers->set('Access-Control-Allow-Credentials', 'false');
             $response->headers->set('Access-Control-Max-Age', '3600');
 
             // Log pour vérifier que les en-têtes ont bien été ajoutés
