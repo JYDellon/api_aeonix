@@ -383,30 +383,135 @@ class PageVisitController extends AbstractController
 
 
 
-    #[Route('/api/visit', name: 'api_get_visits', methods: ['GET'])]
-    public function getVisits(PageVisitRepository $repository, Request $request): Response
-    {
-        $visits = $repository->findAll();
+    // #[Route('/api/visit', name: 'api_get_visits', methods: ['GET'])]
+    // public function getVisits(PageVisitRepository $repository, Request $request): Response
+    // {
+    //     $visits = $repository->findAll();
     
-        $data = array_map(function (PageVisit $visit) {
-            return [
-                'pageUrl' => $visit->getPageUrl(),
-                'visitCount' => $visit->getVisitCount(),
-            ];
-        }, $visits);
+    //     $data = array_map(function (PageVisit $visit) {
+    //         return [
+    //             'pageUrl' => $visit->getPageUrl(),
+    //             'visitCount' => $visit->getVisitCount(),
+    //         ];
+    //     }, $visits);
     
-        // Vérifiez si le paramètre callback est présent dans la requête
-        $callback = $request->query->get('callback');
+    //     // Vérifiez si le paramètre callback est présent dans la requête
+    //     $callback = $request->query->get('callback');
     
-        // Si le paramètre callback existe, renvoyer la réponse en JSONP
-        if ($callback) {
-            $responseContent = $callback . '(' . json_encode($data) . ');';
-            return new Response($responseContent, 200, ['Content-Type' => 'application/javascript']);
-        }
+    //     // Si le paramètre callback existe, renvoyer la réponse en JSONP
+    //     if ($callback) {
+    //         $responseContent = $callback . '(' . json_encode($data) . ');';
+    //         return new Response($responseContent, 200, ['Content-Type' => 'application/javascript']);
+    //     }
     
-        // Sinon, renvoyer une réponse JSON classique
-        return new JsonResponse($data);
+    //     // Sinon, renvoyer une réponse JSON classique
+    //     return new JsonResponse($data);
+    // }
+    
+
+
+
+
+
+
+
+// // Dans votre contrôleur Symfony
+
+// #[Route('/api/visit', name: 'api_get_visits', methods: ['GET'])]
+// public function getVisits(PageVisitRepository $repository, Request $request): Response
+// {
+//     $callback = $request->query->get('callback');  // Récupérer le paramètre callback
+
+//     // Récupérer les visites depuis la base de données
+//     $visits = $repository->findAll();
+//     $data = array_map(function (PageVisit $visit) {
+//         return [
+//             'pageUrl' => $visit->getPageUrl(),
+//             'visitCount' => $visit->getVisitCount(),
+//         ];
+//     }, $visits);
+
+//     // Si un callback est fourni, c'est une requête JSONP
+//     if ($callback) {
+//         // Encapsuler les données dans la fonction de callback
+//         $jsonpResponse = $callback . '(' . json_encode($data) . ');';
+
+//         // Retourner la réponse JSONP
+//         return new Response($jsonpResponse, 200, ['Content-Type' => 'application/javascript']);
+//     }
+
+//     // Si ce n'est pas une requête JSONP, renvoyer une réponse classique JSON
+//     return new JsonResponse($data);
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Exemple dans votre contrôleur Symfony
+
+#[Route('/api/visit', name: 'api_get_visits', methods: ['GET'])]
+public function getVisits(PageVisitRepository $repository, Request $request): Response
+{
+    $callback = $request->query->get('callback');  // Récupérer le paramètre callback
+
+    // Récupérer les visites depuis la base de données
+    $visits = $repository->findAll();
+    $data = array_map(function (PageVisit $visit) {
+        return [
+            'pageUrl' => $visit->getPageUrl(),
+            'visitCount' => $visit->getVisitCount(),
+        ];
+    }, $visits);
+
+    // Si un callback est fourni, c'est une requête JSONP
+    if ($callback) {
+        // Encapsuler les données dans la fonction de callback
+        $jsonpResponse = $callback . '(' . json_encode($data) . ');';
+
+        // Créer une nouvelle réponse avec les en-têtes CORS
+        $response = new Response($jsonpResponse, 200, ['Content-Type' => 'application/javascript']);
+
+        // Ajouter les en-têtes CORS
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
+        $response->headers->set('Access-Control-Allow-Credentials', 'true'); // Si vous avez des cookies ou des jetons
+        $response->headers->set('Access-Control-Max-Age', '3600');
+
+        // Retourner la réponse JSONP avec les en-têtes CORS
+        return $response;
     }
+
+    // Si ce n'est pas une requête JSONP, renvoyer une réponse classique JSON
+    $response = new JsonResponse($data);
+
+    // Ajouter les en-têtes CORS pour la réponse classique JSON
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+    $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
+    $response->headers->set('Access-Control-Allow-Credentials', 'true');
+    $response->headers->set('Access-Control-Max-Age', '3600');
+
+    // Retourner la réponse JSON avec les en-têtes CORS
+    return $response;
+}
+
+
+
+
+
+
+
+
     
     /**
      * Réinitialiser toutes les visites enregistrées
