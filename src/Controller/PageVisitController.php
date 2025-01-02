@@ -161,6 +161,52 @@ class PageVisitController extends AbstractController
 
 
 
+    // #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
+    // public function recordVisit(
+    //     string $pageUrl,
+    //     PageVisitRepository $repository,
+    //     EntityManagerInterface $entityManager,
+    //     Request $request
+    // ): JsonResponse {
+    //     if ($request->getMethod() === 'OPTIONS') {
+    //         // Gérer la pré-requête OPTIONS
+    //         $response = new JsonResponse(null, JsonResponse::HTTP_OK);
+    //         // Ajouter les en-têtes CORS pour OPTIONS
+    //         $response->headers->set('Access-Control-Allow-Origin', 'https://aeonix-lake.vercel.app');
+    //         $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    //         $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
+    //         $response->headers->set('Access-Control-Max-Age', '3600');
+    //         return $response;
+    //     }
+    
+    //     // Gestion des requêtes POST
+    //     $pageUrl = rtrim(strtolower($pageUrl), '/');
+    
+    //     try {
+    //         $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
+    //         $pageVisit->setPageUrl($pageUrl);
+    //         $pageVisit->incrementVisitCount();
+    
+    //         $entityManager->persist($pageVisit);
+    //         $entityManager->flush();
+    
+    //         return new JsonResponse([
+    //             'message' => 'Visite enregistrée avec succès.',
+    //             'pageUrl' => $pageVisit->getPageUrl(),
+    //             'visitCount' => $pageVisit->getVisitCount(),
+    //         ], JsonResponse::HTTP_OK);
+    //     } catch (\Exception $e) {
+    //         return new JsonResponse([
+    //             'message' => 'Erreur lors de l\'enregistrement de la visite.',
+    //             'error' => $e->getMessage(),
+    //         ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+    //     }
+    // }
+    
+
+
+
+
     #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
     public function recordVisit(
         string $pageUrl,
@@ -168,14 +214,17 @@ class PageVisitController extends AbstractController
         EntityManagerInterface $entityManager,
         Request $request
     ): JsonResponse {
+        // Gérer la pré-requête OPTIONS
         if ($request->getMethod() === 'OPTIONS') {
-            // Gérer la pré-requête OPTIONS
-            $response = new JsonResponse(null, JsonResponse::HTTP_OK);
+            $response = new Response();
+    
             // Ajouter les en-têtes CORS pour OPTIONS
-            $response->headers->set('Access-Control-Allow-Origin', 'https://aeonix-lake.vercel.app');
+            $response->headers->set('Access-Control-Allow-Origin', '*'); // Utiliser '*' pour autoriser toutes les origines
             $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
             $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
             $response->headers->set('Access-Control-Max-Age', '3600');
+    
+            // Retourner la réponse sans corps pour les pré-requêtes OPTIONS
             return $response;
         }
     
@@ -203,11 +252,6 @@ class PageVisitController extends AbstractController
         }
     }
     
-
-
-
-
-
 
     
 
