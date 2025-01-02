@@ -1,3 +1,31 @@
+# services:
+#     # default configuration for services in *this* file
+#     _defaults:
+#         autowire: true      # Automatically injects dependencies in your services.
+#         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+#     # makes classes in src/ available to be used as services
+#     App\:
+#         resource: '../src/'
+#         exclude:
+#             - '../src/DependencyInjection/'
+#             - '../src/Entity/'
+#             - '../src/Kernel.php'
+
+#     # CorsListener for handling OPTIONS requests
+#     App\EventListener\CorsListener:
+#         tags:
+#             - { name: kernel.event_listener, event: kernel.request, priority: 10 }
+
+#     # CorsHeadersListener for adding CORS headers to responses
+#     App\EventListener\CorsHeadersListener:
+#         tags:
+#             - { name: kernel.event_listener, event: kernel.response, priority: 0 }
+
+
+
+
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -16,6 +44,7 @@ services:
     App\EventListener\CorsListener:
         tags:
             - { name: kernel.event_listener, event: kernel.request, priority: 10 }
+            - { name: kernel.event_listener, event: kernel.response, priority: 0 }
 
     # CorsHeadersListener for adding CORS headers to responses
     App\EventListener\CorsHeadersListener:
