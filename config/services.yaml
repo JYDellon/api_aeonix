@@ -50,3 +50,7 @@ services:
     App\EventListener\CorsHeadersListener:
         tags:
             - { name: kernel.event_listener, event: kernel.response, priority: 0 }
+
+    App\Middleware\CorsMiddleware:
+        tags:
+            - { name: 'kernel.event_subscriber' }
