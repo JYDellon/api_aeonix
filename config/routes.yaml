@@ -17,20 +17,16 @@ api_get_visits:
     controller: App\Controller\PageVisitController::getVisits
     methods: [GET]
 
-api_reset_visits:
-    path: /api/visit
-    controller: App\Controller\PageVisitController::resetVisits
-    methods: [DELETE]
-
-#
-
-
 
 api_options:
     path: /api/{path}
     methods: [OPTIONS]
     controller: App\Controller\ApiController::options
 
+api_reset_visits:
+    path: /api/visit
+    methods: [DELETE]
+    controller: App\Controller\PageVisitController::resetVisits
 
 
 

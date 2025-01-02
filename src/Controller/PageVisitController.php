@@ -343,38 +343,101 @@ class PageVisitController extends AbstractController
 
 
     
-    /**
-     * Récupérer toutes les visites enregistrées
-     */
+    // /**
+    //  * Récupérer toutes les visites enregistrées
+    //  */
+    // #[Route('/api/visit', name: 'api_get_visits', methods: ['GET'])]
+    // public function getVisits(PageVisitRepository $repository): JsonResponse
+    // {
+    //     $visits = $repository->findAll();
+
+    //     $data = array_map(function (PageVisit $visit) {
+    //         return [
+    //             'pageUrl' => $visit->getPageUrl(),
+    //             'visitCount' => $visit->getVisitCount(),
+    //         ];
+    //     }, $visits);
+
+    //     return new JsonResponse($data);
+    // }
+
+    // /**
+    //  * Réinitialiser toutes les visites enregistrées
+    //  */
+    // #[Route('/api/visit', name: 'api_reset_visits', methods: ['DELETE'])]
+    // public function resetVisits(PageVisitRepository $repository, EntityManagerInterface $entityManager): JsonResponse
+    // {
+    //     $visits = $repository->findAll();
+
+    //     foreach ($visits as $visit) {
+    //         $entityManager->remove($visit);
+    //     }
+
+    //     $entityManager->flush();
+
+    //     return new JsonResponse(['message' => 'Toutes les visites ont été réinitialisées.']);
+    // }
+
+
+
+
+
+
     #[Route('/api/visit', name: 'api_get_visits', methods: ['GET'])]
-    public function getVisits(PageVisitRepository $repository): JsonResponse
+    public function getVisits(PageVisitRepository $repository, Request $request): Response
     {
         $visits = $repository->findAll();
-
+    
         $data = array_map(function (PageVisit $visit) {
             return [
                 'pageUrl' => $visit->getPageUrl(),
                 'visitCount' => $visit->getVisitCount(),
             ];
         }, $visits);
-
+    
+        // Vérifiez si le paramètre callback est présent dans la requête
+        $callback = $request->query->get('callback');
+    
+        // Si le paramètre callback existe, renvoyer la réponse en JSONP
+        if ($callback) {
+            $responseContent = $callback . '(' . json_encode($data) . ');';
+            return new Response($responseContent, 200, ['Content-Type' => 'application/javascript']);
+        }
+    
+        // Sinon, renvoyer une réponse JSON classique
         return new JsonResponse($data);
     }
-
+    
     /**
      * Réinitialiser toutes les visites enregistrées
      */
     #[Route('/api/visit', name: 'api_reset_visits', methods: ['DELETE'])]
-    public function resetVisits(PageVisitRepository $repository, EntityManagerInterface $entityManager): JsonResponse
+    public function resetVisits(PageVisitRepository $repository, EntityManagerInterface $entityManager, Request $request): JsonResponse
     {
         $visits = $repository->findAll();
-
+    
         foreach ($visits as $visit) {
             $entityManager->remove($visit);
         }
-
+    
         $entityManager->flush();
-
+    
+        // Renvoyer une réponse JSON classique
         return new JsonResponse(['message' => 'Toutes les visites ont été réinitialisées.']);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }
