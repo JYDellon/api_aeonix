@@ -9,7 +9,7 @@ controllers:
 api_record_visit:
     path: /api/visit/{pageUrl}
     controller: App\Controller\PageVisitController::recordVisit
-    methods: [POST, OPTIONS]
+    methods: [POST]
  
 api_get_visits:
     path: /api/visit
