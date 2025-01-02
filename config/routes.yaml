@@ -8,7 +8,7 @@ controllers:
 
 api_record_visit:
     path: /api/visit/{pageUrl}
-    methods: [POST, OPTIONS]
+    methods: [POST]
     controller: App\Controller\PageVisitController::recordVisit
 
  
@@ -26,6 +26,10 @@ api_reset_visits:
 
 
 
+api_options:
+    path: /api/{path}
+    methods: [OPTIONS]
+    controller: App\Controller\ApiController::options
 
 
 
