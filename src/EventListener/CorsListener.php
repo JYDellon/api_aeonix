@@ -52,23 +52,23 @@ class CorsListener
         if (strpos($request->getPathInfo(), '/api/') === 0) {
             // Récupère l'origine de la requête
             $origin = $request->headers->get('Origin');
-
+            
             // Si l'origine est vide, on permet toutes les origines (ou vous pouvez personnaliser cette logique)
             if (!$origin) {
                 $origin = '*';  // Permet toutes les origines
             }
-
+    
             // Ajouter l'en-tête Access-Control-Allow-Origin avec la valeur de l'origine de la requête
             $response->headers->set('Access-Control-Allow-Origin', $origin);
-
+    
             // Autres en-têtes nécessaires pour CORS
             $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
             $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
-            $response->headers->set('Access-Control-Allow-Credentials', 'true');
-            $response->headers->set('Access-Control-Max-Age', '3600');
-
+            $response->headers->set('Access-Control-Max-Age', '3600'); // Durée de mise en cache des pré-requêtes
+    
             // Log pour vérifier que les en-têtes ont bien été ajoutés
             $this->logger->info('CORS header set for origin: ' . $origin);
         }
     }
+    
 }
