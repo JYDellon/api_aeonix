@@ -22,7 +22,7 @@
 
 nelmio_cors:
   defaults:
-    allow_origin: ['https://aeonix-lake.vercel.app','http://localhost:3000','*'] # Seulement Vercel
+    allow_origin: ['*'] 
     allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'] # Méthodes autorisées
     allow_headers: ['Content-Type'] # En-têtes autorisés (pas besoin de 'Authorization' ici)
     expose_headers: ['Access-Control-Allow-Origin'] # Exposer d'autres en-têtes si nécessaire
