@@ -28,7 +28,19 @@
 // $response->headers->set('Access-Control-Allow-Credentials', 'false'); // Changez si nécessaire
 // }
 // }
-// }namespace App\EventListener;
+// }
+
+
+
+
+
+
+
+
+
+
+
+namespace App\EventListener;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
