@@ -262,41 +262,28 @@ class PageVisitController extends AbstractController
 
 
 
-    #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST'])]
+    #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
     public function recordVisit(
         string $pageUrl,
         PageVisitRepository $repository,
         EntityManagerInterface $entityManager,
         Request $request
-    ): JsonResponse {
+    ): Response {
         // Gérer la pré-requête OPTIONS
         if ($request->getMethod() === 'OPTIONS') {
-            $response = new Response();
-    
-            // Récupérer l'origine de la requête
-            $origin = $request->headers->get('Origin') ?: '*';  // Accepter toutes les origines
-    
-            // Ajouter les en-têtes CORS pour OPTIONS
-            $response->headers->set('Access-Control-Allow-Origin', $origin);
-            $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
-            $response->headers->set('Access-Control-Max-Age', '3600');
-            
-            // Retourner la réponse sans corps pour les pré-requêtes OPTIONS
-            return $response;
+            return $this->handleOptionsRequest();
         }
-    
-        // Gestion des requêtes POST
+
+        // Enregistrer la visite pour la page
         $pageUrl = rtrim(strtolower($pageUrl), '/');
-        
         try {
             $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
             $pageVisit->setPageUrl($pageUrl);
-            $pageVisit->incrementVisitCount();
-    
+            $pageVisit->incrementVisitCount(); // Incrémentation du compteur
+
             $entityManager->persist($pageVisit);
             $entityManager->flush();
-    
+
             return new JsonResponse([
                 'message' => 'Visite enregistrée avec succès.',
                 'pageUrl' => $pageVisit->getPageUrl(),
@@ -309,7 +296,20 @@ class PageVisitController extends AbstractController
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
-    
+
+    // Fonction pour gérer la pré-requête OPTIONS (CORS)
+    private function handleOptionsRequest(): Response
+    {
+        // Réponse CORS pour les pré-requêtes OPTIONS
+        $response = new Response();
+        $response->headers->set('Access-Control-Allow-Origin', '*'); // Remplacer '*' par l'origine souhaitée si nécessaire
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
+        $response->headers->set('Access-Control-Max-Age', '3600'); // Durée de mise en cache des pré-requêtes
+
+        // Retourner la réponse sans corps pour les pré-requêtes OPTIONS
+        return $response;
+    }
 
 
 
