@@ -39,6 +39,11 @@
 
 
 
+
+
+
+
+
 # Utiliser PHP 8.2 avec FPM (FastCGI Process Manager)
 FROM php:8.2-fpm
 
