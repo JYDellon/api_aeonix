@@ -68,7 +68,7 @@ class CorsHeadersListener
             // Autres en-têtes nécessaires pour CORS
             $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
             $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
-            $response->headers->set('Access-Control-Allow-Credentials', 'true');
+            // $response->headers->set('Access-Control-Allow-Credentials', 'true');
             $response->headers->set('Access-Control-Max-Age', '3600');
 
             // Log pour vérifier que les en-têtes ont bien été ajoutés
