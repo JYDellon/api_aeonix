@@ -458,53 +458,97 @@ class PageVisitController extends AbstractController
 
 // Exemple dans votre contrôleur Symfony
 
-#[Route('/api/visit', name: 'api_get_visits', methods: ['GET'])]
-public function getVisits(PageVisitRepository $repository, Request $request): Response
-{
-    $callback = $request->query->get('callback');  // Récupérer le paramètre callback
+// #[Route('/api/visit', name: 'api_get_visits', methods: ['GET'])]
+// public function getVisits(PageVisitRepository $repository, Request $request): Response
+// {
+//     $callback = $request->query->get('callback');  // Récupérer le paramètre callback
 
-    // Récupérer les visites depuis la base de données
-    $visits = $repository->findAll();
-    $data = array_map(function (PageVisit $visit) {
-        return [
-            'pageUrl' => $visit->getPageUrl(),
-            'visitCount' => $visit->getVisitCount(),
-        ];
-    }, $visits);
+//     // Récupérer les visites depuis la base de données
+//     $visits = $repository->findAll();
+//     $data = array_map(function (PageVisit $visit) {
+//         return [
+//             'pageUrl' => $visit->getPageUrl(),
+//             'visitCount' => $visit->getVisitCount(),
+//         ];
+//     }, $visits);
 
-    // Si un callback est fourni, c'est une requête JSONP
-    if ($callback) {
-        // Encapsuler les données dans la fonction de callback
-        $jsonpResponse = $callback . '(' . json_encode($data) . ');';
+//     // Si un callback est fourni, c'est une requête JSONP
+//     if ($callback) {
+//         // Encapsuler les données dans la fonction de callback
+//         $jsonpResponse = $callback . '(' . json_encode($data) . ');';
 
-        // Créer une nouvelle réponse avec les en-têtes CORS
-        $response = new Response($jsonpResponse, 200, ['Content-Type' => 'application/javascript']);
+//         // Créer une nouvelle réponse avec les en-têtes CORS
+//         $response = new Response($jsonpResponse, 200, ['Content-Type' => 'application/javascript']);
 
-        // Ajouter les en-têtes CORS
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
-        $response->headers->set('Access-Control-Allow-Credentials', 'true'); // Si vous avez des cookies ou des jetons
-        $response->headers->set('Access-Control-Max-Age', '3600');
+//         // Ajouter les en-têtes CORS
+//         $response->headers->set('Access-Control-Allow-Origin', '*');
+//         $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+//         $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
+//         $response->headers->set('Access-Control-Allow-Credentials', 'true'); // Si vous avez des cookies ou des jetons
+//         $response->headers->set('Access-Control-Max-Age', '3600');
 
-        // Retourner la réponse JSONP avec les en-têtes CORS
-        return $response;
+//         // Retourner la réponse JSONP avec les en-têtes CORS
+//         return $response;
+//     }
+
+//     // Si ce n'est pas une requête JSONP, renvoyer une réponse classique JSON
+//     $response = new JsonResponse($data);
+
+//     // Ajouter les en-têtes CORS pour la réponse classique JSON
+//     $response->headers->set('Access-Control-Allow-Origin', '*');
+//     $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+//     $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
+//     $response->headers->set('Access-Control-Allow-Credentials', 'true');
+//     $response->headers->set('Access-Control-Max-Age', '3600');
+
+//     // Retourner la réponse JSON avec les en-têtes CORS
+//     return $response;
+// }
+
+
+
+
+
+
+#[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST'])]
+public function recordVisit(
+    string $pageUrl,
+    PageVisitRepository $repository,
+    EntityManagerInterface $entityManager,
+    Request $request
+): JsonResponse {
+    // Normaliser l'URL pour éviter les erreurs de format
+    $pageUrl = rtrim(strtolower($pageUrl), '/');
+
+    // Chercher une visite existante pour cette page
+    $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]);
+
+    if (!$pageVisit) {
+        // Si la page n'existe pas, créer un nouvel objet PageVisit
+        $pageVisit = new PageVisit();
+        $pageVisit->setPageUrl($pageUrl); // Définir l'URL de la page
+        $pageVisit->setVisitCount(1); // Initialiser le compteur à 1
+        $entityManager->persist($pageVisit);
+    } else {
+        // Si la page existe, incrémenter le compteur de visites
+        $pageVisit->incrementVisitCount();
     }
 
-    // Si ce n'est pas une requête JSONP, renvoyer une réponse classique JSON
-    $response = new JsonResponse($data);
+    // Enregistrer les modifications dans la base de données
+    try {
+        $entityManager->flush();
 
-    // Ajouter les en-têtes CORS pour la réponse classique JSON
-    $response->headers->set('Access-Control-Allow-Origin', '*');
-    $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
-    $response->headers->set('Access-Control-Allow-Credentials', 'true');
-    $response->headers->set('Access-Control-Max-Age', '3600');
-
-    // Retourner la réponse JSON avec les en-têtes CORS
-    return $response;
-}
-
+        return new JsonResponse([
+            'message' => 'Visite enregistrée avec succès.',
+            'pageUrl' => $pageVisit->getPageUrl(),
+            'visitCount' => $pageVisit->getVisitCount(),
+        ], JsonResponse::HTTP_OK);
+    } catch (\Exception $e) {
+        return new JsonResponse([
+            'message' => 'Erreur lors de l\'enregistrement de la visite.',
+            'error' => $e->getMessage(),
+        ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+    }
 
 
 
