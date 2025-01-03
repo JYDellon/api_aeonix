@@ -8,25 +8,35 @@ controllers:
 
 api_record_visit:
     path: /api/visit/{pageUrl}
-    methods: [POST]
     controller: App\Controller\PageVisitController::recordVisit
+    methods: [POST]
 
- 
 api_get_visits:
     path: /api/visit
     controller: App\Controller\PageVisitController::getVisits
     methods: [GET]
 
-
-api_options:
-    path: /api/{path}
-    methods: [OPTIONS]
-    controller: App\Controller\ApiController::options
-
 api_reset_visits:
     path: /api/visit
-    methods: [DELETE]
     controller: App\Controller\PageVisitController::resetVisits
+    methods: [DELETE]
+
+# api_contact:
+#     path: /api/contact
+#     controller: App\Controller\ProspectController::handleContact
+#     methods: ['POST']
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -643,13 +643,11 @@ class SecurityExtension extends Extension implements PrependExtensionInterface
         }
 
         if ($container->hasDefinition('debug.security.firewall')) {
-            foreach ($authenticationProviders as &$authenticatorId) {
-                $traceableId = 'debug.'.$authenticatorId;
-                $container
-                    ->register($traceableId, TraceableAuthenticator::class)
-                    ->setArguments([new Reference($authenticatorId)])
+            foreach ($authenticationProviders as $authenticatorId) {
+                $container->register('debug.'.$authenticatorId, TraceableAuthenticator::class)
+                    ->setDecoratedService($authenticatorId)
+                    ->setArguments([new Reference('debug.'.$authenticatorId.'.inner')])
                 ;
-                $authenticatorId = $traceableId;
             }
         }
 

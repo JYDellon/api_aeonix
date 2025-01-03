@@ -20,7 +20,7 @@ use Twig\Token;
 /**
  * Imports macros.
  *
- *   {% import 'forms.html.twig' as forms %}
+ *   {% import 'forms.html' as forms %}
  *
  * @internal
  */
