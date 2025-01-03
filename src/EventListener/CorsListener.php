@@ -88,29 +88,63 @@
 
 
 
+// namespace App\EventListener;
+
+// use Symfony\Component\HttpFoundation\Response;
+// use Symfony\Component\HttpKernel\Event\ResponseEvent;
+
+// class CorsListener
+// {
+//     public function onKernelResponse(ResponseEvent $event): void
+//     {
+//         $response = $event->getResponse();
+//         $request = $event->getRequest();
+
+//         // Applique les en-têtes CORS à toutes les réponses pour les requêtes /api/*
+//         if (strpos($request->getPathInfo(), '/api/') === 0) {
+//             $origin = $request->headers->get('Origin') ?? '*';  // Gérer l'origine dynamique
+
+//             // Ajouter les en-têtes CORS
+//             $response->headers->set('Access-Control-Allow-Origin', $origin);
+//             $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+//             $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
+//             $response->headers->set('Access-Control-Max-Age', '3600');
+//             // Si vous ne gérez pas de cookies ou de sessions :
+//             $response->headers->set('Access-Control-Allow-Credentials', 'false');
+//         }
+//     }
+// }
+
+
+// src/EventListener/CorsListener.php
 namespace App\EventListener;
 
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class CorsListener
+class CorsListener implements EventSubscriberInterface
 {
-    public function onKernelResponse(ResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event)
     {
-        $response = $event->getResponse();
+        // Récupérer l'objet Request depuis l'événement
         $request = $event->getRequest();
 
-        // Applique les en-têtes CORS à toutes les réponses pour les requêtes /api/*
-        if (strpos($request->getPathInfo(), '/api/') === 0) {
-            $origin = $request->headers->get('Origin') ?? '*';  // Gérer l'origine dynamique
-
-            // Ajouter les en-têtes CORS
-            $response->headers->set('Access-Control-Allow-Origin', $origin);
-            $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
-            $response->headers->set('Access-Control-Max-Age', '3600');
-            // Si vous ne gérez pas de cookies ou de sessions :
-            $response->headers->set('Access-Control-Allow-Credentials', 'false');
+        // Vérification si la méthode est OPTIONS pour gérer les pré-requêtes
+        if ($request->getMethod() === 'OPTIONS') {
+            $response = new Response('', Response::HTTP_OK, [
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
+                'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+            ]);
+            $event->setResponse($response);  // Définir la réponse pour l'événement
         }
+    }
+
+    public static function getSubscribedEvents()
+    {
+        return [
+            'kernel.request' => 'onKernelRequest',
+        ];
     }
 }
