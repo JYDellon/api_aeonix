@@ -2,9 +2,11 @@ nelmio_cors:
   defaults:
     allow_origin: ['https://aeonix-lake.vercel.app', 'http://localhost:3000']  # Spécifiez ici l'origine autorisée
     allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-    allow_headers: ['Content-Type']
+    allow_headers: ['Content-Type', 'Authorization', 'X-Requested-With']
     expose_headers: ['Link']
     max_age: 3600
     allow_credentials: true
   paths:
     '^/api/': ~
+
+

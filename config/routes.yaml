@@ -32,11 +32,17 @@ api_reset_visits:
 
 
 check_ip:
-    path: /check-ip
+    path: /api/check-ip
     controller: App\Controller\IpVerificationController::checkIp
 
 
 
+# config/routes.yaml
+dashboard:
+    path: /api/dashboard/{token}
+    controller: App\Controller\DashboardController::getDashboardData
+    requirements:
+        token: '.*'  # Capturer n'importe quelle valeur de token
 
 
 
