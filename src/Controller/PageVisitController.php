@@ -448,7 +448,6 @@ class PageVisitController extends AbstractController
 
 
 
-
 #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['GET'])]
 public function recordVisit(
     string $pageUrl,
@@ -475,7 +474,7 @@ public function recordVisit(
 
     // Enregistrer les modifications dans la base de données
     try {
-        $entityManager->flush();
+        $entityManager->flush(); // Applique les modifications en BDD
 
         $data = [
             'message' => 'Visite enregistrée avec succès.',
@@ -503,7 +502,6 @@ public function recordVisit(
         ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
     }
 }
-
 
 
 
