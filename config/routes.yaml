@@ -33,6 +33,11 @@ api_reset_visits:
 
 
 
+# config/routes.yaml
+get_ip:
+  path: /api/get-ip
+  controller: App\Controller\IpController::getIp
+  methods: GET
 
 
 
