@@ -1,0 +1,23 @@
+service: symfony-app
+
+provider:
+  name: aws
+  runtime: provided.al2 
+plugins:
+  - ./vendor/bref/bref
+
+functions:
+  web:
+    handler: index.php
+    layers:
+      - ${bref:layer.php-81} # Runtime PHP 8.1 pour AWS Lambda
+    events:
+      - httpApi: '*'
+
+
+resources:
+  Resources:
+    MyApiGateway:
+      Type: AWS::ApiGatewayV2::Api
+      Properties:
+        ProtocolType: HTTP

@@ -1,4 +1,4 @@
-#Utiliser PHP 8.2 comme base
+# Utiliser PHP 8.2 comme base
 FROM php:8.2-fpm
 
 # Installer les extensions nécessaires
@@ -25,4 +25,3 @@ EXPOSE 8000
 
 # Commande de démarrage
 CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
-
