@@ -13,53 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PageVisitController extends AbstractController
 {
-    /**
-     * Enregistrer une visite pour une page donnée
-     */
-    // #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST'])]
-    // public function recordVisit(
-    //     string $pageUrl,
-    //     PageVisitRepository $repository,
-    //     EntityManagerInterface $entityManager
-    // ): JsonResponse {
-    //     // Normalisation de l'URL
-    //     $pageUrl = rtrim(strtolower($pageUrl), '/');
-
-    //     try {
-    //         // Vérifier si la page existe déjà
-    //         $pageVisit = $repository->findOneBy(['pageUrl' => $pageUrl]) ?? new PageVisit();
-    //         $pageVisit->setPageUrl($pageUrl);
-    //         $pageVisit->incrementVisitCount(); // Incrémentation du compteur
-
-    //         $entityManager->persist($pageVisit);
-    //         $entityManager->flush();
-
-    //         return new JsonResponse([
-    //             'message' => 'Visite enregistrée avec succès.',
-    //             'pageUrl' => $pageVisit->getPageUrl(),
-    //             'visitCount' => $pageVisit->getVisitCount(),
-    //         ]);
-    //     } catch (\Exception $e) {
-    //         return new JsonResponse([
-    //             'message' => 'Erreur lors de l\'enregistrement de la visite.',
-    //             'error' => $e->getMessage(),
-    //         ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
-    //     }
-    // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     #[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST', 'OPTIONS'])]
@@ -113,24 +66,6 @@ class PageVisitController extends AbstractController
     }
     
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     /**
      * Récupérer toutes les visites enregistrées
      */
@@ -165,4 +100,13 @@ class PageVisitController extends AbstractController
 
         return new JsonResponse(['message' => 'Toutes les visites ont été réinitialisées.']);
     }
+
+
+
+
+
+
+
+
+    
 }

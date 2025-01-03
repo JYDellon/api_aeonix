@@ -45,4 +45,25 @@ class PageVisit
         $this->visitCount++;
         return $this;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }
