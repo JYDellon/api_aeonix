@@ -31,13 +31,9 @@ api_reset_visits:
 
 
 
-
-
-# config/routes.yaml
-get_ip:
-  path: /api/get-ip
-  controller: App\Controller\IpController::getIp
-  methods: GET
+check_ip:
+    path: /check-ip
+    controller: App\Controller\IpVerificationController::checkIp
 
 
 
