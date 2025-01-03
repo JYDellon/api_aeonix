@@ -17,7 +17,9 @@ class IpController extends AbstractController
     public function getIp(): JsonResponse
     {
         // Récupérer l'IP du client depuis la requête
-        $clientIp = $_SERVER['REMOTE_ADDR'];
+        // $clientIp = $_SERVER['REMOTE_ADDR'];
+        $clientIp = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
+
 
         // Si vous voulez récupérer l'IP depuis un proxy (par exemple si vous êtes derrière un reverse proxy comme Nginx ou Apache)
         // $clientIp = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
