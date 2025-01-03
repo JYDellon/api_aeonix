@@ -449,14 +449,13 @@ class PageVisitController extends AbstractController
 
 
 
-
-#[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['POST'])]
+#[Route('/api/visit/{pageUrl}', name: 'api_record_visit', methods: ['GET'])]
 public function recordVisit(
     string $pageUrl,
     PageVisitRepository $repository,
     EntityManagerInterface $entityManager,
     Request $request
-): JsonResponse {
+): Response {
     // Normaliser l'URL pour éviter les erreurs de format
     $pageUrl = rtrim(strtolower($pageUrl), '/');
 
@@ -478,11 +477,25 @@ public function recordVisit(
     try {
         $entityManager->flush();
 
-        return new JsonResponse([
+        $data = [
             'message' => 'Visite enregistrée avec succès.',
             'pageUrl' => $pageVisit->getPageUrl(),
             'visitCount' => $pageVisit->getVisitCount(),
-        ], JsonResponse::HTTP_OK);
+        ];
+
+        // Si un callback est fourni, c'est une requête JSONP
+        $callback = $request->query->get('callback');
+        if ($callback) {
+            // Encapsuler les données dans la fonction de callback
+            $jsonpResponse = $callback . '(' . json_encode($data) . ');';
+
+            // Retourner la réponse JSONP
+            return new Response($jsonpResponse, 200, ['Content-Type' => 'application/javascript']);
+        }
+
+        // Si ce n'est pas une requête JSONP, renvoyer une réponse classique JSON
+        return new JsonResponse($data, JsonResponse::HTTP_OK);
+
     } catch (\Exception $e) {
         return new JsonResponse([
             'message' => 'Erreur lors de l\'enregistrement de la visite.',
@@ -490,6 +503,7 @@ public function recordVisit(
         ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
     }
 }
+
 
 
 
