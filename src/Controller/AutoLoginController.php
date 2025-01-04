@@ -4,40 +4,48 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-// use Symfony\Component\Routing\Annotation\Route; <-- On peut le supprimer si on n'utilise pas l'annotation
 
 class AutoLoginController extends AbstractController
 {
-    // Plus d’annotation ici
     public function autoLogin(Request $request): Response
     {
-        // On vérifie si on a déjà un cookie nommé 'authToken'
-        $alreadyHasCookie = $request->cookies->get('authToken');
+        // On récupère ?secret=... dans l'URL
+        $secret = $request->query->get('secret');
+        // À adapter : tu peux générer un vrai mot de passe, ou un token plus complexe
+        $mySecretKey = 'MON_CODE_PERSO';
 
-        // Construire la réponse
-        $response = new Response();
-        $response->setStatusCode(Response::HTTP_OK);
-
-        // Si le cookie 'authToken' n'existe pas, on le crée
-        if (!$alreadyHasCookie) {
-            $cookie = Cookie::create('authToken')
-                ->withValue('someRandomValue')
-                ->withExpires(strtotime('+1 year'))
-                ->withPath('/')
-                ->withDomain('localhost')
-                ->withSecure(false)    // true si HTTPS
-                ->withHttpOnly(true);
-
-            $response->headers->setCookie($cookie);
+        // Si le secret fourni est faux ou absent → 401
+        if ($secret !== $mySecretKey) {
+            return new JsonResponse(
+                ['error' => 'Unauthorized. Wrong secret key.'], 
+                Response::HTTP_UNAUTHORIZED
+            );
         }
 
-        // JSON minimal pour dire "ok"
-        $response->setContent(json_encode([
+        // Si c'est le bon secret, on crée la réponse OK
+        $response = new JsonResponse([
             'success' => true,
-            'message' => 'Cookie défini ou déjà présent',
-        ]));
+            'message' => 'Cookie défini avec succès !'
+        ]);
+
+        // Vérifions si on a déjà un cookie 'authToken'
+        $alreadyHasCookie = $request->cookies->get('authToken');
+        if (!$alreadyHasCookie) {
+            // Crée un cookie 'authToken' (valeur statique pour l'exemple)
+            $cookie = Cookie::create('authToken')
+                ->withValue('someRandomValue')        // tu peux générer un token aléatoire
+                ->withExpires(strtotime('+1 year'))   // expire dans 1 an
+                ->withPath('/')
+                ->withDomain('localhost')             // adapter pour ton domaine
+                ->withSecure(false)                   // true si HTTPS
+                ->withHttpOnly(true);                 // empêche l'accès JS direct
+
+            // On l'attache à la réponse
+            $response->headers->setCookie($cookie);
+        }
 
         return $response;
     }

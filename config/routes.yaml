@@ -104,7 +104,14 @@ send_email:
 
 # config/routes.yaml
 
+# 1) Pour générer/poser le cookie
 api_auto_login:
   path: /api/auto-login
   controller: App\Controller\AutoLoginController::autoLogin
+  methods: [GET]
+
+# 2) Pour la page Dashboard (retourne 403 si pas le bon cookie)
+dashboard_page:
+  path: /dashboard
+  controller: App\Controller\DashboardController::show
   methods: [GET]
