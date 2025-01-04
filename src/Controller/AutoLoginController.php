@@ -12,12 +12,11 @@ class AutoLoginController extends AbstractController
 {
     public function autoLogin(Request $request): Response
     {
-        // On récupère ?secret=... dans l'URL
+        // Récupère le paramètre ?secret= dans l'URL
         $secret = $request->query->get('secret');
-        // À adapter : tu peux générer un vrai mot de passe, ou un token plus complexe
-        $mySecretKey = 'MON_CODE_PERSO';
+        $mySecretKey = 'MON_CODE_PERSO'; // Secret clé attendu
 
-        // Si le secret fourni est faux ou absent → 401
+        // Si le secret est invalide, retourne un code 401 (Unauthorized)
         if ($secret !== $mySecretKey) {
             return new JsonResponse(
                 ['error' => 'Unauthorized. Wrong secret key.'], 
@@ -25,25 +24,25 @@ class AutoLoginController extends AbstractController
             );
         }
 
-        // Si c'est le bon secret, on crée la réponse OK
+        // Crée une réponse JSON pour signaler que le cookie a été défini
         $response = new JsonResponse([
             'success' => true,
             'message' => 'Cookie défini avec succès !'
         ]);
 
-        // Vérifions si on a déjà un cookie 'authToken'
+        // Vérifie si le cookie 'authToken' existe déjà
         $alreadyHasCookie = $request->cookies->get('authToken');
         if (!$alreadyHasCookie) {
-            // Crée un cookie 'authToken' (valeur statique pour l'exemple)
+            // Crée un cookie avec les attributs nécessaires
             $cookie = Cookie::create('authToken')
-                ->withValue('someRandomValue')        // tu peux générer un token aléatoire
-                ->withExpires(strtotime('+1 year'))   // expire dans 1 an
-                ->withPath('/')
-                ->withDomain('localhost')             // adapter pour ton domaine
-                ->withSecure(false)                   // true si HTTPS
-                ->withHttpOnly(true);                 // empêche l'accès JS direct
+                ->withValue('someRandomValue')        // Valeur du cookie (à rendre plus complexe en production)
+                ->withExpires(strtotime('+1 year'))   // Durée de vie : 1 an
+                ->withPath('/')                       // Valide pour toutes les routes
+                ->withDomain('localhost')             // Remplace par ton domaine
+                ->withSecure(false)                   // Mettre à true si HTTPS
+                ->withHttpOnly(true);                 // Protège contre l'accès JavaScript
 
-            // On l'attache à la réponse
+            // Attache le cookie à la réponse
             $response->headers->setCookie($cookie);
         }
 

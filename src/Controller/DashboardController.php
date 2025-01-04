@@ -10,16 +10,19 @@ class DashboardController extends AbstractController
 {
     public function show(Request $request): Response
     {
+        // Récupère le cookie 'authToken'
         $cookieVal = $request->cookies->get('authToken');
 
-        // On compare bêtement (pour l'exemple) la valeur attendue
+        // Vérifie si la valeur du cookie est celle attendue
         if ($cookieVal !== 'someRandomValue') {
-            return new Response('Accès interdit : pas le bon cookie.', 403);
+            // Si le cookie est invalide ou absent, retourne un code 403
+            return new Response('Accès interdit : pas le bon cookie.', Response::HTTP_FORBIDDEN);
         }
 
-        // Contenu protégé (ex. HTML minimal)
-        $html = '<h1>Bienvenue dans le Dashboard sécurisé !</h1>';
+        // Si l'accès est autorisé, retourne le contenu sécurisé
+        $html = '<h1>Bienvenue dans le Dashboard sécurisé !</h1>
+                 <p>Ceci est une zone protégée accessible uniquement avec le bon cookie.</p>';
 
-        return new Response($html, 200);
+        return new Response($html, Response::HTTP_OK);
     }
 }

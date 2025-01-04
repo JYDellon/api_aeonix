@@ -37,14 +37,14 @@ check_ip:
 
 
 
-# config/routes.yaml
+
+
+
+
 dashboard:
-    path: /api/dashboard/{token}
-    controller: App\Controller\DashboardController::getDashboardData
-    requirements:
-        token: '.*'  # Capturer n'importe quelle valeur de token
-
-
+  path: /api/dashboard
+  controller: App\Controller\DashboardController::show
+  methods: GET
 
 # Routes pour la gestion des prospects
 api_contact:
