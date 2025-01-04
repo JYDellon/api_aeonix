@@ -10,8 +10,7 @@ framework:
         resource: '%kernel.project_dir%/config/routes.yaml'
         type: yaml
     session:
-        cookie_secure: auto # ou true si vous êtes en HTTPS uniquement
-        cookie_samesite: None
+        cookie_samesite: 'none'  # Attention à la casse : "none" (pas "None")
 
 
 
