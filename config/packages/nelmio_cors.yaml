@@ -1,15 +1,27 @@
 
+# nelmio_cors:
+#     defaults:
+#         allow_origin: ['https://aeonix-lake.vercel.app','http://localhost:3000'] # Remplacez par l'origine de votre frontend
+#         allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+#         allow_headers: ['Content-Type', 'Authorization']
+#         expose_headers: ['Authorization']
+#         max_age: 3600
+#         allow_credentials: true # Autorise l'envoi de cookies
+#     paths:
+#         '^/api/': # Applique les règles aux routes commençant par /api/
+#             allow_origin: ['https://aeonix-lake.vercel.app','http://localhost:3000']
+
+
+
+
+# config/packages/nelmio_cors.yaml
 nelmio_cors:
     defaults:
-        allow_origin: ['https://aeonix-lake.vercel.app','http://localhost:3000'] # Remplacez par l'origine de votre frontend
-        allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+        allow_credentials: true
+        allow_origin: ['https://aeonix-lake.vercel.app']
+        allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'DELETE']
         allow_headers: ['Content-Type', 'Authorization']
-        expose_headers: ['Authorization']
-        max_age: 3600
-        allow_credentials: true # Autorise l'envoi de cookies
+        expose_headers: ['Content-Type', 'Authorization']
     paths:
-        '^/api/': # Applique les règles aux routes commençant par /api/
-            allow_origin: ['https://aeonix-lake.vercel.app','http://localhost:3000']
-
-
-
+        '^/api/': # Remplacez par le chemin de votre API
+            allow_origin: ['https://aeonix-lake.vercel.app']
