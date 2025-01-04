@@ -9,9 +9,3 @@ framework:
     router:
         resource: '%kernel.project_dir%/config/routes.yaml'
         type: yaml
-    session:
-        cookie_samesite: 'none'  # Attention à la casse : "none" (pas "None")
-
-
-
-    
