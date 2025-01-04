@@ -1,11 +1,5 @@
-<?php 
+<?php
 
-
-
-
-
-
-// src/Controller/AuthController.php
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,10 +9,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AuthController extends AbstractController
 {
-    /**
-     * @Route("/login", name="login", methods={"POST"})
-     */
-    public function login()
+
+    #[Route('/login', name: 'login', methods: ['POST'])]
+    public function login(): Response
     {
         // Crée un token pour l'utilisateur
         $token = 'e82de727-19e3-47f7-bd3f-42d7ab54120c';  // Utiliser un token sécurisé comme un JWT pour la production
