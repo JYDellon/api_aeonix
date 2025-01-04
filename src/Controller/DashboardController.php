@@ -9,9 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractController
 {
-    /**
-     * @Route("/api/dashboard", name="dashboard", methods={"GET"})
-     */
+
     #[Route('/api/dashboard', name: 'dashboard', methods: ['GET'])]
     public function getDashboardData(Request $request): JsonResponse
     {
