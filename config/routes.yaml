@@ -31,20 +31,31 @@ api_reset_visits:
 
 
 
-check_ip:
-    path: /api/check-ip
-    controller: App\Controller\IpVerificationController::checkIp
 
 
 
+auto_login:
+  path: /api/auto-login
+  controller: App\Controller\AutoLoginController::autoLogin
+  methods: [GET]
 
-
-
-
-dashboard:
+dashboard_show:
   path: /api/dashboard
   controller: App\Controller\DashboardController::show
-  methods: GET
+  methods: [GET]
+
+validate_access:
+  path: /api/validate-access
+  controller: App\Controller\ValidationController::validateAccess
+  methods: [GET]
+
+
+
+
+
+
+
+
 
 # Routes pour la gestion des prospects
 api_contact:
@@ -99,19 +110,3 @@ send_email:
   path: /api/send-email
   controller: App\Controller\EmailController::sendEmail
   methods: [POST]
-
-
-
-# config/routes.yaml
-
-# 1) Pour générer/poser le cookie
-api_auto_login:
-  path: /api/auto-login
-  controller: App\Controller\AutoLoginController::autoLogin
-  methods: [GET]
-
-# 2) Pour la page Dashboard (retourne 403 si pas le bon cookie)
-dashboard_page:
-  path: /dashboard
-  controller: App\Controller\DashboardController::show
-  methods: [GET]

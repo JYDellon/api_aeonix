@@ -1,5 +1,9 @@
 <?php
 
+
+
+
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,39 +16,25 @@ class AutoLoginController extends AbstractController
 {
     public function autoLogin(Request $request): Response
     {
-        // Récupère le paramètre ?secret= dans l'URL
-        $secret = $request->query->get('secret');
-        $mySecretKey = 'MON_CODE_PERSO'; // Secret clé attendu
+        // Récupérer le UUID du frontend
+        $uuid = $request->query->get('uuid');
+        $allowedUUID = '123e4567-e89b-12d3-a456-426614174000'; // UUID autorisé
 
-        // Si le secret est invalide, retourne un code 401 (Unauthorized)
-        if ($secret !== $mySecretKey) {
-            return new JsonResponse(
-                ['error' => 'Unauthorized. Wrong secret key.'], 
-                Response::HTTP_UNAUTHORIZED
-            );
+        if ($uuid !== $allowedUUID) {
+            return new JsonResponse(['error' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
         }
 
-        // Crée une réponse JSON pour signaler que le cookie a été défini
-        $response = new JsonResponse([
-            'success' => true,
-            'message' => 'Cookie défini avec succès !'
-        ]);
+        // Définir un cookie avec l'UUID comme valeur
+        $cookie = Cookie::create('authToken')
+            ->withValue($uuid)                  // Stocke le UUID
+            ->withExpires(strtotime('+1 year')) // Expire dans un an
+            ->withPath('/')
+            ->withSecure(false)                 // HTTPS si possible
+            ->withHttpOnly(true);               // Inaccessible par JavaScript
 
-        // Vérifie si le cookie 'authToken' existe déjà
-        $alreadyHasCookie = $request->cookies->get('authToken');
-        if (!$alreadyHasCookie) {
-            // Crée un cookie avec les attributs nécessaires
-            $cookie = Cookie::create('authToken')
-                ->withValue('someRandomValue')        // Valeur du cookie (à rendre plus complexe en production)
-                ->withExpires(strtotime('+1 year'))   // Durée de vie : 1 an
-                ->withPath('/')                       // Valide pour toutes les routes
-                ->withDomain('localhost')             // Remplace par ton domaine
-                ->withSecure(false)                   // Mettre à true si HTTPS
-                ->withHttpOnly(true);                 // Protège contre l'accès JavaScript
-
-            // Attache le cookie à la réponse
-            $response->headers->setCookie($cookie);
-        }
+        // Réponse avec le cookie
+        $response = new JsonResponse(['success' => true, 'message' => 'Cookie défini avec succès']);
+        $response->headers->setCookie($cookie);
 
         return $response;
     }
