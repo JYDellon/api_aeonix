@@ -46,15 +46,6 @@ dashboard:
 
 
 
-
-
-
-
-
-
-
-
-
 # Routes pour la gestion des prospects
 api_contact:
     path: /api/contact
@@ -108,3 +99,6 @@ send_email:
   path: /api/send-email
   controller: App\Controller\EmailController::sendEmail
   methods: [POST]
+
+
+
