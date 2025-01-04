@@ -102,3 +102,9 @@ send_email:
 
 
 
+# config/routes.yaml
+
+api_auto_login:
+  path: /api/auto-login
+  controller: App\Controller\AutoLoginController::autoLogin
+  methods: [GET]
