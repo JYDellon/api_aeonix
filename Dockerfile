@@ -65,3 +65,4 @@ RUN php bin/console cache:warmup --env=prod
 # Exposer le port et définir le CMD par défaut
 EXPOSE 8000
 CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
+RUN rm -rf var/cache/* && php bin/console cache:warmup --env=prod
