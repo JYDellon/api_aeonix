@@ -1,27 +1,67 @@
-# Utiliser PHP 8.2 comme base
-FROM php:8.2-fpm
+# # Utiliser PHP 8.2 comme base
+# FROM php:8.2-fpm
 
-# Installer les extensions nécessaires
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    git \
-    unzip \
-    && docker-php-ext-install pdo pdo_pgsql pdo_mysql
+# # Installer les extensions nécessaires
+# RUN apt-get update && apt-get install -y \
+#     libpq-dev \
+#     git \
+#     unzip \
+#     && docker-php-ext-install pdo pdo_pgsql pdo_mysql
+
+# # Installer Composer
+# COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# # Définir le répertoire de travail
+# WORKDIR /app
+
+# # Copier le projet Symfony
+# COPY . /app
+
+# # Installer les dépendances Symfony
+# RUN composer install --no-dev --optimize-autoloader
+
+# # Exposer le port
+# EXPOSE 8000
+
+# # Commande de démarrage
+# CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
+
+
+# COPY composer.json composer.lock /app/
+
+
+
+
+
+
+
+
+
+
+FROM php:8.2-cli
 
 # Installer Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Installer les extensions PHP nécessaires
+RUN docker-php-ext-install pdo pdo_mysql
 
 # Définir le répertoire de travail
 WORKDIR /app
 
-# Copier le projet Symfony
-COPY . /app
+# Copier les fichiers Composer
+COPY composer.json composer.lock ./
 
 # Installer les dépendances Symfony
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
-# Exposer le port
+# Copier le reste des fichiers de l'application
+COPY . .
+
+# Préparer le cache Symfony
+RUN php bin/console cache:clear --env=prod
+RUN php bin/console cache:warmup --env=prod
+
+# Exposer le port et définir le CMD par défaut
 EXPOSE 8000
-
-# Commande de démarrage
 CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]

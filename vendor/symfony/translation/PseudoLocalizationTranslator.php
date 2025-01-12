@@ -11,13 +11,12 @@
 
 namespace Symfony\Component\Translation;
 
-use Symfony\Component\Translation\Exception\LogicException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * This translator should only be used in a development environment.
  */
-final class PseudoLocalizationTranslator implements TranslatorInterface, TranslatorBagInterface
+final class PseudoLocalizationTranslator implements TranslatorInterface
 {
     private const EXPANSION_CHARACTER = '~';
 
@@ -114,24 +113,6 @@ final class PseudoLocalizationTranslator implements TranslatorInterface, Transla
     public function getLocale(): string
     {
         return $this->translator->getLocale();
-    }
-
-    public function getCatalogue(?string $locale = null): MessageCatalogueInterface
-    {
-        if (!$this->translator instanceof TranslatorBagInterface) {
-            throw new LogicException(\sprintf('The "%s()" method cannot be called as the wrapped translator class "%s" does not implement the "%s".', __METHOD__, $this->translator::class, TranslatorBagInterface::class));
-        }
-
-        return $this->translator->getCatalogue($locale);
-    }
-
-    public function getCatalogues(): array
-    {
-        if (!$this->translator instanceof TranslatorBagInterface) {
-            throw new LogicException(\sprintf('The "%s()" method cannot be called as the wrapped translator class "%s" does not implement the "%s".', __METHOD__, $this->translator::class, TranslatorBagInterface::class));
-        }
-
-        return $this->translator->getCatalogues();
     }
 
     private function getParts(string $originalTrans): array
