@@ -1,11 +1,39 @@
+# framework:
+#     secret: '%env(KERNEL_SECRET)%'
+#     router:
+#         resource: '%kernel.project_dir%/config/routes.yaml'
+#         type: yaml
+#     session:
+#         enabled: true # Active les sessions
+#         handler_id: ~ # Utilise le gestionnaire de sessions PHP par défaut
+#         cookie_secure: auto # "auto" pour HTTPS, "false" pour HTTP en local
+#         cookie_samesite: lax # Réduit les risques de CSRF
+#     csrf_protection:
+#         enabled: true # Active la protection CSRF
+
+ 
 
 
-when@test:
-    framework:
-        test: true
-        session:
-            storage_factory_id: session.storage.factory.mock_file
 framework:
+    annotations: false
+    secret: '%env(KERNEL_SECRET)%'
     router:
         resource: '%kernel.project_dir%/config/routes.yaml'
         type: yaml
+    session:
+        enabled: true
+        handler_id: ~  # Utilise le gestionnaire de session natif de PHP
+        cookie_secure: false  # Assurez-vous que c'est désactivé en développement si vous utilisez HTTP
+        cookie_samesite: lax  # Réduit les risques de CSRF lors des redirections
+    csrf_protection:
+        enabled: true
+
+
+        # config/packages/messenger.yaml
+    messenger:
+        transports:
+            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+        routing:
+            'App\Message\SendEmailMessage': async
+
+   

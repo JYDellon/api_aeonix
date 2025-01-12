@@ -50,7 +50,12 @@ class PageVisit
 
 
 
-
+    public function setVisitCount(int $visitCount): self
+    {
+        $this->visitCount = $visitCount;
+        return $this;
+    }
+    
 
 
 

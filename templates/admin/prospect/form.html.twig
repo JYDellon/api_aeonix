@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+{% block title %}{{ prospect ? 'Modifier Prospect' : 'Créer Prospect' }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>{{ prospect ? 'Modifier Prospect' : 'Créer Prospect' }}</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">{{ prospect ? 'Mettre à jour' : 'Créer' }}</button>
+        <a href="{{ path('admin_prospect_index') }}" class="btn btn-secondary">Annuler</a>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

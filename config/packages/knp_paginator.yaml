@@ -1,0 +1,10 @@
+knp_paginator:
+    page_range: 10 # Nombre de pages affichées autour de la page active
+    default_options:
+        page_name: page
+        sort_field_name: sort
+        sort_direction_name: direction
+        distinct: true
+    template:
+        pagination: '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig' # Utilise Bootstrap 5 pour le style
+        sortable: '@KnpPaginator/Pagination/sortable_link.html.twig'

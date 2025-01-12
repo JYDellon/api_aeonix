@@ -1,20 +1,139 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProspectController!{% endblock %}
+{% block title %}Liste des Prospects{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container">
+    <h1>Liste des Prospects</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <!-- Boutons d'action -->
+     <div class="mb-3 text-center">
+        <button type="button" onclick="location.href='{{ path('admin_prospect_new') }}'" class="btn btn-success">
+            Créer un prospect
+        </button>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>D:/Martinique/aeonixbackend/src/Controller/ProspectController.php</code></li>
-        <li>Your template at <code>D:/Martinique/aeonixbackend/templates/prospect/index.html.twig</code></li>
-    </ul>
+        <button type="button" id="delete-selected" class="btn btn-danger">Supprimer</button>
+        <button type="button" id="redirect-to-mail" class="btn btn-primary">
+            Envoyer un mail
+        </button>
+    </div>
+
+    <!-- Tableau des prospects -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="select-all"></th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Entreprise</th>
+                <th>Client</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prospect in pagination %}
+            <tr>
+                <td>
+                    <input type="checkbox" name="selected[]" data-id="{{ prospect.id }}" value="{{ prospect.email }}">
+                </td>
+                <td>{{ prospect.nom }}</td>
+                <td>{{ prospect.prenom }}</td>
+                <td>{{ prospect.email }}</td>
+                <td>{{ prospect.entreprise }}</td>
+                <td>{{ prospect.client ? 'Oui' : 'Non' }}</td>
+                <td>
+                    <a href="{{ path('prospect_edit', { id: prospect.id }) }}" class="btn btn-primary btn-sm">Modifier</a>
+                    {# <button type="button" class="btn btn-danger btn-sm delete-prospect" data-id="{{ prospect.id }}">
+                        Supprimer
+                    </button> #}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Afficher les liens de pagination -->
+    <div class="pagination-container">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const checkboxes = document.querySelectorAll('input[name="selected[]"]');
+    const selectAll = document.getElementById('select-all');
+    const deleteSelectedButton = document.getElementById('delete-selected');
+    const redirectToMailButton = document.getElementById('redirect-to-mail');
+
+    // Sélection globale
+    selectAll.addEventListener('change', function () {
+        checkboxes.forEach(checkbox => checkbox.checked = selectAll.checked);
+    });
+
+    // Réinitialiser les cases à cocher
+    function resetCheckboxes() {
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        selectAll.checked = false;
+    }
+
+    // Suppression multiple
+    deleteSelectedButton.addEventListener('click', function () {
+        const selectedIds = Array.from(checkboxes)
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => checkbox.dataset.id);
+
+        if (selectedIds.length === 0) {
+            alert('Veuillez sélectionner au moins un prospect.');
+            return;
+        }
+
+        if (!confirm('Voulez-vous vraiment supprimer les prospects sélectionnés ?')) {
+            return;
+        }
+
+        fetch('{{ path('admin_prospect_delete_multiple') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify({ ids: selectedIds })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.success);
+                location.reload();
+            } else {
+                alert(data.error || 'Une erreur est survenue.');
+            }
+            resetCheckboxes();
+        })
+        .catch(error => {
+            console.error('Erreur :', error);
+            alert('Une erreur est survenue.');
+            resetCheckboxes();
+        });
+    });
+
+    // Rediriger vers la page d'envoi d'e-mail avec les destinataires sélectionnés
+    redirectToMailButton.addEventListener('click', function () {
+        const selectedEmails = Array.from(checkboxes)
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => checkbox.value);
+
+        if (selectedEmails.length === 0) {
+            alert('Veuillez sélectionner au moins un prospect.');
+            return;
+        }
+
+        // Rediriger avec les e-mails sélectionnés comme paramètre dans l'URL
+        const recipients = encodeURIComponent(selectedEmails.join(','));
+        window.location.href = `{{ path('email_form') }}?recipients=${recipients}`;
+    });
+});
+</script>
 {% endblock %}

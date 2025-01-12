@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Prospect;
+use App\Form\ProspectType;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Mime\Email;
 use App\Repository\ProspectRepository;
@@ -14,10 +15,100 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 
 class ProspectController extends AbstractController
 {
     private LoggerInterface $logger;
+
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    #[Route('/prospects', name: 'admin_prospect_index2')]
+    public function pagination(
+        Request $request,
+        ProspectRepository $prospectRepository,
+        PaginatorInterface $paginator
+    ): Response {
+        // Créer une requête avec le QueryBuilder
+        $queryBuilder = $prospectRepository->createQueryBuilder('p');
+    
+        // Gérer la pagination
+        $pagination = $paginator->paginate(
+            $queryBuilder->getQuery(),
+            $request->query->getInt('page', 1), // Numéro de la page actuelle (par défaut 1)
+            8 // Nombre d'éléments par page
+        );
+    
+        // Rendre la vue avec la pagination
+        return $this->render('prospects/index.html.twig', [
+            'pagination' => $pagination, // Utilisez cette variable dans Twig
+        ]);
+    }
+
+    #[Route('/admin/prospects', name: 'admin_prospect_index', methods: ['GET'])]
+    public function index(): Response
+    {
+        $prospects = $this->entityManager->getRepository(Prospect::class)->findAll();
+
+        return $this->render('prospect/index.html.twig', [
+            'prospects' => $prospects,
+        ]);
+    }
+
+    #[Route('/admin/prospects/delete', name: 'admin_prospect_delete_individual', methods: ['DELETE'])]
+    public function deleteIndividualProspect(Request $request, ProspectRepository $prospectRepository): JsonResponse
+    {
+        $id = $request->query->get('id'); // Récupérer l'identifiant depuis la requête
+    
+        if (!$id) {
+            return new JsonResponse(['error' => 'ID manquant.'], 400);
+        }
+    
+        $prospect = $prospectRepository->find($id);
+    
+        if (!$prospect) {
+            return new JsonResponse(['error' => 'Prospect introuvable.'], 404);
+        }
+    
+        try {
+            $this->entityManager->remove($prospect);
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'Erreur lors de la suppression : ' . $e->getMessage()], 500);
+        }
+    
+        return new JsonResponse(['success' => 'Prospect supprimé avec succès.'], 200);
+    }
+    
+    #[Route('/admin/prospects/delete-multiple', name: 'admin_prospect_delete_multiple', methods: ['POST'])]
+    public function deleteMultiple(Request $request, ProspectRepository $prospectRepository): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $ids = $data['ids'] ?? [];
+
+        if (empty($ids)) {
+            return new JsonResponse(['error' => 'Aucun prospect sélectionné.'], 400);
+        }
+
+        $prospects = $prospectRepository->findBy(['id' => $ids]);
+
+        if (empty($prospects)) {
+            return new JsonResponse(['error' => 'Aucun prospect correspondant trouvé.'], 404);
+        }
+
+        foreach ($prospects as $prospect) {
+            $this->entityManager->remove($prospect);
+        }
+
+        $this->entityManager->flush();
+
+        return new JsonResponse(['success' => 'Les prospects sélectionnés ont été supprimés avec succès.']);
+    }
 
     #[Route('/api/contact', name: 'api_contact', methods: ['POST'])]
     public function handleContact(
@@ -100,8 +191,6 @@ class ProspectController extends AbstractController
     
         return new JsonResponse(['message' => 'Demande enregistrée et e-mails envoyés avec succès.'], 200);
     }
-    
-
 
     #[Route('/api/devis', name: 'api_devis', methods: ['POST'])]
     public function handleDevis(
@@ -353,75 +442,131 @@ class ProspectController extends AbstractController
         return new JsonResponse(['message' => 'Prospect supprimé avec succès.'], 200);
     }
 
-    #[Route('/api/prospects/delete', name: 'delete_multiple_prospects', methods: ['POST'])]
-    public function deleteMultiple(
+
+    #[Route('/prospect', name: 'prospect_index')]
+    public function prospectRedirect(): Response
+    {
+        return $this->redirectToRoute('prospect_index');
+    }
+    
+    #[Route('/prospect/new', name: 'prospect_new', methods: ['GET', 'POST'])]
+    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $prospect = new Prospect();
+        $form = $this->createForm(ProspectType::class, $prospect);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($prospect);
+            $entityManager->flush();
+    
+            $this->addFlash('success', 'Prospect créé avec succès.');
+    
+            return $this->redirectToRoute('admin_prospect_index'); 
+        }
+    
+        return $this->render('prospect/form.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+   
+    #[Route('/send-mail', name: 'send_mail', methods: ['POST'])]
+    public function sendMail(Request $request, MailerInterface $mailer): Response
+    {
+        $recipients = $request->request->get('recipients');
+        $subject = $request->request->get('subject');
+        $message = $request->request->get('message');
+
+        if (!$recipients || !$subject || !$message) {
+            $this->addFlash('error', 'Tous les champs sont obligatoires.');
+            return $this->redirectToRoute('prospects_list');
+        }
+
+        $emails = explode(',', $recipients);
+        foreach ($emails as $email) {
+            $emailMessage = (new Email())
+                ->from('your-email@example.com')
+                ->to($email)
+                ->subject($subject)
+                ->text($message);
+
+            $mailer->send($emailMessage);
+        }
+
+        $this->addFlash('success', 'Les e-mails ont été envoyés avec succès.');
+        return $this->redirectToRoute('prospects_list');
+    }
+
+    #[Route('/admin/prospects/delete', name: 'admin_prospect_delete', methods: ['POST'])]
+    public function deleteProspects(
         Request $request,
         ProspectRepository $prospectRepository,
         EntityManagerInterface $entityManager
     ): JsonResponse {
+        // Récupérer les IDs depuis la requête JSON
         $data = json_decode($request->getContent(), true);
         $ids = $data['ids'] ?? [];
 
         if (empty($ids)) {
-            return new JsonResponse(['error' => 'Aucun identifiant fourni pour la suppression.'], 400);
+            return new JsonResponse(['error' => 'Aucun prospect sélectionné.'], 400);
         }
 
-        // Récupérer les prospects correspondants
+        // Trouver les prospects correspondants
         $prospects = $prospectRepository->findBy(['id' => $ids]);
 
         if (empty($prospects)) {
-            return new JsonResponse(['error' => 'Aucun prospect trouvé pour ces identifiants.'], 404);
+            return new JsonResponse(['error' => 'Aucun prospect correspondant trouvé.'], 404);
         }
 
         // Supprimer les prospects
         foreach ($prospects as $prospect) {
             $entityManager->remove($prospect);
         }
-
         $entityManager->flush();
 
-        return new JsonResponse(['message' => 'Prospects supprimés avec succès.'], 200);
+        return new JsonResponse(['success' => 'Les prospects ont été supprimés avec succès.']);
     }
 
-    #[Route('/api/send-emails', name: 'send_emails', methods: ['POST'])]
-    public function sendEmails(Request $request, MailerInterface $mailer): JsonResponse
+    #[Route('/admin/prospects/send-emails', name: 'admin_prospects_send_emails', methods: ['POST'])]
+    public function sendEmails(Request $request, ProspectRepository $prospectRepository, MailerInterface $mailer): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-
+        $subject = $data['subject'] ?? null;
+        $message = $data['message'] ?? null;
         $recipients = $data['recipients'] ?? [];
-        $subject = $data['subject'] ?? '';
-        $body = $data['body'] ?? '';
-        $attachments = $data['attachments'] ?? [];
 
-        if (empty($recipients) || empty($subject) || empty($body)) {
-            return new JsonResponse(['error' => 'Données manquantes (recipients, subject, body).'], 400);
+        if (!$subject || !$message || empty($recipients)) {
+            return new JsonResponse(['error' => 'Veuillez fournir un objet, un message, et des destinataires valides.'], 400);
         }
 
-        try {
-            foreach ($recipients as $recipient) {
-                $email = (new Email())
-                    ->from('your-email@example.com')
-                    ->to($recipient)
-                    ->subject($subject)
-                    ->html($body);
+        $emails = $prospectRepository->findEmailsByIds($recipients);
 
-                foreach ($attachments as $attachment) {
-                    $email->attach(
-                        base64_decode($attachment['content']),
-                        $attachment['name'],
-                        $attachment['type']
-                    );
-                }
+        foreach ($emails as $email) {
+            $emailMessage = (new Email())
+                ->from('admin@example.com')
+                ->to($email['email'])
+                ->subject($subject)
+                ->text($message)
+                ->html('<p>' . nl2br($message) . '</p>');
 
-                $mailer->send($email);
-            }
-
-            return new JsonResponse(['message' => 'Emails envoyés avec succès.']);
-        } catch (\Exception $e) {
-            return new JsonResponse(['error' => 'Erreur lors de l\'envoi des emails: ' . $e->getMessage()], 500);
+            $mailer->send($emailMessage);
         }
+
+        return new JsonResponse(['success' => true]);
     }
 
+    #[Route('/admin/prospect/get-emails', name: 'admin_prospect_get_emails', methods: ['POST'])]
+    public function getEmails(Request $request, ProspectRepository $prospectRepository): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $ids = $data['ids'] ?? [];
 
+        if (empty($ids)) {
+            return new JsonResponse(['error' => 'Aucun ID fourni.'], 400);
+        }
 
+        $emails = $prospectRepository->findEmailsByIds($ids);
+
+        return new JsonResponse(['emails' => array_column($emails, 'email')]);
+    }
 }
