@@ -23,7 +23,7 @@ framework:
     session:
         enabled: true
         handler_id: ~  # Utilise le gestionnaire de session natif de PHP
-        cookie_secure: false  # Assurez-vous que c'est désactivé en développement si vous utilisez HTTP
+        cookie_secure: auto  # Assurez-vous que c'est désactivé en développement si vous utilisez HTTP
         cookie_samesite: lax  # Réduit les risques de CSRF lors des redirections
     csrf_protection:
         enabled: true
