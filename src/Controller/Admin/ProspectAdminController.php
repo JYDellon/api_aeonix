@@ -111,7 +111,7 @@ class ProspectAdminController extends AbstractController
         foreach ($recipients as $recipient) {
             try {
                 $email = (new Email())
-                    ->from('admin@example.com')
+                    ->from('jy.dellon@gmail.com')
                     ->to($recipient)
                     ->subject($subject)
                     ->html('<p>' . nl2br($message) . '</p>');
