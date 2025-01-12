@@ -32,6 +32,13 @@ RUN rm -rf var/cache/* && php bin/console cache:warmup --env=prod
 
 
 
+# Copier le fichier .env dans le conteneur
+COPY .env /app/.env
+
+# Exporter les variables d'environnement (optionnel pour Docker)
+ENV APP_USERNAME=JYD
+ENV APP_PASSWORD='$2y$13$S2sU5I4sR3APdFHn5l1xG.JYdy/Qw9NO1Hj/n2sb60rZhHfO.4lNe'
+
 
 
 
