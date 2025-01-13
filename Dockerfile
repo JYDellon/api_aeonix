@@ -25,3 +25,5 @@ EXPOSE 8000
 
 # Commande de démarrage
 CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
+
+RUN apt-get update && apt-get install -y libicu-dev && docker-php-ext-install intl

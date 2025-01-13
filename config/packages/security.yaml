@@ -1,3 +1,4 @@
+
 # security:
 #     providers:
 #         in_memory:
@@ -56,6 +57,12 @@
 
 
 
+
+
+
+
+
+
 security:
     providers:
         in_memory:
@@ -81,21 +88,18 @@ security:
         main:
             provider: in_memory
             form_login:
-                login_path: login
-                check_path: login
-                enable_csrf: true # Activer la protection CSRF pour le login
+                login_path: /login
+                check_path: /login
+                enable_csrf: true  # Corrected to enable_csrf instead of csrf_protection
                 default_target_path: /admin
             logout:
                 path: /logout
                 target: /login
-            remember_me:
-                secret: '%env(APP_SECRET)%' # Rendre persistante la session si besoin
-                lifetime: 3600
-                path: /
-                secure: false # Mettre `true` en production si HTTPS est activé
-
-    csrf_protection:
-        enabled: true # Activer la protection CSRF pour tout le projet
+            # remember_me:
+            #     secret: '%env(APP_SECRET)%'
+            #     lifetime: 3600
+            #     path: /
+            #     secure: true
 
     access_control:
         - { path: ^/api/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
