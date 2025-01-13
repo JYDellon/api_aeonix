@@ -8,7 +8,6 @@
     </div>
 {% endif %}
 
-
 <div class="login-page">
     <div class="login-container">
         <h1>Bienvenue</h1>
@@ -17,20 +16,28 @@
         <form method="post" action="{{ path('login') }}">
             <div class="input-group">
                 <label for="username">Identifiant :</label>
-                <input type="text" id="username" name="_username" placeholder="Votre identifiant" required>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="_username" 
+                    placeholder="Votre identifiant" 
+                    required
+                >
             </div>
             <div class="input-group">
                 <label for="password">Mot de passe :</label>
-                <input type="password" id="password" name="_password" placeholder="Votre mot de passe" required>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="_password" 
+                    placeholder="Votre mot de passe" 
+                    required
+                >
             </div>
+            {# Champ CSRF nécessaire pour valider le formulaire #}
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            
             <button type="submit" class="btn-login">Se connecter</button>
         </form>
-        {# <form method="post" action="{{ path('login') }}">
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-    <p>CSRF Token: {{ csrf_token('authenticate') }}</p>
-    <!-- Vos autres champs -->
-</form> #}
-
     </div>
 </div>

@@ -92,6 +92,7 @@ security:
                 check_path: /login
                 enable_csrf: true  # Corrected to enable_csrf instead of csrf_protection
                 default_target_path: /admin
+                csrf_token_generator: security.csrf.token_manager
             logout:
                 path: /logout
                 target: /login
