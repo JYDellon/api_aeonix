@@ -53,7 +53,6 @@
 
 
 
-
 # Utiliser PHP 8.2 comme base
 FROM php:8.2-fpm
 
@@ -70,21 +69,18 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Définir le répertoire de travail
 WORKDIR /app
 
-# Copier uniquement les fichiers nécessaires pour Composer en premier (cache Layer Docker)
-COPY composer.json composer.lock /app/
+# Copier le projet Symfony
+COPY . /app
+
+# Préparer le cache Symfony
+RUN mkdir -p var/cache var/log && chmod -R 777 var/cache var/log
 
 # Installer les dépendances Symfony
 RUN composer install --no-dev --optimize-autoloader
+RUN php bin/console cache:warmup --env=prod || true
 
-# Copier tout le projet dans le conteneur
-COPY . /app
-
-# Configurer les sessions PHP
+# Configurer PHP pour les sessions
 RUN echo "session.save_path = \"/tmp\"" > /usr/local/etc/php/conf.d/sessions.ini
-
-# Préparer le cache Symfony
-RUN mkdir -p var/cache && chmod -R 777 var/cache \
-    && php bin/console cache:warmup --env=prod
 
 # Exposer le port
 EXPOSE 8000
