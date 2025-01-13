@@ -25,5 +25,3 @@ EXPOSE 8000
 
 # Commande de démarrage
 CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
-RUN composer clear-cache
-RUN composer install --no-dev --optimize-autoloader --verbose
