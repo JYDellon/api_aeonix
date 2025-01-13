@@ -16,6 +16,7 @@ class HomeController
     #[Route('/', name: 'homepage')]
     public function index(): Response
     {
-        return $this->render('base.html.twig');
+        return new Response('<h1>Test Symfony fonctionne !</h1>');
+
     }
 }
