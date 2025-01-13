@@ -1,28 +1,22 @@
-# Utiliser PHP 8.2 comme base
-FROM php:8.2-fpm
+# Utiliser une version de PHP compatible
+FROM php:8.1-apache
 
-# Installer les extensions nécessaires
+# Installer les extensions PHP nécessaires
 RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    git \
-    unzip \
-    && docker-php-ext-install pdo pdo_pgsql pdo_mysql
+    libicu-dev libzip-dev zip unzip git \
+    && docker-php-ext-install intl pdo pdo_mysql opcache
 
 # Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Définir le répertoire de travail
+# Copier les fichiers de l'application
 WORKDIR /app
-
-# Copier le projet Symfony
 COPY . /app
-RUN composer require symfony/framework-bundle
 
 # Installer les dépendances Symfony
 RUN composer install --no-dev --optimize-autoloader
 
 # Exposer le port
-EXPOSE 8000
+EXPOSE 80
 
-# Commande de démarrage
-CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
+CMD ["apache2-foreground"]
