@@ -56,8 +56,6 @@
 
 
 
-
-
 security:
     providers:
         in_memory:
@@ -85,8 +83,7 @@ security:
             form_login:
                 login_path: login
                 check_path: login
-                csrf_token_generator: security.csrf.token_manager # Ajout pour CSRF
-                enable_csrf: true
+                enable_csrf: true # Activer la protection CSRF pour le login
                 default_target_path: /admin
             logout:
                 path: /logout
