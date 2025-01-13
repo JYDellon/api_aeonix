@@ -393,3 +393,9 @@ admin:
 
 app_logout:
     path: /logout
+
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+    methods: [GET, POST]
