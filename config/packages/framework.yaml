@@ -66,7 +66,7 @@ framework:
     session:
         enabled: true
         handler_id: null  # Utiliser le gestionnaire natif de PHP
-        cookie_secure: auto  # Gère automatiquement HTTP ou HTTPS
+        cookie_secure: true  # Gère automatiquement HTTP ou HTTPS
         cookie_samesite: lax  # Limite les risques de CSRF
 
     # Protection CSRF activée
