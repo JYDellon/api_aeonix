@@ -16,6 +16,7 @@ WORKDIR /app
 
 # Copier le projet Symfony
 COPY . /app
+RUN composer require symfony/framework-bundle
 
 # Installer les dépendances Symfony
 RUN composer install --no-dev --optimize-autoloader
