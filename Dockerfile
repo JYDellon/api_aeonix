@@ -126,12 +126,13 @@ RUN apk add --no-cache \
     libzip-dev \
     libpng-dev \
     libjpeg-turbo-dev \
-    libfreetype6-dev \
-    libonig-dev \
+    freetype-dev \
+    oniguruma-dev \
     icu-dev \
     mysql-client \
     nodejs \
     npm \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_mysql intl zip gd opcache
 
 # Étape 3 : Installation de Composer
