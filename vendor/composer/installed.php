@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'ee33ef887de2a64e8f2eba8c3fc6134b6036b310',
+        'reference' => '436b58faee9726d1117e802d570d5bf860df2372',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'ee33ef887de2a64e8f2eba8c3fc6134b6036b310',
+            'reference' => '436b58faee9726d1117e802d570d5bf860df2372',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -844,6 +844,15 @@
             'install_path' => __DIR__ . '/../sebastian/version',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'snc/redis-bundle' => array(
+            'pretty_version' => '4.8.0',
+            'version' => '4.8.0.0',
+            'reference' => '1577b80bda8b488c45ebe14fdb72e42273c3aa8b',
+            'type' => 'symfony-bundle',
+            'install_path' => __DIR__ . '/../snc/redis-bundle',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'spatie/once' => array(
             'dev_requirement' => true,

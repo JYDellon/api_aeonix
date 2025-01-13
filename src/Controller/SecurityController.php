@@ -16,22 +16,46 @@ class SecurityController extends AbstractController
         return $this->redirectToRoute('login');
     }
 
+    // #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
+    // public function login(AuthenticationUtils $authenticationUtils): Response
+    // {
+    //     // Récupérer l'erreur d'authentification s'il y en a
+    //     $error = $authenticationUtils->getLastAuthenticationError();
+
+    //     // Dernier nom d'utilisateur saisi
+    //     $lastUsername = $authenticationUtils->getLastUsername();
+
+    //     // Rendu de la page de connexion
+    //     return $this->render('security/login.html.twig', [
+    //         'last_username' => $lastUsername,
+    //         'error' => $error,
+    //     ]);
+    // }
+
+
     #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // Récupérer l'erreur d'authentification s'il y en a
+        // Vérifiez l'erreur d'authentification
         $error = $authenticationUtils->getLastAuthenticationError();
-
+    
         // Dernier nom d'utilisateur saisi
         $lastUsername = $authenticationUtils->getLastUsername();
-
-        // Rendu de la page de connexion
+    
+        if ($this->isGranted('ROLE_USER')) {
+            // Redirigez après une authentification réussie
+            return $this->redirectToRoute('homepage');
+        }
+    
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
     }
+    
 
+
+    
     #[Route('/admin', name: 'admin', methods: ['GET'])]
     public function admin(): Response
     {

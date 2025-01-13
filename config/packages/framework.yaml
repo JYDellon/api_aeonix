@@ -55,6 +55,43 @@
 
 
 
+# framework:
+#     annotations: false
+#     secret: '%env(KERNEL_SECRET)%'
+#     router:
+#         resource: '%kernel.project_dir%/config/routes.yaml'
+#         type: yaml
+
+#     # Activer les sessions pour gérer les jetons CSRF
+#     session:
+#         enabled: true
+#         handler_id: null  # Utiliser le gestionnaire natif de PHP
+#         cookie_secure: true  # Gère automatiquement HTTP ou HTTPS
+#         cookie_samesite: lax  # Limite les risques de CSRF
+
+#     # Protection CSRF activée
+#     csrf_protection:
+#         enabled: true
+
+#     messenger:
+#         transports:
+#             async: '%env(MESSENGER_TRANSPORT_DSN)%'
+#         routing:
+#             'App\Message\SendEmailMessage': async
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 framework:
     annotations: false
     secret: '%env(KERNEL_SECRET)%'
@@ -62,12 +99,13 @@ framework:
         resource: '%kernel.project_dir%/config/routes.yaml'
         type: yaml
 
-    # Activer les sessions pour gérer les jetons CSRF
+    # Configuration des sessions pour Redis
     session:
         enabled: true
-        handler_id: null  # Utiliser le gestionnaire natif de PHP
-        cookie_secure: true  # Gère automatiquement HTTP ou HTTPS
-        cookie_samesite: lax  # Limite les risques de CSRF
+        handler_id: 'snc_redis.session.handler'
+        cookie_secure: true
+        cookie_samesite: lax
+        save_path: '%env(REDIS_URL)%'
 
     # Protection CSRF activée
     csrf_protection:
