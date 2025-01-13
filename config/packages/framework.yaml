@@ -55,60 +55,26 @@
 
 
 
-# framework:
-#     annotations: false
-#     secret: '%env(KERNEL_SECRET)%'
-#     router:
-#         resource: '%kernel.project_dir%/config/routes.yaml'
-#         type: yaml
-
-#     # Activer les sessions pour gérer les jetons CSRF
-#     session:
-#         enabled: true
-#         handler_id: null  # Utiliser le gestionnaire natif de PHP
-#         cookie_secure: auto  # Gère automatiquement HTTP ou HTTPS
-#         cookie_samesite: lax  # Limite les risques de CSRF
-
-#     # Protection CSRF activée
-#     csrf_protection:
-#         enabled: true
-
-#     messenger:
-#         transports:
-#             async: '%env(MESSENGER_TRANSPORT_DSN)%'
-#         routing:
-#             'App\Message\SendEmailMessage': async
-
-
-
-
-
-
-
-
-
-
-
 framework:
+    annotations: false
     secret: '%env(KERNEL_SECRET)%'
-
     router:
         resource: '%kernel.project_dir%/config/routes.yaml'
         type: yaml
 
+    # Activer les sessions pour gérer les jetons CSRF
     session:
         enabled: true
-        handler_id: null
-        cookie_secure: true
-        cookie_samesite: lax
+        handler_id: null  # Utiliser le gestionnaire natif de PHP
+        cookie_secure: auto  # Gère automatiquement HTTP ou HTTPS
+        cookie_samesite: lax  # Limite les risques de CSRF
 
+    # Protection CSRF activée
     csrf_protection:
         enabled: true
 
-    trusted_proxies: ['127.0.0.1', '::1', '%env(TRUSTED_PROXIES)%']
-    trusted_headers: 
-        - X_FORWARDED_FOR
-        - X_FORWARDED_HOST
-        - X_FORWARDED_PROTO
-        - X_FORWARDED_PORT
-        - X_FORWARDED_PREFIX
+    messenger:
+        transports:
+            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+        routing:
+            'App\Message\SendEmailMessage': async
