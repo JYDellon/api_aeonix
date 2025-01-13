@@ -45,6 +45,20 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Utiliser PHP 8.2 comme base
 FROM php:8.2-fpm
 
@@ -61,21 +75,17 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Définir le répertoire de travail
 WORKDIR /app
 
-# Copier uniquement les fichiers essentiels pour Composer
-COPY composer.json composer.lock /app/
+# Copier le projet Symfony
+COPY . /app
 
 # Installer les dépendances Symfony
 RUN composer install --no-dev --optimize-autoloader
 
-# Copier le reste du projet
-COPY . /app
-
 # Préparer le cache Symfony
-RUN chmod -R 777 var/cache \
-    && rm -rf var/cache/* \
+RUN mkdir -p var/cache && chmod -R 777 var/cache \
     && php bin/console cache:warmup --env=prod
 
-# Configurer le chemin de sauvegarde des sessions PHP
+# Configurer les sessions PHP
 RUN echo "session.save_path = \"/tmp\"" > /usr/local/etc/php/conf.d/sessions.ini
 
 # Exposer le port
