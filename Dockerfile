@@ -294,3 +294,4 @@ EXPOSE 80
 
 # Étape 11 : Commande de démarrage
 CMD ["nginx", "-g", "daemon off;"]
+RUN apk add --no-cache nginx

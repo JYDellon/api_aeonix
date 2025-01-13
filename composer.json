@@ -27,7 +27,7 @@
         "symfony/expression-language": "7.2.*",
         "symfony/flex": "^2.4.7",
         "symfony/form": "7.2.*",
-        "symfony/framework-bundle": "7.2",
+        "symfony/framework-bundle": "7.2.*",
         "symfony/http-client": "7.2.*",
         "symfony/intl": "7.2.*",
         "symfony/mailer": "7.2.*",
@@ -102,5 +102,9 @@
         "symfony/phpunit-bridge": "^7.2",
         "symfony/stopwatch": "7.2.*",
         "symfony/web-profiler-bundle": "7.2.*"
-    }
+    },
+    "scripts": {
+    "serve": "php -S 0.0.0.0:8000 -t public"
+}
+
 }

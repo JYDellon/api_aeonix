@@ -3,6 +3,6 @@
     "dockerfilePath": "./Dockerfile"
   },
   "deploy": {
-    "startCommand": "php-fpm"
+    "startCommand": "composer serve"
   }
 }

@@ -393,3 +393,9 @@ admin:
 
 app_logout:
     path: /logout
+
+
+
+index:
+    path: /
+    controller: App\Controller\HomeController::index
