@@ -16,21 +16,21 @@ class SecurityController extends AbstractController
         return $this->redirectToRoute('login');
     }
 
-    #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
-    public function login(AuthenticationUtils $authenticationUtils): Response
-    {
-        // Récupérer l'erreur d'authentification s'il y en a
-        $error = $authenticationUtils->getLastAuthenticationError();
+    // #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
+    // public function login(AuthenticationUtils $authenticationUtils): Response
+    // {
+    //     // Récupérer l'erreur d'authentification s'il y en a
+    //     $error = $authenticationUtils->getLastAuthenticationError();
 
-        // Dernier nom d'utilisateur saisi
-        $lastUsername = $authenticationUtils->getLastUsername();
+    //     // Dernier nom d'utilisateur saisi
+    //     $lastUsername = $authenticationUtils->getLastUsername();
 
-        // Rendu de la page de connexion
-        return $this->render('security/login.html.twig', [
-            'last_username' => $lastUsername,
-            'error' => $error,
-        ]);
-    }
+    //     // Rendu de la page de connexion
+    //     return $this->render('security/login.html.twig', [
+    //         'last_username' => $lastUsername,
+    //         'error' => $error,
+    //     ]);
+    // }
 
     #[Route('/admin', name: 'admin', methods: ['GET'])]
     public function admin(): Response
@@ -41,7 +41,22 @@ class SecurityController extends AbstractController
         return $this->render('admin/index.html.twig');
     }
 
-
+    #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+    
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('admin');
+        }
+    
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+        ]);
+    }
+    
 
 
 
