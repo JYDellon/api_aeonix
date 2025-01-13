@@ -3,7 +3,7 @@
         'name' => 'votre-organisation/aeonix-backend',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '3cfcb0097501e7b8196615528e76cdac9e0d5c0f',
+        'reference' => '585797f2edce339229067c6e989d3450f7e425ce',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -1115,7 +1115,7 @@
         'votre-organisation/aeonix-backend' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '3cfcb0097501e7b8196615528e76cdac9e0d5c0f',
+            'reference' => '585797f2edce339229067c6e989d3450f7e425ce',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
