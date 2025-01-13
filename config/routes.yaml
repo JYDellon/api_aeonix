@@ -42,30 +42,6 @@ api_devis:
     controller: App\Controller\ProspectController::handleDevis
     methods: POST
 
-# api_prospects_list:
-#     path: /api/prospects
-#     controller: App\Controller\ProspectController::listProspects
-#     methods: GET
-
-# api_prospects_create:
-#     path: /api/prospects
-#     controller: App\Controller\ProspectController::createProspect
-#     methods: POST
-
-# api_prospect_update:
-#     path: /api/prospect/{id}
-#     controller: App\Controller\ProspectController::updateProspect
-#     methods: PUT
-
-# api_prospect_delete:
-#     path: /api/prospect/{id}
-#     controller: App\Controller\ProspectController::deleteProspect
-#     methods: DELETE
-
-# api_prospects_bulk_delete:
-#     path: /api/prospects/delete
-#     controller: App\Controller\ProspectController::deleteMultipleProspects
-#     methods: POST
 
 # Routes pour la gestion des visites
 api_visits:
@@ -123,45 +99,6 @@ send_emails:
     controller: App\Controller\ProspectController::sendEmails
     methods: [POST]
 
-
-
-
-
-
-
-
-
-# Route pour créer un prospect (GET et POST)
-# admin_prospect_new:
-#     path: /admin/prospects/new
-#     controller: App\Controller\Admin\ProspectAdminController::new
-#     methods: [GET, POST]
-
-# Route pour afficher un prospect spécifique
-# admin_prospect_show:
-#     path: /admin/prospects/{id}
-#     controller: App\Controller\Admin\ProspectAdminController::show
-#     methods: [GET]
-
-# Route pour modifier un prospect (GET et POST)
-# admin_prospect_edit:
-#     path: /admin/prospects/{id}/edit
-#     controller: App\Controller\Admin\ProspectAdminController::edit
-#     methods: [GET, POST]
-
-# Route pour supprimer un prospect (POST uniquement)
-# admin_prospect_delete:
-#     path: /admin/prospects/{id}
-#     controller: App\Controller\Admin\ProspectAdminController::delete
-#     methods: [POST]
-
-
-
-# admin_prospect_index:
-#     path: /admin/prospects/
-#     controller: App\Controller\Admin\ProspectAdminController::index
-#     methods: [GET]
-
 admin_prospects_post:
     path: /admin/prospects/send-mails
     controller: App\Controller\Admin\ProspectAdminController::handleProspects
@@ -177,30 +114,6 @@ send_prospect_mails:
     path: /admin/prospects/send-mails
     controller: App\Controller\YourControllerName::sendMails
     methods: [POST]
-
-
-
-# admin_prospect_index2:
-#     path: /
-#     controller: App\Controller\Admin\ProspectAdminController::index2
-#     methods: ['GET']
-
-
-
-# api_prospects_bulk_delete:
-#     path: /api/prospects/delete
-#     controller: App\Controller\ProspectController::deleteMultipleProspects
-#     methods: [POST]
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -225,32 +138,6 @@ api_prospect_delete:
     methods: [DELETE]
 
 
-
-
-
-
-
-# admin_prospect_delete_multiple:
-#     path: /admin/prospects/delete-multiple
-#     controller: App\Controller\Admin\ProspectAdminController::deleteMultiple
-#     methods: [POST]
-
-# admin_prospects_send_emails:
-#     path: /admin/prospects/send-emails
-#     controller: App\Controller\Admin\ProspectAdminController::sendEmails
-#     methods: [POST]
-
-# admin_prospect_get_emails:
-#     path: /admin/prospects/get-emails
-#     controller: App\Controller\ProspectController::getEmails
-#     methods: POST
-
-# admin_prospect_delete_multiple:
-#     path: /admin/prospects/delete
-#     controller: App\Controller\ProspectController::deleteProspects
-#     methods: [POST]
-
-
 admin_prospect_delete:
     path: /admin/prospects/delete
     controller: App\Controller\Admin\ProspectAdminController::deleteProspects
@@ -269,44 +156,6 @@ install_hook_map:
     defaults:
         content: ''
         status: 204
-
-
-
-
-
-# config/routes.yaml
-
-# admin_prospect_index:
-#     path: /admin/prospects/
-#     controller: App\Controller\Admin\ProspectAdminController::index
-#     methods: [GET]
-
-# admin_prospect_new:
-#     path: /admin/prospects/new
-#     controller: App\Controller\Admin\ProspectAdminController::new
-#     methods: [GET, POST]
-
-# admin_prospect_delete_multiple:
-#     path: /admin/prospects/delete-multiple
-#     controller: App\Controller\Admin\ProspectAdminController::deleteMultiple
-#     methods: [POST]
-
-# admin_prospect_get_emails:
-#     path: /admin/prospects/get-emails
-#     controller: App\Controller\Admin\ProspectAdminController::getEmails
-#     methods: [POST]
-
-# admin_prospects_send_emails:
-#     path: /admin/prospects/send-emails
-#     controller: App\Controller\Admin\ProspectAdminController::sendEmails
-#     methods: [POST]
-
-# admin_prospect_get_emails:
-#     path: /admin/prospects/get-emails
-#     controller: App\Controller\Admin\ProspectAdminController::getEmails
-#     methods: [POST]
-
-
 
 # Routes pour les prospects
 admin_prospect_index:
@@ -398,4 +247,3 @@ app_logout:
 login:
     path: /login
     controller: App\Controller\SecurityController::login
-    methods: [GET, POST]
