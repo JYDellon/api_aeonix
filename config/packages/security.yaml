@@ -1,3 +1,63 @@
+# security:
+#     providers:
+#         in_memory:
+#             memory:
+#                 users:
+#                     JYD:
+#                         password: '$2y$13$S2sU5I4sR3APdFHn5l1xG.JYdy/Qw9NO1Hj/n2sb60rZhHfO.4lNe'
+#                         roles: ['ROLE_ADMIN']
+
+#     password_hashers:
+#         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: auto
+
+#     firewalls:
+#         dev:
+#             pattern: ^/(_(profiler|wdt)|css|images|js)/
+#             security: false
+
+#         api:
+#             pattern: ^/api/
+#             stateless: true
+#             security: false
+
+#         main:
+#             provider: in_memory
+#             form_login:
+#                 login_path: login
+#                 check_path: login
+#                 enable_csrf: true
+#                 default_target_path: /admin
+#             logout:
+#                 path: /logout
+#                 target: /login
+#             # remember_me:
+#             #     secret: '%env(APP_SECRET)%'
+#             #     lifetime: 3600
+#             #     path: /
+#             #     secure: true
+
+#     access_control:
+#         - { path: ^/api/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#         - { path: ^/logout$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#         - { path: ^/admin, roles: ROLE_ADMIN }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 security:
     providers:
         in_memory:
@@ -25,16 +85,20 @@ security:
             form_login:
                 login_path: login
                 check_path: login
+                csrf_token_generator: security.csrf.token_manager # Ajout pour CSRF
                 enable_csrf: true
                 default_target_path: /admin
             logout:
                 path: /logout
                 target: /login
-            # remember_me:
-            #     secret: '%env(APP_SECRET)%'
-            #     lifetime: 3600
-            #     path: /
-            #     secure: true
+            remember_me:
+                secret: '%env(APP_SECRET)%' # Rendre persistante la session si besoin
+                lifetime: 3600
+                path: /
+                secure: false # Mettre `true` en production si HTTPS est activé
+
+    csrf_protection:
+        enabled: true # Activer la protection CSRF pour tout le projet
 
     access_control:
         - { path: ^/api/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
