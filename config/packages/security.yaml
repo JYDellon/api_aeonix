@@ -59,10 +59,6 @@
 
 
 
-
-
-
-
 security:
     providers:
         in_memory:
@@ -86,21 +82,16 @@ security:
             security: false
 
         main:
+            stateless: false
             provider: in_memory
             form_login:
                 login_path: /login
                 check_path: /login
-                enable_csrf: true  # Corrected to enable_csrf instead of csrf_protection
+                enable_csrf: true  # Active la protection CSRF
                 default_target_path: /admin
-                csrf_token_generator: security.csrf.token_manager
             logout:
                 path: /logout
                 target: /login
-            # remember_me:
-            #     secret: '%env(APP_SECRET)%'
-            #     lifetime: 3600
-            #     path: /
-            #     secure: true
 
     access_control:
         - { path: ^/api/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
