@@ -14,7 +14,7 @@
         <h1>Bienvenue</h1>
         <p>Connectez-vous pour accéder à votre espace personnel</p>
         
-        {# <form method="post" action="{{ path('login') }}">
+        <form method="post" action="{{ path('login') }}">
             <div class="input-group">
                 <label for="username">Identifiant :</label>
                 <input type="text" id="username" name="_username" placeholder="Votre identifiant" required>
@@ -25,12 +25,12 @@
             </div>
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <button type="submit" class="btn-login">Se connecter</button>
-        </form> #}
-        <form method="post" action="{{ path('login') }}">
+        </form>
+        {# <form method="post" action="{{ path('login') }}">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
     <p>CSRF Token: {{ csrf_token('authenticate') }}</p>
     <!-- Vos autres champs -->
-</form>
+</form> #}
 
     </div>
 </div>
