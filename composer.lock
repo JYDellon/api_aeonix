@@ -2763,7 +2763,7 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Manages URL generation and versioning of web assets such as css stylesheets, JavaScript files and image files",
+            "description": "Manages URL generation and versioning of web assets such as CSS stylesheets, JavaScript files and image files",
             "homepage": "https://symfony.com",
             "support": {
                 "source": "https://github.com/symfony/asset/tree/v7.2.0"
@@ -10200,7 +10200,7 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Converts css selectors to XPath expressions",
+            "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
             "support": {
                 "source": "https://github.com/symfony/css-selector/tree/v7.2.0"
