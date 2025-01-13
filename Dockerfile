@@ -7,7 +7,15 @@ RUN apt-get update && apt-get install -y \
     git \
     unzip \
     && docker-php-ext-install pdo pdo_pgsql pdo_mysql
+    FROM php:8.2-fpm
 
+    # Installer les extensions nécessaires
+RUN apt-get update && apt-get install -y \
+    libicu-dev \
+    libxml2-dev \
+    libonig-dev \
+    && docker-php-ext-install intl xml mbstring pdo pdo_mysql
+    
 # Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
