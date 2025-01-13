@@ -28,9 +28,3 @@ services:
     App\Controller\SecurityController:
         tags: ['controller.service_arguments']
 
-
-    snc_redis.session.handler:
-        class: Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler
-        arguments:
-            - '@snc_redis.default' # Connexion Redis
-            - 3600                 # TTL en secondes (par exemple, 1 heure)

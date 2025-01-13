@@ -16,46 +16,22 @@ class SecurityController extends AbstractController
         return $this->redirectToRoute('login');
     }
 
-    // #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
-    // public function login(AuthenticationUtils $authenticationUtils): Response
-    // {
-    //     // Récupérer l'erreur d'authentification s'il y en a
-    //     $error = $authenticationUtils->getLastAuthenticationError();
-
-    //     // Dernier nom d'utilisateur saisi
-    //     $lastUsername = $authenticationUtils->getLastUsername();
-
-    //     // Rendu de la page de connexion
-    //     return $this->render('security/login.html.twig', [
-    //         'last_username' => $lastUsername,
-    //         'error' => $error,
-    //     ]);
-    // }
-
-
     #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // Vérifiez l'erreur d'authentification
+        // Récupérer l'erreur d'authentification s'il y en a
         $error = $authenticationUtils->getLastAuthenticationError();
-    
+
         // Dernier nom d'utilisateur saisi
         $lastUsername = $authenticationUtils->getLastUsername();
-    
-        if ($this->isGranted('ROLE_USER')) {
-            // Redirigez après une authentification réussie
-            return $this->redirectToRoute('homepage');
-        }
-    
+
+        // Rendu de la page de connexion
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
     }
-    
 
-
-    
     #[Route('/admin', name: 'admin', methods: ['GET'])]
     public function admin(): Response
     {
@@ -64,45 +40,4 @@ class SecurityController extends AbstractController
 
         return $this->render('admin/index.html.twig');
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    #[Route('/check-auth', name: 'check_auth')]
-public function checkAuth(): Response
-{
-    if ($this->isGranted('ROLE_ADMIN')) {
-        return new Response('Authentifié avec succès !');
-    }
-
-    return new Response('Non authentifié.');
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

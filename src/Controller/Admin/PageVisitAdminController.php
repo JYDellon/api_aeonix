@@ -59,6 +59,13 @@ class PageVisitAdminController extends AbstractController
         ]);
     }
 
+    // #[Route('/{id}', name: 'show', methods: ['GET'])]
+    // public function show(PageVisit $pageVisit): Response
+    // {
+    //     return $this->render('admin/page_visit/show.html.twig', [
+    //         'pageVisit' => $pageVisit,
+    //     ]);
+    // }
 
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, PageVisit $pageVisit): Response

@@ -28,6 +28,27 @@ class ProspectController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
+
+    
+    
+
+    // #[Route('/admin/prospects', name: 'admin_prospect_index2', methods: ['GET'])]
+    // public function pagination(Request $request, PaginatorInterface $paginator): Response
+    // {
+    //     $queryBuilder = $this->entityManager->getRepository(Prospect::class)->createQueryBuilder('p');
+    
+    //     $prospects = $paginator->paginate(
+    //         $queryBuilder, /* QueryBuilder ou tableau */
+    //         $request->query->getInt('page', 1), /* Numéro de la page */
+    //         8 /* Nombre d'éléments par page */
+    //     );
+    
+    //     return $this->render('prospect/index.html.twig', [
+    //         'prospects' => $prospects,
+    //     ]);
+    // }
+    
+
     #[Route('/prospects', name: 'admin_prospect_index2')]
     public function pagination(
         Request $request,
@@ -49,6 +70,8 @@ class ProspectController extends AbstractController
             'pagination' => $pagination, // Utilisez cette variable dans Twig
         ]);
     }
+    
+    
 
     #[Route('/admin/prospects', name: 'admin_prospect_index', methods: ['GET'])]
     public function index(): Response
@@ -59,6 +82,7 @@ class ProspectController extends AbstractController
             'prospects' => $prospects,
         ]);
     }
+
 
     #[Route('/admin/prospects/delete', name: 'admin_prospect_delete_individual', methods: ['DELETE'])]
     public function deleteIndividualProspect(Request $request, ProspectRepository $prospectRepository): JsonResponse
@@ -85,6 +109,8 @@ class ProspectController extends AbstractController
         return new JsonResponse(['success' => 'Prospect supprimé avec succès.'], 200);
     }
     
+    
+    
     #[Route('/admin/prospects/delete-multiple', name: 'admin_prospect_delete_multiple', methods: ['POST'])]
     public function deleteMultiple(Request $request, ProspectRepository $prospectRepository): JsonResponse
     {
@@ -110,6 +136,7 @@ class ProspectController extends AbstractController
         return new JsonResponse(['success' => 'Les prospects sélectionnés ont été supprimés avec succès.']);
     }
 
+    
     #[Route('/api/contact', name: 'api_contact', methods: ['POST'])]
     public function handleContact(
         Request $request,
@@ -191,6 +218,8 @@ class ProspectController extends AbstractController
     
         return new JsonResponse(['message' => 'Demande enregistrée et e-mails envoyés avec succès.'], 200);
     }
+    
+
 
     #[Route('/api/devis', name: 'api_devis', methods: ['POST'])]
     public function handleDevis(
@@ -449,6 +478,12 @@ class ProspectController extends AbstractController
         return $this->redirectToRoute('prospect_index');
     }
     
+    
+
+    
+    
+    
+    
     #[Route('/prospect/new', name: 'prospect_new', methods: ['GET', 'POST'])]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -469,8 +504,42 @@ class ProspectController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-   
-    #[Route('/send-mail', name: 'send_mail', methods: ['POST'])]
+    
+
+
+
+
+
+// #[Route('/prospect/{id}/edit', name: 'prospect_edit', methods: ['GET', 'POST'])]
+// public function edit(Prospect $prospect, Request $request, EntityManagerInterface $entityManager): Response
+// {
+//     $form = $this->createForm(ProspectType::class, $prospect);
+//     $form->handleRequest($request);
+
+//     if ($form->isSubmitted() && $form->isValid()) {
+//         $entityManager->flush();
+
+//         return $this->redirectToRoute('admin_prospect_index'); 
+//     }
+
+//     return $this->render('prospect/form.html.twig', [
+//         'form' => $form->createView(),
+//         'prospect' => $prospect,
+//     ]);
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+#[Route('/send-mail', name: 'send_mail', methods: ['POST'])]
     public function sendMail(Request $request, MailerInterface $mailer): Response
     {
         $recipients = $request->request->get('recipients');
@@ -496,6 +565,19 @@ class ProspectController extends AbstractController
         $this->addFlash('success', 'Les e-mails ont été envoyés avec succès.');
         return $this->redirectToRoute('prospects_list');
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     #[Route('/admin/prospects/delete', name: 'admin_prospect_delete', methods: ['POST'])]
     public function deleteProspects(
@@ -527,6 +609,10 @@ class ProspectController extends AbstractController
         return new JsonResponse(['success' => 'Les prospects ont été supprimés avec succès.']);
     }
 
+
+
+
+
     #[Route('/admin/prospects/send-emails', name: 'admin_prospects_send_emails', methods: ['POST'])]
     public function sendEmails(Request $request, ProspectRepository $prospectRepository, MailerInterface $mailer): JsonResponse
     {
@@ -555,6 +641,9 @@ class ProspectController extends AbstractController
         return new JsonResponse(['success' => true]);
     }
 
+
+    
+
     #[Route('/admin/prospect/get-emails', name: 'admin_prospect_get_emails', methods: ['POST'])]
     public function getEmails(Request $request, ProspectRepository $prospectRepository): JsonResponse
     {
@@ -569,4 +658,16 @@ class ProspectController extends AbstractController
 
         return new JsonResponse(['emails' => array_column($emails, 'email')]);
     }
+
+    
+
+    
+
+
+
+
+
+
+
+    
 }

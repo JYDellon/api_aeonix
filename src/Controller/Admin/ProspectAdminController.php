@@ -25,6 +25,13 @@ class ProspectAdminController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
+
+
+
+
+
+
+
     #[Route('/admin/prospects', name: 'admin_prospect_index2', methods: ['GET'])]
     public function pagination(Request $request, PaginatorInterface $paginator): Response
     {
@@ -38,9 +45,36 @@ class ProspectAdminController extends AbstractController
 
         return $this->render('prospect/index.html.twig', [
             'pagination' => $pagination, // Vérifiez que c'est bien "pagination"
-        ]);    
+        ]);
+        
         
     }
+
+
+
+
+
+
+
+
+
+
+    
+    // #[Route('/', name: 'admin_prospect_index', methods: ['GET'])]
+    // public function index(): Response
+    // {
+    //     $prospects = $this->entityManager->getRepository(Prospect::class)->findAll();
+
+    //     return $this->render('prospect/index.html.twig', [
+    //         'prospects' => $prospects,
+    //     ]);
+    // }
+
+
+
+
+
+
 
     #[Route('/', name: 'admin_prospect_index', methods: ['GET'])]
     public function index(Request $request, PaginatorInterface $paginator): Response
@@ -111,7 +145,7 @@ class ProspectAdminController extends AbstractController
         foreach ($recipients as $recipient) {
             try {
                 $email = (new Email())
-                    ->from('jy.dellon@gmail.com')
+                    ->from('admin@example.com')
                     ->to($recipient)
                     ->subject($subject)
                     ->html('<p>' . nl2br($message) . '</p>');
@@ -148,24 +182,47 @@ class ProspectAdminController extends AbstractController
     }
     
     
-    #[Route('/prospect/{id}/edit', name: 'prospect_edit', methods: ['GET', 'POST'])]
-    public function edit(Prospect $prospect, Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(ProspectType::class, $prospect);
-        $form->handleRequest($request);
+#[Route('/prospect/{id}/edit', name: 'prospect_edit', methods: ['GET', 'POST'])]
+public function edit(Prospect $prospect, Request $request, EntityManagerInterface $entityManager): Response
+{
+    $form = $this->createForm(ProspectType::class, $prospect);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->flush();
 
-            $this->addFlash('success', 'Prospect modifié avec succès.');
+        $this->addFlash('success', 'Prospect modifié avec succès.');
 
-            return $this->redirectToRoute('admin_prospect_index'); 
-        }
-
-        return $this->render('prospect/edit.html.twig', [
-            'form' => $form->createView(),
-            'prospect' => $prospect,
-        ]);
+        return $this->redirectToRoute('admin_prospect_index'); 
     }
-   
+
+    return $this->render('prospect/edit.html.twig', [
+        'form' => $form->createView(),
+        'prospect' => $prospect,
+    ]);
+}
+
+    
+//     #[Route('/{id}/edit', name: 'admin_prospect_edit', methods: ['GET', 'POST'])]
+// public function edit(Request $request, Prospect $prospect): Response
+// {
+//     $form = $this->createForm(ProspectType::class, $prospect);
+//     $form->handleRequest($request);
+
+//     if ($form->isSubmitted() && $form->isValid()) {
+//         $this->entityManager->flush();
+
+//         $this->addFlash('success', 'Prospect modifié avec succès.');
+//         return $this->redirectToRoute('admin_prospect_index');
+//     }
+
+//     return $this->render('admin/prospect/form.html.twig', [
+//         'form' => $form->createView(),
+//         'prospect' => $prospect,
+//     ]);
+// }
+
+    
+    
+    
 }

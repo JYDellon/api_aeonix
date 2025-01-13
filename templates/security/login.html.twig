@@ -1,5 +1,5 @@
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('CSS/login.css') }}">
 {% endblock %}
 
 <div class="login-page">
@@ -19,8 +19,5 @@
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <button type="submit" class="btn-login">Se connecter</button>
         </form>
-
-</form>
-
     </div>
 </div>

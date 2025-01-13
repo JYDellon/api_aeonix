@@ -14,105 +14,26 @@
  
 
 
-# framework:
-#     annotations: false
-#     secret: '%env(KERNEL_SECRET)%'
-#     router:
-#         resource: '%kernel.project_dir%/config/routes.yaml'
-#         type: yaml
-#     # session:
-#     #     enabled: true
-#     #     handler_id: ~  # Utilise le gestionnaire de session natif de PHP
-#     #     cookie_secure: false  # Assurez-vous que c'est désactivé en développement si vous utilisez HTTP
-#     #     cookie_samesite: lax  # Réduit les risques de CSRF lors des redirections
-#     # csrf_protection:
-#     #     enabled: true
-#     session:
-#         enabled: true
-#         handler_id: null  # Utiliser le gestionnaire de session natif de PHP
-#         cookie_secure: auto  # Devrait être "auto" pour gérer HTTP/HTTPS automatiquement
-#         cookie_samesite: lax
-#     csrf_protection:
-#         enabled: true
-
-#         # config/packages/messenger.yaml
-#     messenger:
-#         transports:
-#             async: '%env(MESSENGER_TRANSPORT_DSN)%'
-#         routing:
-#             'App\Message\SendEmailMessage': async
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# framework:
-#     annotations: false
-#     secret: '%env(KERNEL_SECRET)%'
-#     router:
-#         resource: '%kernel.project_dir%/config/routes.yaml'
-#         type: yaml
-
-#     # Activer les sessions pour gérer les jetons CSRF
-#     session:
-#         enabled: true
-#         handler_id: null  # Utiliser le gestionnaire natif de PHP
-#         cookie_secure: true  # Gère automatiquement HTTP ou HTTPS
-#         cookie_samesite: lax  # Limite les risques de CSRF
-
-#     # Protection CSRF activée
-#     csrf_protection:
-#         enabled: true
-
-#     messenger:
-#         transports:
-#             async: '%env(MESSENGER_TRANSPORT_DSN)%'
-#         routing:
-#             'App\Message\SendEmailMessage': async
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 framework:
     annotations: false
     secret: '%env(KERNEL_SECRET)%'
     router:
         resource: '%kernel.project_dir%/config/routes.yaml'
         type: yaml
-
-    # Configuration des sessions pour Redis
     session:
         enabled: true
-        handler_id: 'snc_redis.session.handler'
-        cookie_secure: auto
-        cookie_samesite: lax
-        # save_path: '%env(REDIS_URL)%'
-
-    # Protection CSRF activée
+        handler_id: ~  # Utilise le gestionnaire de session natif de PHP
+        cookie_secure: false  # Assurez-vous que c'est désactivé en développement si vous utilisez HTTP
+        cookie_samesite: lax  # Réduit les risques de CSRF lors des redirections
     csrf_protection:
         enabled: true
 
+
+        # config/packages/messenger.yaml
     messenger:
         transports:
             async: '%env(MESSENGER_TRANSPORT_DSN)%'
         routing:
             'App\Message\SendEmailMessage': async
+
+   
