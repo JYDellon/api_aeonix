@@ -89,47 +89,26 @@
 
 
 
-
-
 framework:
     secret: '%env(KERNEL_SECRET)%'
 
-    # Configuration des routes
     router:
         resource: '%kernel.project_dir%/config/routes.yaml'
         type: yaml
 
-    # Sessions
     session:
         enabled: true
-        handler_id: null  # Utiliser le gestionnaire natif de PHP
-        cookie_secure: true  # Forcer HTTPS (assurez-vous que votre application est sur HTTPS)
-        cookie_samesite: lax  # Limiter les risques de CSRF
-        cookie_lifetime: 3600  # Durée de vie des cookies en secondes (1 heure)
-        save_path: '%kernel.project_dir%/var/sessions'  # Chemin de stockage des sessions
+        handler_id: null
+        cookie_secure: true
+        cookie_samesite: lax
 
-    # Protection CSRF
     csrf_protection:
         enabled: true
 
-    # Gérer les trusted proxies pour Railway ou tout proxy HTTPS
     trusted_proxies: ['127.0.0.1', '::1', '%env(TRUSTED_PROXIES)%']
-    trusted_headers:
+    trusted_headers: 
         - X_FORWARDED_FOR
         - X_FORWARDED_HOST
         - X_FORWARDED_PROTO
         - X_FORWARDED_PORT
         - X_FORWARDED_PREFIX
-
-    # Validation et normalisation des données
-    validation: { enable_annotations: true }
-
-    # Méthodes HTTP supplémentaires autorisées (PATCH, DELETE, etc.)
-    http_method_override: true
-
-    # Gestion des messages asynchrones (messenger)
-    messenger:
-        transports:
-            async: '%env(MESSENGER_TRANSPORT_DSN)%'
-        routing:
-            'App\Message\SendEmailMessage': async
