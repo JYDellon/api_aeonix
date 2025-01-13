@@ -105,7 +105,7 @@ framework:
         handler_id: 'snc_redis.session.handler'
         cookie_secure: auto
         cookie_samesite: lax
-        save_path: '%env(REDIS_URL)%'
+        # save_path: '%env(REDIS_URL)%'
 
     # Protection CSRF activée
     csrf_protection:

@@ -165,3 +165,5 @@ EXPOSE 9000
 
 # Étape 10 : Commande de démarrage par défaut
 CMD ["php-fpm"]
+
+RUN docker-php-ext-install redis

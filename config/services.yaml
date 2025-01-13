@@ -28,3 +28,8 @@ services:
     App\Controller\SecurityController:
         tags: ['controller.service_arguments']
 
+    snc_redis.session.handler:
+        class: Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler
+        arguments:
+            $redis: '@snc_redis.default'
+            $prefix: 'session:'
