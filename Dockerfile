@@ -23,3 +23,4 @@ CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
 
 # Exposer le port
 EXPOSE 8000
+RUN chown -R www-data:www-data var/cache var/log
