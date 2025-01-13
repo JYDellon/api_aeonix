@@ -40,4 +40,45 @@ class SecurityController extends AbstractController
 
         return $this->render('admin/index.html.twig');
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #[Route('/check-auth', name: 'check_auth')]
+public function checkAuth(): Response
+{
+    if ($this->isGranted('ROLE_ADMIN')) {
+        return new Response('Authentifié avec succès !');
+    }
+
+    return new Response('Non authentifié.');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

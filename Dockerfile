@@ -67,6 +67,19 @@ RUN apt-get update && apt-get install -y \
     mbstring \
     && apt-get clean
 
+# Créer le dossier var/sessions et configurer les permissions
+RUN mkdir -p /app/var/sessions && \
+    chmod -R 775 /app/var/sessions && \
+    chown -R www-data:www-data /app/var/sessions
+
+
+    
+    # Définir les permissions sur le dossier sessions
+RUN chmod -R 775 /app/var/sessions && chown -R www-data:www-data /app/var/sessions
+
+
+
+
 # Installer Composer depuis l'image officielle Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
