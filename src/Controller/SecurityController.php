@@ -47,8 +47,9 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
     
-        if ($this->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('admin');
+        // Vérifie si l'utilisateur est déjà authentifié
+        if ($this->getUser()) {
+            return $this->redirectToRoute('admin'); // Redirige vers l'admin si déjà connecté
         }
     
         return $this->render('security/login.html.twig', [
