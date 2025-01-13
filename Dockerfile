@@ -1,22 +1,25 @@
-# Utiliser une version de PHP compatible
-FROM php:8.1-apache
+# Étape 1 : Utiliser une image PHP 8.2 comme base
+FROM php:8.2-fpm
 
-# Installer les extensions PHP nécessaires
+# Étape 2 : Installer les extensions PHP nécessaires
 RUN apt-get update && apt-get install -y \
     libicu-dev libzip-dev zip unzip git \
     && docker-php-ext-install intl pdo pdo_mysql opcache
 
-# Installer Composer
+# Étape 3 : Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copier les fichiers de l'application
+# Étape 4 : Définir le répertoire de travail
 WORKDIR /app
+
+# Étape 5 : Copier les fichiers de l'application
 COPY . /app
 
-# Installer les dépendances Symfony
+# Étape 6 : Installer les dépendances Symfony
 RUN composer install --no-dev --optimize-autoloader
 
-# Exposer le port
-EXPOSE 80
+# Étape 7 : Configurer le serveur d'application
+CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
 
-CMD ["apache2-foreground"]
+# Exposer le port
+EXPOSE 8000
