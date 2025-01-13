@@ -103,7 +103,7 @@ framework:
     session:
         enabled: true
         handler_id: 'snc_redis.session.handler'
-        cookie_secure: true
+        cookie_secure: auto
         cookie_samesite: lax
         save_path: '%env(REDIS_URL)%'
 
