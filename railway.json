@@ -1,9 +1,8 @@
 {
-    "build": {
-      "dockerfilePath": "./Dockerfile"
-    },
-    "deploy": {
-      "startCommand": "php -S 0.0.0.0:8000 -t public"
-    }
+  "build": {
+    "dockerfilePath": "./Dockerfile"
+  },
+  "deploy": {
+    "startCommand": "php-fpm"
   }
-  
+}
