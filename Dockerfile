@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install
 
-# Copier tous les fichiers du projet pour construire les assets
+# Copier tout le projet pour construire les assets
 COPY . ./
 RUN yarn build
 
@@ -36,8 +36,9 @@ COPY --from=frontend-build /app/public/build /app/public/build
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
-# Fixer les permissions pour les répertoires utilisés par Symfony
-RUN chmod -R 775 var/cache var/log var/sessions \
+# Créer les répertoires nécessaires si absents et fixer les permissions
+RUN mkdir -p var/cache var/log var/sessions \
+    && chmod -R 775 var/cache var/log var/sessions \
     && chown -R www-data:www-data var/cache var/log var/sessions
 
 # Exposer le port pour l'application
