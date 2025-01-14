@@ -1,72 +1,67 @@
-const Encore = require("@symfony/webpack-encore");
+const Encore = require('@symfony/webpack-encore');
 
-// Manually configure the runtime environment if not already configured yet by the "encore" command.
-// It's useful when you use tools that rely on webpack.config.js file.
+// Configure l'environnement d'exécution si ce n'est pas encore fait
 if (!Encore.isRuntimeEnvironmentConfigured()) {
-  Encore.configureRuntimeEnvironment(process.env.NODE_ENV || "dev");
+    Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
 }
 
 Encore
-  // directory where compiled assets will be stored
-  .setOutputPath("public/build/")
-  // public path used by the web server to access the output path
-  .setPublicPath("/build")
-  // only needed for CDN's or subdirectory deploy
-  //.setManifestKeyPrefix('build/')
+    // Répertoire où les assets compilés seront stockés
+    .setOutputPath('public/build/')
+    // Chemin public utilisé par le serveur web pour accéder aux assets
+    .setPublicPath('/build')
+    // Ajouter un préfixe pour le manifest (utile pour les déploiements CDN ou sous-répertoires)
+    // .setManifestKeyPrefix('build/')
 
-  /*
-   * ENTRY CONFIG
-   *
-   * Each entry will result in one JavaScript file (e.g. app.js)
-   * and one css file (e.g. app.css) if your JavaScript imports css.
-   */
-  .addEntry("app", "./assets/app.js")
+    /*
+     * CONFIGURATION DES POINTS D'ENTRÉE
+     *
+     * Chaque point d'entrée produira un fichier JavaScript (ex. app.js)
+     * et un fichier CSS (ex. app.css) si le JS importe du CSS.
+     */
+    .addEntry('app', './assets/app.js')
 
-  // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
-  .splitEntryChunks()
+    // Active le découpage des fichiers pour une meilleure optimisation
+    .splitEntryChunks()
 
-  // will require an extra script tag for runtime.js
-  // but, you probably want this, unless you're building a single-page app
-  .enableSingleRuntimeChunk()
+    // Active un fichier runtime.js unique pour optimiser le cache
+    .enableSingleRuntimeChunk()
 
-  /*
-   * FEATURE CONFIG
-   *
-   * Enable & configure other features below. For a full
-   * list of features, see:
-   * https://symfony.com/doc/current/frontend.html#adding-more-features
-   */
-  .cleanupOutputBeforeBuild()
-  .enableBuildNotifications()
-  .enableSourceMaps(!Encore.isProduction())
-  // enables hashed filenames (e.g. app.abc123.css)
-  .enableVersioning(Encore.isProduction())
+    /*
+     * CONFIGURATION DES FONCTIONNALITÉS
+     *
+     * Active et configure d'autres fonctionnalités si nécessaire.
+     */
+    .cleanupOutputBeforeBuild() // Nettoie le répertoire output avant chaque build
+    .enableBuildNotifications() // Notifications sur les erreurs de build
+    .enableSourceMaps(!Encore.isProduction()) // Génère des fichiers source map en mode dev
+    .enableVersioning(Encore.isProduction()) // Active le versionnage des fichiers en production
 
-  // configure Babel
-  // .configureBabel((config) => {
-  //     config.plugins.push('@babel/a-babel-plugin');
-  // })
+    // Configure Babel pour la compatibilité avec les anciens navigateurs
+    .configureBabelPresetEnv((config) => {
+        config.useBuiltIns = 'usage';
+        config.corejs = '3.38';
+    })
 
-  // enables and configure @babel/preset-env polyfills
-  .configureBabelPresetEnv((config) => {
-    config.useBuiltIns = "usage";
-    config.corejs = "3.38";
-  });
+    // Active le support de Sass/SCSS
+    .enableSassLoader()
 
-// enables Sass/Scss support
-//.enableSassLoader()
+    // Uncomment si vous utilisez TypeScript
+    // .enableTypeScriptLoader()
 
-// uncomment if you use TypeScript
-//.enableTypeScriptLoader()
+    // Uncomment si vous utilisez React
+    // .enableReactPreset()
 
-// uncomment if you use React
-//.enableReactPreset()
+    // Uncomment pour ajouter les attributs integrity="..."
+    // (nécessite WebpackEncoreBundle >= 1.4)
+    // .enableIntegrityHashes(Encore.isProduction())
 
-// uncomment to get integrity="..." attributes on your script & link tags
-// requires WebpackEncoreBundle 1.4 or higher
-//.enableIntegrityHashes(Encore.isProduction())
+    // Uncomment si vous rencontrez des problèmes avec un plugin jQuery
+    // .autoProvidejQuery()
 
-// uncomment if you're having problems with a jQuery plugin
-//.autoProvidejQuery()
+    // Active le support de Stimulus (Symfony UX)
+    .enableStimulusBridge('./assets/controllers.json');
+;
 
+// Exporte la configuration Webpack
 module.exports = Encore.getWebpackConfig();
