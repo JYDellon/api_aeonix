@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d6e31e8950e36ba465fec7c1f226341",
+    "content-hash": "a97fe3bbde075c54f0fe6b76e45715d7",
     "packages": [
         {
             "name": "bref/bref",
@@ -2763,7 +2763,7 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Manages URL generation and versioning of web assets such as css stylesheets, JavaScript files and image files",
+            "description": "Manages URL generation and versioning of web assets such as CSS stylesheets, JavaScript files and image files",
             "homepage": "https://symfony.com",
             "support": {
                 "source": "https://github.com/symfony/asset/tree/v7.2.0"
@@ -10200,7 +10200,7 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Converts css selectors to XPath expressions",
+            "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
             "support": {
                 "source": "https://github.com/symfony/css-selector/tree/v7.2.0"
