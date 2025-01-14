@@ -65,3 +65,39 @@ Encore
 
 // Exporte la configuration Webpack
 module.exports = Encore.getWebpackConfig();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
