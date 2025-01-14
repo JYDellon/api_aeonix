@@ -23,12 +23,10 @@
     },
     "dependencies": {
         "@hotwired/stimulus": "^3.2.2",
+        "@hotwired/turbo": "^8.0.12",
         "@symfony/stimulus-bridge": "^3.2.3"
-
     },
-    
-"registry": {
-  "yarn": "https://npm.symfony.com/"
-}
-
+    "registry": {
+        "yarn": "https://npm.symfony.com/"
+    }
 }

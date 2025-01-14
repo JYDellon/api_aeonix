@@ -15,8 +15,6 @@ Encore
     .setOutputPath('public/build/')
     // Chemin public utilisé par le serveur web pour accéder aux assets
     .setPublicPath('/build')
-    // Ajouter un préfixe pour le manifest (utile pour les déploiements CDN ou sous-répertoires)
-    // .setManifestKeyPrefix('build/')
 
     /*
      * CONFIGURATION DES POINTS D'ENTRÉE
@@ -30,7 +28,7 @@ Encore
     .splitEntryChunks()
 
     // Active un fichier runtime.js unique pour optimiser le cache
-    .enableSingleRuntimeChunk()
+    .enableSingleRuntimeChunk() // Ajout pour corriger l'erreur et optimiser
 
     /*
      * CONFIGURATION DES FONCTIONNALITÉS
@@ -50,19 +48,6 @@ Encore
 
     // Active le support de Sass/Scss
     .enableSassLoader()
-
-    // Uncomment si vous utilisez TypeScript
-    // .enableTypeScriptLoader()
-
-    // Uncomment si vous utilisez React
-    // .enableReactPreset()
-
-    // Uncomment pour ajouter les attributs integrity="..."
-    // (nécessite WebpackEncoreBundle >= 1.4)
-    // .enableIntegrityHashes(Encore.isProduction())
-
-    // Uncomment si vous rencontrez des problèmes avec un plugin jQuery
-    // .autoProvidejQuery()
 
     // Active le support de Stimulus (Symfony UX)
     .enableStimulusBridge('./assets/controllers.json') // Assurez-vous que le fichier controllers.json existe
