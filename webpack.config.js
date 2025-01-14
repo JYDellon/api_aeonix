@@ -17,7 +17,7 @@ Encore
      * CONFIGURATION DES POINTS D'ENTRÉE
      *
      * Chaque point d'entrée produira un fichier JavaScript (ex. app.js)
-     * et un fichier CSS (ex. app.css) si le JS importe du CSS.
+     * et un fichier css (ex. app.css) si le JS importe du css.
      */
     .addEntry('app', './assets/app.js')
 
@@ -43,7 +43,7 @@ Encore
         config.corejs = '3.38';
     })
 
-    // Active le support de Sass/SCSS
+    // Active le support de Sass/Scss
     .enableSassLoader()
 
     // Uncomment si vous utilisez TypeScript
