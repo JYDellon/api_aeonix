@@ -9,12 +9,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    #[Route('/', name: 'homepage', methods: ['GET'])]
-    public function index(): Response
-    {
-        // Redirige l'utilisateur vers la page de connexion
-        return $this->redirectToRoute('login');
-    }
+    // #[Route('/', name: 'homepage', methods: ['GET'])]
+    // public function index(): Response
+    // {
+    //     // Redirige l'utilisateur vers la page de connexion
+    //     return $this->redirectToRoute('login');
+    // }
+    
 
     #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response

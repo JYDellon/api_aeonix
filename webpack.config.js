@@ -6,11 +6,6 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
-    // Ajoute un alias pour résoudre le problème de controllers.json
-    .addAliases({
-        '@symfony/stimulus-bridge/controllers.json': './assets/controllers.json'
-    })
-
     // Répertoire où les assets compilés seront stockés
     .setOutputPath('public/build/')
     // Chemin public utilisé par le serveur web pour accéder aux assets
@@ -20,7 +15,7 @@ Encore
      * CONFIGURATION DES POINTS D'ENTRÉE
      *
      * Chaque point d'entrée produira un fichier JavaScript (ex. app.js)
-     * et un fichier css (ex. app.css) si le JS importe du css.
+     * et un fichier CSS (ex. app.css) si le JS importe du CSS.
      */
     .addEntry('app', './assets/app.js')
 
@@ -28,7 +23,7 @@ Encore
     .splitEntryChunks()
 
     // Active un fichier runtime.js unique pour optimiser le cache
-    .enableSingleRuntimeChunk() // Ajout pour corriger l'erreur et optimiser
+    .enableSingleRuntimeChunk()
 
     /*
      * CONFIGURATION DES FONCTIONNALITÉS
@@ -47,50 +42,11 @@ Encore
     })
 
     // Active le support de Sass/Scss
-    .enableSassLoader()
+    // .enableSassLoader()
 
-    // Active le support de Stimulus (Symfony UX)
-    .enableStimulusBridge('./assets/controllers.json') // Assurez-vous que le fichier controllers.json existe
-
-    // Ajoute le support de Postcss (utile pour Tailwind css ou autres)
+    // Ajoute le support de PostCSS (utile pour Tailwind CSS ou autres)
     .enablePostCssLoader()
 ;
 
 // Exporte la configuration Webpack
 module.exports = Encore.getWebpackConfig();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
