@@ -6,6 +6,11 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
+    // Ajoute un alias pour résoudre le problème de controllers.json
+    .addAliases({
+        '@symfony/stimulus-bridge/controllers.json': './assets/controllers.json'
+    })
+
     // Répertoire où les assets compilés seront stockés
     .setOutputPath('public/build/')
     // Chemin public utilisé par le serveur web pour accéder aux assets
@@ -60,7 +65,10 @@ Encore
     // .autoProvidejQuery()
 
     // Active le support de Stimulus (Symfony UX)
-    .enableStimulusBridge('./assets/controllers.json');
+    .enableStimulusBridge('./assets/controllers.json') // Assurez-vous que le fichier controllers.json existe
+
+    // Ajoute le support de Postcss (utile pour Tailwind css ou autres)
+    .enablePostCssLoader()
 ;
 
 // Exporte la configuration Webpack

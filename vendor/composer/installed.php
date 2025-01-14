@@ -3,7 +3,11 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
+<<<<<<< HEAD
         'reference' => 'c82fd91e7d521cd6a181ecfe1c85c6252b5d93ee',
+=======
+        'reference' => '899a7f4ba400b9fa083e8a4e92a5815c3f6c7d60',
+>>>>>>> origin/master
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +17,11 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
+<<<<<<< HEAD
             'reference' => 'c82fd91e7d521cd6a181ecfe1c85c6252b5d93ee',
+=======
+            'reference' => '899a7f4ba400b9fa083e8a4e92a5815c3f6c7d60',
+>>>>>>> origin/master
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -927,9 +935,9 @@
             'dev_requirement' => false,
         ),
         'symfony/framework-bundle' => array(
-            'pretty_version' => 'v7.2.0',
-            'version' => '7.2.0.0',
-            'reference' => 'a8d0da4110fe643ab3cde7c938a03e222fe787c6',
+            'pretty_version' => 'v7.2.2',
+            'version' => '7.2.2.0',
+            'reference' => 'aaf86f38b483ce101c7e60be050bc0140431cfe2',
             'type' => 'symfony-bundle',
             'install_path' => __DIR__ . '/../symfony/framework-bundle',
             'aliases' => array(),
