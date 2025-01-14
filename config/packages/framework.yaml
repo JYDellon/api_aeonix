@@ -4,18 +4,11 @@ framework:
     router:
         resource: '%kernel.project_dir%/config/routes.yaml'
         type: yaml
+
+    # Session configuration
     session:
         enabled: true
-        handler_id: Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler  # Utilisation de PDO pour le stockage des sessions
-        cookie_secure: auto  # Sécurise les cookies en activant "secure" automatiquement si HTTPS est utilisé
-        cookie_samesite: strict  # Bloque les requêtes cross-site pour une meilleure sécurité
-        cookie_lifetime: 3600  # Durée de vie des cookies en secondes (1 heure ici)
-        save_path: 'mysql:host=%env(resolve:DATABASE_HOST)%;dbname=%env(resolve:DATABASE_NAME)%'  # Stockage des sessions dans la base de données
-    csrf_protection:
-        enabled: true  # Active la protection CSRF pour sécuriser les formulaires
-
-messenger:
-    transports:
-        async: '%env(MESSENGER_TRANSPORT_DSN)%'  # Transport asynchrone basé sur une DSN
-    routing:
-        'App\Message\SendEmailMessage': async  # Route les messages "SendEmailMessage" via le transport async
+        handler_id: 'session.handler.pdo' # Use the PDO session handler
+        cookie_secure: auto              # Automatically secure cookies in HTTPS
+        cookie_samesite: lax             # Prevent cross-site cookie sharing
+        save_path: '%env(resolve:DATABASE_URL)%' # Use database for session storage

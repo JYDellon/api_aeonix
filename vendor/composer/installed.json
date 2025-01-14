@@ -5350,7 +5350,7 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Converts css selectors to XPath expressions",
+            "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
             "support": {
                 "source": "https://github.com/symfony/css-selector/tree/v7.2.0"
