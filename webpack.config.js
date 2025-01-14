@@ -67,7 +67,7 @@ Encore
     // Active le support de Stimulus (Symfony UX)
     .enableStimulusBridge('./assets/controllers.json') // Assurez-vous que le fichier controllers.json existe
 
-    // Ajoute le support de PostCSS (utile pour Tailwind CSS ou autres)
+    // Ajoute le support de Postcss (utile pour Tailwind css ou autres)
     .enablePostCssLoader()
 ;
 
