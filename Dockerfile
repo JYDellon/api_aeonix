@@ -1,35 +1,27 @@
-# Étape 1 : Utiliser l'image PHP avec Apache
-FROM php:8.2-apache
+# Utiliser PHP 8.2 comme base
+FROM php:8.2-fpm
 
-RUN chmod -R 775 var/cache var/log \
-    && chown -R www-data:www-data var/cache var/log
-
-
-# Étape 2 : Installer les dépendances système nécessaires
+# Installer les extensions nécessaires
 RUN apt-get update && apt-get install -y \
-    libicu-dev libzip-dev zip unzip git curl \
-    && docker-php-ext-install intl pdo pdo_mysql opcache
+    libpq-dev \
+    git \
+    unzip \
+    && docker-php-ext-install pdo pdo_pgsql pdo_mysql
 
-# Étape 3 : Copier Composer depuis une image officielle
+# Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Étape 4 : Configurer le répertoire de travail
+# Définir le répertoire de travail
 WORKDIR /app
 
-# Étape 5 : Copier les fichiers du projet dans l'image
+# Copier le projet Symfony
 COPY . /app
 
-# Étape 6 : Créer les répertoires et fixer les permissions
-RUN mkdir -p var/cache var/log && chown -R www-data:www-data var/cache var/log
-
-# Étape 7 : Installer les dépendances PHP
+# Installer les dépendances Symfony
 RUN composer install --no-dev --optimize-autoloader
 
-# Étape 8 : Réchauffer le cache Symfony
-RUN php bin/console cache:warmup --env=prod
-
-# Étape 9 : Exposer le port
+# Exposer le port
 EXPOSE 8000
 
-# Étape 10 : Lancer le serveur PHP
+# Commande de démarrage
 CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
