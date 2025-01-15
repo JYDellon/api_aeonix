@@ -28,3 +28,8 @@ services:
     pdo_connection:
         class: PDO
         factory: ['@doctrine.dbal.default_connection', 'getNativeConnection']  # Get the native PDO connection
+
+    redis_session_handler:
+        class: Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler
+        arguments:
+            - '@snc_redis.session'

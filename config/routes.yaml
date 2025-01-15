@@ -250,6 +250,9 @@ login:
 
 
 
+test_session:
+    path: /test-session
+    controller: App\Controller\SessionTestController::testSession
 
 
 
