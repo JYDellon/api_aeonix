@@ -113,7 +113,6 @@ class ComposerStaticInit1c38ff7d4720731fc8886cf16191792d
             'Symfony\\Bundle\\SecurityBundle\\' => 30,
             'Symfony\\Bundle\\MonologBundle\\' => 29,
             'Symfony\\Bundle\\MakerBundle\\' => 27,
-            'Symfony\\Bundle\\FrameworkBundle\\' => 31,
             'Symfony\\Bundle\\DebugBundle\\' => 27,
             'Symfony\\Bridge\\Twig\\' => 20,
             'Symfony\\Bridge\\PhpUnit\\' => 23,
@@ -477,10 +476,6 @@ class ComposerStaticInit1c38ff7d4720731fc8886cf16191792d
         array (
             0 => __DIR__ . '/..' . '/symfony/maker-bundle/src',
         ),
-        'Symfony\\Bundle\\FrameworkBundle\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/framework-bundle',
-        ),
         'Symfony\\Bundle\\DebugBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/debug-bundle',
@@ -653,6 +648,7 @@ class ComposerStaticInit1c38ff7d4720731fc8886cf16191792d
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+            1 => __DIR__ . '/..' . '/symfony/framework-bundle/src',
         ),
     );
 
