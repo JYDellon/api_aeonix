@@ -1,0 +1,12 @@
+{# templates/emails/prospect.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ subject }}</title>
+</head>
+<body>
+    <h1>Bonjour {{ prospect.nom }}</h1>
+    <p>{{ body|nl2br }}</p>
+    <p>Cordialement,<br>L'équipe.</p>
+</body>
+</html>

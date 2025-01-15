@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Visites{% endblock %}
+
+{% block body %}
+
+
+
+
+
+
+
+
+
+<div class="centered-content">
+    <h1>Liste des Visites</h1>
+    <form method="POST" action="{{ path('admin_page_visits_reset') }}" onsubmit="return confirm('Voulez-vous vraiment réinitialiser toutes les visites ?');">
+    <button type="submit" class="btn btn-danger">Réinitialiser les visites</button>
+</form>
+    <table>
+        <thead>
+            <tr>
+                <th>URL</th>
+                <th>Visites</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for visit in visits %}
+                <tr>
+                    <td>{{ visit.pageUrl }}</td>
+                    <td>{{ visit.visitCount }}</td>
+                    <td>
+                        <form method="post" action="{{ path('admin_page_visit_delete', { id: visit.id }) }}" style="display:inline;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ visit.id) }}">
+                            <button type="submit">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

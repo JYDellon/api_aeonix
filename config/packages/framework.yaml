@@ -1,0 +1,14 @@
+framework:
+    annotations: false
+    secret: '%env(KERNEL_SECRET)%'
+    router:
+        resource: '%kernel.project_dir%/config/routes.yaml'
+        type: yaml
+
+    # Session configuration
+    session:
+        enabled: true
+        handler_id: null
+        cookie_secure: auto              # Automatically secure cookies in HTTPS
+        cookie_samesite: lax             # Prevent cross-site cookie sharing
+        save_path: '%kernel.project_dir%/var/sessions'

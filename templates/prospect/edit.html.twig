@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un Prospect{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/modifprospect.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="container form-container">
+    <h1 class="form-title">Modifier un Prospect</h1>
+    
+    {{ form_start(form, {'attr': {'class': 'form'}}) }}
+
+    <div class="form-group">
+        {{ form_label(form.nom, 'Nom') }}
+        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.nom) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.prenom, 'Prénom') }}
+        {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.prenom) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.email, 'Email') }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.email) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.telephone, 'Téléphone') }}
+        {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.telephone) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.entreprise, 'Entreprise') }}
+        {{ form_widget(form.entreprise, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.entreprise) }}
+    </div>
+
+    <div class="form-check">
+        {{ form_widget(form.client, {'attr': {'class': 'form-check-input'}}) }}
+        {{ form_label(form.client, 'Client', {'label_attr': {'class': 'form-check-label'}}) }}
+        {{ form_errors(form.client) }}
+    </div>
+
+    <div class="form-actions">
+        <a href="{{ path('admin_prospect_index') }}" class="btn btn-secondary">Retour</a>
+        <button type="submit" class="btn btn-success">Mettre à jour</button>
+    </div>
+
+    {{ form_end(form) }}
+</div>
+{% endblock %}

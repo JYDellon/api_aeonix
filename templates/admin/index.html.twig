@@ -1,0 +1,96 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+<div class="menu-container">
+    <ul>
+        <li><a href="{{ path('admin_prospect_index') }}">Gérer les Prospects</a></li>
+        {# <li><a href="{{ path('admin_page_visit') }}">Consulter les Visites de Pages</a></li> #}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <li>
+                <a href="{{ path('app_logout') }}" class="btn-logout">Déconnexion</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+
+<div class="content">
+    <div class="centered-content">
+        <h1>Bienvenue sur le panneau d'administration</h1>
+        <p>Choisissez une option dans le menu pour commencer.</p>
+    </div>
+</div>
+
+{# 
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: rgb(62, 66, 70); /* Fond sombre */
+    color: white; /* Texte par défaut blanc */
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: #343a40;
+    color: white;
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.menu-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.menu-container li {
+    margin: 10px 0;
+}
+
+.menu-container a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    padding: 10px 15px;
+    display: block;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.menu-container a:hover {
+    background-color: #495057;
+}
+
+.content {
+    margin-left: 270px;
+    padding: 20px;
+    margin-left: 270px; /* Laisse de la place pour le menu latéral */
+    padding-top: 100px;
+    background-color: #495057; /* Fond blanc */
+    height: 100vh; /* Prend toute la hauteur de la fenêtre */
+    display: flex; /* Active Flexbox */
+    justify-content: center; /* Centre horizontalement */
+}
+
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+h1 {
+    color: #ffffff;
+}
+</style>
+
+#}

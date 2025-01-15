@@ -1,0 +1,953 @@
+/* Conteneur principal */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: rgb(62, 66, 70); /* Fond sombre */
+    color: white; /* Texte blanc */
+    display: flex;
+    height: 100vh; /* Ajuste le contenu pour la hauteur de la fenêtre */
+}
+
+/* Barre latérale */
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: #343a40;
+    color: white;
+    height: 100vh; /* Occupe toute la hauteur */
+    width: 300px; /* Largeur fixe pour la barre */
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.menu-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.menu-container li {
+    margin: 10px 0;
+}
+
+.menu-container a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    padding: 10px 15px;
+    display: block;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.menu-container a:hover {
+    background-color: #495057;
+}
+
+/* Contenu principal */
+.content {
+    margin-left: 150px; /* Aligne avec la largeur de la barre latérale */
+    padding: 40px;
+    background-color: #49574e; /* Fond sombre */
+    flex: 1; /* Prend tout l'espace disponible restant */
+    overflow: hidden; /* Supprime les barres de défilement */
+    display: flex;
+    flex-direction: column; /* Permet d'empiler verticalement */
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* Centrer le titre et le lien "Ajouter un Prospect" */
+.centered-content {
+    text-align: center;
+    margin-bottom: 30px; /* Espace entre le titre et la table */
+}
+
+/* Table adaptative */
+.table-container {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centre horizontalement la table */
+}
+
+table {
+    table-layout: auto; /* Définit une largeur de colonne adaptative */
+    width: auto; /* Ajuste la largeur à son contenu */
+    max-width: 90%; /* Limite la largeur totale pour rester esthétique */
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #343a40;
+    color: white;
+    text-align: left;
+    border-radius: 5px;
+}
+
+table thead {
+    background-color: #495057;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #565a5e;
+    white-space: nowrap; /* Empêche le texte de s'étendre sur plusieurs lignes */
+}
+
+table th {
+    text-align: left;
+    color: #f1f1f1;
+}
+
+table tr:nth-child(even) {
+    background-color: #424648;
+}
+
+table tr:hover {
+    background-color: #555b5f;
+}
+
+/* Boutons */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button.btn-danger {
+    background-color: #dc3545;
+}
+
+button.btn-danger:hover {
+    background-color: #a71d2a;
+}
+
+/* Bouton d'ajout */
+.add-prospect {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 18px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.add-prospect:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Centrer le contenu */
+.content {
+    margin-left: 200px; /* Ajuste pour laisser de la place au menu latéral */
+    padding: 20px;
+    background-color: #575749;
+    color: white;
+}
+
+/* Conteneur centré */
+.centered-content h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.add-prospect {
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.add-prospect:hover {
+    background-color: #218838;
+}
+
+/* Table stylée */
+.table-container {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #343a40;
+    color: white;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #565a5e;
+}
+
+table th {
+    background-color: #495057;
+}
+
+table tr:nth-child(even) {
+    background-color: #424648;
+}
+
+table tr:hover {
+    background-color: #555b5f;
+}
+
+/* Boutons */
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: #a71d2a;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+/* -------------------------------------------------------------------------- */
+
+
+/* Page entière */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    background: #282c34;
+    color: #ffffff;
+}
+
+/* Conteneur principal */
+.login-container {
+    background: #1c1f26;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* Animation d'entrée */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Titre principal */
+.login-container h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Sous-titre */
+.login-container p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #cccccc;
+}
+
+/* Groupe d'entrée */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Labels */
+.input-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #bbbbbb;
+}
+
+/* Champs de saisie */
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    font-size: 16px;
+    background: #2a2f38;
+    color: #ffffff;
+    transition: all 0.3s ease-in-out;
+}
+
+.input-group input:focus {
+    border-color: #6e8efb;
+    outline: none;
+    box-shadow: 0 0 8px rgba(110, 142, 251, 0.5);
+}
+
+/* Bouton */
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    background-color: #6e8efb;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.btn-login:hover {
+    background-color: #5a79e2;
+}
+
+.btn-login:active {
+    transform: scale(0.97);
+}
+
+/* Ajout d'espace autour du formulaire */
+.login-page {
+    padding: 20px;
+    background: #1c1f26;
+
+}
+/* ---------------------------------------------------------------------------------------------------------------- */
+/* Appliquer un fond sombre global */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #1c1f26; /* Fond sombre */
+    color: #ffffff; /* Texte clair */
+    line-height: 1.6;
+}
+
+/* Menu Container */
+.menu-container {
+    background-color: #2a2f38; /* Fond du menu */
+    padding: 15px;
+    border-bottom: 2px solid #444; /* Ligne de séparation */
+}
+
+.menu-container ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-container ul li {
+    margin: 0 15px;
+}
+
+.menu-container ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #6e8efb; /* Liens */
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.menu-container ul li a:hover {
+    background-color: #444; /* Survol */
+    color: #ffffff;
+}
+
+/* Contenu principal */
+.content {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px); /* Ajuste la hauteur pour exclure le menu */
+    height: 91vh;
+}
+
+.centered-content {
+    text-align: center;
+    background-color: #2a2f38; /* Fond de la boîte */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Ombre */
+}
+
+.centered-content h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.centered-content p {
+    font-size: 16px;
+    color: #cccccc;
+}
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+/* Corps de la page */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #1c1f26;
+    color: #e0e0e0;
+    margin: 0;
+    display: flex;
+}
+
+/* Conteneur principal */
+.admin-container {
+    display: flex;
+    width: 100%;
+}
+
+/* Menu latéral */
+.sidebar {
+    width: 250px;
+    background-color: #2a2f38;
+    height: 100vh;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 15px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #6e8efb;
+    font-size: 16px;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+/* Contenu principal */
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.main-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+/* Boutons d'action */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Tableau sombre */
+.table-container {
+    overflow-x: auto;
+}
+
+.table-striped-dark {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.table-striped-dark thead tr {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.table-striped-dark tbody tr:nth-child(odd) {
+    background-color: #2a2a2a;
+}
+
+.table-striped-dark tbody tr:nth-child(even) {
+    background-color: #1f1f1f;
+}
+
+.table-striped-dark td, .table-striped-dark th {
+    padding: 10px;
+    text-align: left;
+}
+/* --------------------------------------------------------------------------------------------------------- */
+.form-container {
+    background-color: #2a2f38;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #1c1f26;
+    color: #ffffff;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    border-color: #6e8efb;
+    outline: none;
+    box-shadow: 0 0 8px rgba(110, 142, 251, 0.5);
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    border: none;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+/* --------------------------------------------------- */
+
+
+/* Conteneur principal */
+.container {
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #2a2f38; /* Couleur sombre pour le contraste */
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Ombre douce */
+    max-width: 90%;
+}
+
+/* Titre principal */
+h1 {
+    text-align: center;
+    color: #ffffff;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Boutons d'action */
+.mb-3 button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.mb-3 .btn-success {
+    background-color: #28a745;
+}
+
+.mb-3 .btn-success:hover {
+    background-color: #218838;
+    transform: translateY(-2px); /* Effet d’élévation */
+}
+
+.mb-3 .btn-danger {
+    background-color: #dc3545;
+}
+
+.mb-3 .btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+.mb-3 .btn-primary {
+    background-color: #007bff;
+}
+
+.mb-3 .btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden; /* Assure que les bordures arrondies s'appliquent */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: #1c1f26;
+    color: #ffffff;
+}
+
+.table thead {
+    background-color: #343a40;
+    text-align: left;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+.table th, .table td {
+    padding: 15px;
+    border-bottom: 1px solid #444;
+    text-align: left;
+}
+
+.table tr:nth-child(odd) {
+    background-color: #282c34;
+}
+
+.table tr:hover {
+    background-color: #495057;
+}
+
+/* Boutons dans les cellules */
+.table .btn-sm {
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.table .btn-primary {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.table .btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.table .btn-danger {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+.table .btn-danger:hover {
+    background-color: #a71d2a;
+    transform: translateY(-2px);
+}
+
+/* Formulaire d'envoi de mail */
+#mail-form-container {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #1c1f26;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#mail-form-container h2 {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#mail-form input, #mail-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #2a2f38;
+    color: #ffffff;
+}
+
+#mail-form button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#mail-form button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Boutons d'action */
+.mb-3 button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff; /* Texte blanc */
+    background-color: #3b4048; /* Couleur neutre sombre */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mb-3 button:hover {
+    background-color: #4e545d; /* Couleur légèrement plus claire au survol */
+    transform: translateY(-2px); /* Effet d’élévation */
+}
+
+/* Boutons spécifiques */
+.mb-3 .btn-success {
+    background-color: #3b4048; /* Vert atténué */
+}
+
+.mb-3 .btn-success:hover {
+    background-color: #4e545d; /* Vert légèrement plus clair */
+}
+
+.mb-3 .btn-danger {
+    background-color: #3b4048; /* Rouge adouci */
+}
+
+.mb-3 .btn-danger:hover {
+    background-color: #4e545d;
+}
+
+.mb-3 .btn-primary {
+    background-color: #3b4048;/* Bleu doux */
+}
+
+.mb-3 .btn-primary:hover {
+    background-color: #4e545d; /* Bleu plus foncé */
+}
+
+/* Boutons dans les cellules */
+.table .btn-sm {
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #ffffff; /* Texte blanc */
+    background-color: #3b4048; /* Neutre sombre */
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.table .btn-sm:hover {
+    background-color: #4e545d; /* Couleur légèrement plus claire au survol */
+    transform: translateY(-2px);
+}
+
+
+
+
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.pagination li {
+    display: inline;
+}
+
+.pagination a {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: white;
+    background-color: #3b4048;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #4e545d;
+}
+
+.pagination .active a {
+    background-color: #6e8efb;
+}
+/* ------------------------------------------------------------------------------------------------------------ */
+.text-center {
+    text-align: center;
+}

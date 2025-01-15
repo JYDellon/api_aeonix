@@ -1,0 +1,39 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+<div class="login-page">
+    <div class="login-container">
+        <h1>Bienvenue</h1>
+        <p>Connectez-vous pour accéder à votre espace personnel</p>
+        
+        <form method="post" action="{{ path('login') }}">
+            <div class="input-group">
+                <label for="username">Identifiant :</label>
+                <input type="text" id="username" name="_username" placeholder="Votre identifiant" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" name="_password" placeholder="Votre mot de passe" required>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <button type="submit" class="btn-login">Se connecter</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
