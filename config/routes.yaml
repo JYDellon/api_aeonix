@@ -248,6 +248,12 @@ login:
     path: /login
     controller: App\Controller\SecurityController::login
 
+<<<<<<< HEAD
+=======
+session_test:
+    path: /session-test
+    controller: App\Controller\SessionTestController::index
+>>>>>>> 4c441433e43898f03584523e21c754dc994edc04
 
 
 

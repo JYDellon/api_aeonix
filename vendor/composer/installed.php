@@ -3,7 +3,11 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
+<<<<<<< HEAD
         'reference' => '940b0e6784aaef08d2f53c084bb96c92531a34fa',
+=======
+        'reference' => 'b5dbfc428225e10a8aa9d8b7a2d4dad81eba18a6',
+>>>>>>> 4c441433e43898f03584523e21c754dc994edc04
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +17,11 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
+<<<<<<< HEAD
             'reference' => '940b0e6784aaef08d2f53c084bb96c92531a34fa',
+=======
+            'reference' => 'b5dbfc428225e10a8aa9d8b7a2d4dad81eba18a6',
+>>>>>>> 4c441433e43898f03584523e21c754dc994edc04
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -181,12 +189,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'friendsofphp/php-cs-fixer' => array(
-            'dev_requirement' => true,
-            'replaced' => array(
-                0 => 'v3.68.0',
-            ),
-        ),
         'hollodotme/fast-cgi-client' => array(
             'pretty_version' => 'v3.1.7',
             'version' => '3.1.7.0',
@@ -283,15 +285,6 @@
             'reference' => '4f7fd7836c6f332bb2933569e566a0d6c4cbed74',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phar-io/version',
-            'aliases' => array(),
-            'dev_requirement' => true,
-        ),
-        'php-cs-fixer/shim' => array(
-            'pretty_version' => 'v3.68.0',
-            'version' => '3.68.0.0',
-            'reference' => '23acc692a99304559d4c94e9f299158ecd0ed7d1',
-            'type' => 'application',
-            'install_path' => __DIR__ . '/../php-cs-fixer/shim',
             'aliases' => array(),
             'dev_requirement' => true,
         ),
@@ -996,9 +989,9 @@
             'dev_requirement' => false,
         ),
         'symfony/maker-bundle' => array(
-            'pretty_version' => 'v1.62.0',
-            'version' => '1.62.0.0',
-            'reference' => '0624f13b1e0ff86df6f6646c711d806d9af12629',
+            'pretty_version' => 'v1.62.1',
+            'version' => '1.62.1.0',
+            'reference' => '468ff2708200c95ebc0d85d3174b6c6711b8a590',
             'type' => 'symfony-bundle',
             'install_path' => __DIR__ . '/../symfony/maker-bundle',
             'aliases' => array(),
