@@ -20,8 +20,6 @@
 
 
 
-
-
 framework:
     annotations: false
     secret: '%env(KERNEL_SECRET)%'
@@ -32,5 +30,6 @@ framework:
     session:
         enabled: true
         handler_id: 'redis_session_handler'
-        cookie_secure: auto
-        cookie_samesite: lax
+        cookie_secure: auto # Utilise HTTPS si disponible
+        cookie_samesite: lax # Compatible avec les requêtes inter-domaines
+        cookie_lifetime: 0 # Le cookie expire à la fin de la session

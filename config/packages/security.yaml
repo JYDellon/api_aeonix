@@ -51,8 +51,6 @@
 
 
 
-
-
 security:
     providers:
         in_memory:
@@ -61,6 +59,7 @@ security:
                     JYD:
                         password: '$2y$13$BWGq8qXaJGoFAaVrZt0l0efClIfKEIgdfKMjuccoYZjJ7qF4iTEa.'
                         roles: ['ROLE_ADMIN']
+
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: auto
 
@@ -75,15 +74,14 @@ security:
             security: false
 
         main:
-            provider: in_memory
             form_login:
-                login_path: login
-                check_path: login
-                enable_csrf: true
+                login_path: /login
+                check_path: /login
                 default_target_path: /admin
             logout:
                 path: /logout
-                target: /login
+                target: /
+
     access_control:
         - { path: ^/api/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/logout$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
