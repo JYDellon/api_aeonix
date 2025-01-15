@@ -4378,14 +4378,16 @@
                 "twig/twig": "^3.12"
             },
             "type": "symfony-bundle",
+   
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Bundle\\FrameworkBundle\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
+    "psr-4": {
+        "App\\": "src/"
+    },
+    "exclude-from-classmap": [
+        "/Tests/"
+    ]
+},
+
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
