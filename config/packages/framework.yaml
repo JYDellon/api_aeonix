@@ -1,39 +1,55 @@
+<<<<<<< HEAD
+=======
 # framework:
+#     annotations: false
 #     secret: '%env(KERNEL_SECRET)%'
 #     router:
 #         resource: '%kernel.project_dir%/config/routes.yaml'
 #         type: yaml
+
 #     session:
-#         enabled: true # Active les sessions
-#         handler_id: ~ # Utilise le gestionnaire de sessions PHP par défaut
-#         cookie_secure: auto # "auto" pour HTTPS, "false" pour HTTP en local
-#         cookie_samesite: lax # Réduit les risques de CSRF
-#     csrf_protection:
-#         enabled: true # Active la protection CSRF
+#         enabled: true
+#         handler_id: null
+#         cookie_secure: auto              # Automatically secure cookies in HTTPS
+#         cookie_samesite: lax             # Prevent cross-site cookie sharing
+#         save_path: '%kernel.project_dir%/var/sessions'
+#     # session:
+#     #     enabled: true
+#     #     handler_id: 'session.handler.pdo' # Use the PDO session handler
+#     #     cookie_secure: auto              # Automatically secure cookies in HTTPS
+#     #     cookie_samesite: lax             # Prevent cross-site cookie sharing
+#     #     save_path: '%env(resolve:DATABASE_URL)%' 
 
- 
 
 
+
+
+
+
+
+
+>>>>>>> 4c441433e43898f03584523e21c754dc994edc04
 framework:
-    annotations: false
+    translator:
+        enabled: false
     secret: '%env(KERNEL_SECRET)%'
     router:
         resource: '%kernel.project_dir%/config/routes.yaml'
         type: yaml
+
+<<<<<<< HEAD
+    # Session configuration
     session:
         enabled: true
-        handler_id: ~  # Utilise le gestionnaire de session natif de PHP
-        cookie_secure: false  # Assurez-vous que c'est désactivé en développement si vous utilisez HTTP
-        cookie_samesite: lax  # Réduit les risques de CSRF lors des redirections
-    csrf_protection:
+        handler_id: null
+        cookie_secure: auto              # Automatically secure cookies in HTTPS
+        cookie_samesite: lax             # Prevent cross-site cookie sharing
+        save_path: '%kernel.project_dir%/var/sessions'
+=======
+    session:
         enabled: true
-
-
-        # config/packages/messenger.yaml
-    messenger:
-        transports:
-            async: '%env(MESSENGER_TRANSPORT_DSN)%'
-        routing:
-            'App\Message\SendEmailMessage': async
-
-   
+        handler_id: 'session.handler.pdo' # Use the PDO session handler
+        cookie_secure: auto              # Automatically secure cookies in HTTPS
+        cookie_httponly: true            # Make session cookies inaccessible via JavaScript
+        cookie_samesite: strict          # Prevent cross-site request issues
+>>>>>>> 4c441433e43898f03584523e21c754dc994edc04

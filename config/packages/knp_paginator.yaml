@@ -1,10 +1,22 @@
+# knp_paginator:
+#     page_range: 10 # Nombre de pages affichées autour de la page active
+#     default_options:
+#         page_name: page
+#         sort_field_name: sort
+#         sort_direction_name: direction
+#         distinct: true
+#     template:
+#         pagination: '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig' # Utilise Bootstrap 5 pour le style
+#         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig'
+
+
 knp_paginator:
-    page_range: 10 # Nombre de pages affichées autour de la page active
+    page_range: 5            # Nombre de pages affichées dans la pagination
     default_options:
-        page_name: page
-        sort_field_name: sort
+        page_name: page       # Nom du paramètre GET pour la pagination
+        sort_field_name: sort # Nom du paramètre GET pour le tri
         sort_direction_name: direction
-        distinct: true
+        distinct: true        # Pagination distincte
     template:
-        pagination: '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig' # Utilise Bootstrap 5 pour le style
-        sortable: '@KnpPaginator/Pagination/sortable_link.html.twig'
+        pagination: '@KnpPaginator/Pagination/sliding.html.twig' # Chemin du template pour la pagination
+        sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # Chemin pour les liens triables

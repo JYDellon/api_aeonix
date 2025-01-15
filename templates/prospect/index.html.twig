@@ -31,8 +31,9 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
-            {% for prospect in pagination %}
+<tbody>
+    {% if pagination|length > 0 %}
+        {% for prospect in pagination %}
             <tr>
                 <td>
                     <input type="checkbox" name="selected[]" data-id="{{ prospect.id }}" value="{{ prospect.email }}">
@@ -44,13 +45,16 @@
                 <td>{{ prospect.client ? 'Oui' : 'Non' }}</td>
                 <td>
                     <a href="{{ path('prospect_edit', { id: prospect.id }) }}" class="btn btn-primary btn-sm">Modifier</a>
-                    {# <button type="button" class="btn btn-danger btn-sm delete-prospect" data-id="{{ prospect.id }}">
-                        Supprimer
-                    </button> #}
                 </td>
             </tr>
-            {% endfor %}
-        </tbody>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="7" class="text-center">Aucun prospect trouvé.</td>
+        </tr>
+    {% endif %}
+</tbody>
+
     </table>
 
     <!-- Afficher les liens de pagination -->
