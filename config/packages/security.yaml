@@ -4,7 +4,7 @@ security:
             memory:
                 users:
                     JYD:
-                        password: '$2y$13$1/VbnsiiACDZ7QMBSGHrIewQ0pIm1zZBWo6Iq.ouxv0Vfz7fF7N3O'
+                        password: '$2y$13$S2sU5I4sR3APdFHn5l1xG.JYdy/Qw9NO1Hj/n2sb60rZhHfO.4lNe'
                         roles: ['ROLE_ADMIN']
 
     password_hashers:

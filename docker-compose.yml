@@ -9,7 +9,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/app:rw
+      - .:/app
     environment:
       APP_ENV: dev
       APP_SECRET: 123456789azertyuiop123456789

@@ -35,24 +35,20 @@ class ProspectAdminController extends AbstractController
     #[Route('/admin/prospects', name: 'admin_prospect_index2', methods: ['GET'])]
     public function pagination(Request $request, PaginatorInterface $paginator): Response
     {
-        // Créer une requête avec QueryBuilder pour l'entité Prospect
-        $queryBuilder = $this->entityManager
-            ->getRepository(Prospect::class)
-            ->createQueryBuilder('p');
-    
-        // Utiliser le service Paginator pour paginer les résultats
+        $queryBuilder = $this->entityManager->getRepository(Prospect::class)->createQueryBuilder('p');
+
         $pagination = $paginator->paginate(
-            $queryBuilder, // La QueryBuilder
-            $request->query->getInt('page', 1), // Numéro de page (par défaut : 1)
+            $queryBuilder, // QueryBuilder ou tableau
+            $request->query->getInt('page', 1), // Numéro de la page
             10 // Nombre d'éléments par page
         );
-    
-        // Renvoyer la vue Twig avec la pagination
+
         return $this->render('prospect/index.html.twig', [
-            'pagination' => $pagination, // Passer la variable à Twig
+            'pagination' => $pagination, // Vérifiez que c'est bien "pagination"
         ]);
+        
+        
     }
-    
 
 
 

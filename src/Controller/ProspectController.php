@@ -57,17 +57,14 @@ class ProspectController extends AbstractController
     ): Response {
         // Créer une requête avec le QueryBuilder
         $queryBuilder = $prospectRepository->createQueryBuilder('p');
-
-        // Ajouter éventuellement des critères ou des triages
-        $queryBuilder->orderBy('p.id', 'DESC');
-        
-        // Paginer avec la Query
+    
+        // Gérer la pagination
         $pagination = $paginator->paginate(
-            $queryBuilder->getQuery(), // Utilisation correcte de getQuery()
-            $request->query->getInt('page', 1),
-            8
+            $queryBuilder->getQuery(),
+            $request->query->getInt('page', 1), // Numéro de la page actuelle (par défaut 1)
+            8 // Nombre d'éléments par page
         );
-        
+    
         // Rendre la vue avec la pagination
         return $this->render('prospects/index.html.twig', [
             'pagination' => $pagination, // Utilisez cette variable dans Twig
