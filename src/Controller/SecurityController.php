@@ -15,6 +15,7 @@ class SecurityController extends AbstractController
         // Redirige l'utilisateur vers la page de connexion
         return $this->redirectToRoute('login');
     }
+    
 
     #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
@@ -32,6 +33,28 @@ class SecurityController extends AbstractController
         ]);
     }
 
+
+    // #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
+    // public function login(AuthenticationUtils $authenticationUtils): Response
+    // {
+    //     // Gestion de l'authentification
+    //     $error = $authenticationUtils->getLastAuthenticationError();
+    //     $lastUsername = $authenticationUtils->getLastUsername();
+    
+    //     return $this->render('security/login.html.twig', [
+    //         'last_username' => $lastUsername,
+    //         'error' => $error,
+    //     ]);
+    // }
+    
+    #[Route('/', name: 'redirect_to_login', methods: ['GET'])]
+    public function redirectToLogin(): Response
+    {
+        return $this->redirectToRoute('login');
+    }
+    
+
+    
     #[Route('/admin', name: 'admin', methods: ['GET'])]
     public function admin(): Response
     {

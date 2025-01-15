@@ -10,14 +10,12 @@ Encore
     .setOutputPath('public/build/')
     // Chemin public utilisé par le serveur web pour accéder aux assets
     .setPublicPath('/build')
-    // Ajouter un préfixe pour le manifest (utile pour les déploiements CDN ou sous-répertoires)
-    // .setManifestKeyPrefix('build/')
 
     /*
      * CONFIGURATION DES POINTS D'ENTRÉE
      *
      * Chaque point d'entrée produira un fichier JavaScript (ex. app.js)
-     * et un fichier css (ex. app.css) si le JS importe du css.
+     * et un fichier CSS (ex. app.css) si le JS importe du CSS.
      */
     .addEntry('app', './assets/app.js')
 
@@ -44,60 +42,11 @@ Encore
     })
 
     // Active le support de Sass/Scss
-    .enableSassLoader()
+    // .enableSassLoader()
 
-    // Uncomment si vous utilisez TypeScript
-    // .enableTypeScriptLoader()
-
-    // Uncomment si vous utilisez React
-    // .enableReactPreset()
-
-    // Uncomment pour ajouter les attributs integrity="..."
-    // (nécessite WebpackEncoreBundle >= 1.4)
-    // .enableIntegrityHashes(Encore.isProduction())
-
-    // Uncomment si vous rencontrez des problèmes avec un plugin jQuery
-    // .autoProvidejQuery()
-
-    // Active le support de Stimulus (Symfony UX)
-    .enableStimulusBridge('./assets/controllers.json');
+    // Ajoute le support de PostCSS (utile pour Tailwind CSS ou autres)
+    .enablePostCssLoader()
 ;
 
 // Exporte la configuration Webpack
 module.exports = Encore.getWebpackConfig();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
