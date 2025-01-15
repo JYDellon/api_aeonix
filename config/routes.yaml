@@ -247,3 +247,158 @@ app_logout:
 login:
     path: /login
     controller: App\Controller\SecurityController::login
+
+
+
+
+
+
+
+
+# # Routes Frontend
+# homepage:
+#     path: /
+#     controller: App\Controller\HomeController::index
+#     methods: [GET]
+
+# # login:
+# #     path: /login
+# #     controller: App\Controller\SecurityController::login
+# #     methods: [GET, POST]
+
+# logout:
+#     path: /logout
+#     controller: App\Controller\SecurityController::logout
+#     methods: [GET]
+
+# send_email:
+#     path: /send-email
+#     controller: App\Controller\EmailController::sendEmail
+#     methods: [POST]
+
+
+# # Routes Admin
+# admin_dashboard:
+#     path: /admin
+#     controller: App\Controller\AdminController::index
+#     methods: [GET]
+
+# admin_prospect_index:
+#     path: /admin/prospects
+#     controller: App\Controller\Admin\ProspectAdminController::index
+#     methods: [GET]
+
+# admin_prospect_new:
+#     path: /admin/prospects/new
+#     controller: App\Controller\Admin\ProspectAdminController::create
+#     methods: [GET, POST]
+
+# admin_prospect_edit:
+#     path: /admin/prospects/{id}/edit
+#     controller: App\Controller\Admin\ProspectAdminController::edit
+#     methods: [GET, POST]
+
+# admin_prospect_delete:
+#     path: /admin/prospects/{id}/delete
+#     controller: App\Controller\Admin\ProspectAdminController::delete
+#     methods: [POST]
+
+# admin_prospects_send_emails:
+#     path: /admin/prospects/send-emails
+#     controller: App\Controller\Admin\ProspectAdminController::sendEmails
+#     methods: [POST]
+
+# admin_page_visits_reset:
+#     path: /admin/page-visits/reset
+#     controller: App\Controller\Admin\PageVisitAdminController::resetVisits
+#     methods: [POST]
+
+# admin_page_visit_delete:
+#     path: /admin/page-visits/{id}
+#     controller: App\Controller\Admin\PageVisitAdminController::delete
+#     methods: [POST]
+
+
+# # Routes API for Prospects
+# api_prospects_list:
+#     path: /api/prospects
+#     controller: App\Controller\ProspectController::listProspects
+#     methods: [GET]
+
+# api_prospects_create:
+#     path: /api/prospects
+#     controller: App\Controller\ProspectController::createProspect
+#     methods: [POST]
+
+# api_prospect_update:
+#     path: /api/prospect/{id}
+#     controller: App\Controller\ProspectController::updateProspect
+#     methods: [PUT]
+
+# api_prospect_delete:
+#     path: /api/prospect/{id}
+#     controller: App\Controller\ProspectController::deleteProspect
+#     methods: [DELETE]
+
+
+# # Routes API for Visits
+# api_visits_list:
+#     path: /api/visit
+#     controller: App\Controller\VisitController::listVisits
+#     methods: [GET]
+
+# api_visits_reset:
+#     path: /api/visit/reset
+#     controller: App\Controller\VisitController::resetVisits
+#     methods: [DELETE]
+
+# api_visit_record:
+#     path: /api/visit/{pageUrl}
+#     controller: App\Controller\PageVisitController::recordVisit
+#     methods: [POST, OPTIONS]
+
+# api_get_visits:
+#     path: /api/visit
+#     controller: App\Controller\PageVisitController::getVisits
+#     methods: [GET]
+
+# api_reset_visits:
+#     path: /api/visit
+#     controller: App\Controller\PageVisitController::resetVisits
+#     methods: [DELETE]
+
+
+# # Routes for Prospect Management
+# prospect_index:
+#     path: /prospect
+#     controller: App\Controller\ProspectController::index
+#     methods: [GET]
+
+# prospect_edit:
+#     path: /prospect/edit/{id}
+#     controller: App\Controller\ProspectController::edit
+#     methods: [GET, POST]
+
+# prospect_delete:
+#     path: /prospect/delete/{id}
+#     controller: App\Controller\ProspectController::delete
+#     methods: [POST]
+
+# delete_multiple_prospects:
+#     path: /delete-multiple
+#     controller: App\Controller\ProspectController::deleteMultiple
+#     methods: [POST]
+
+# send_emails:
+#     path: /send-emails
+#     controller: App\Controller\ProspectController::sendEmails
+#     methods: [POST]
+
+# login:
+#     path: /login
+#     controller: App\Controller\SecurityController::login
+
+# admin_pprospect_page_visit:
+#     path: /admin/page-visits
+#     controller: App\Controller\Admin\PageVisitController::index
+#     methods: [GET]
