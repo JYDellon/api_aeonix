@@ -248,6 +248,9 @@ login:
     path: /login
     controller: App\Controller\SecurityController::login
 
+session_test:
+    path: /session-test
+    controller: App\Controller\SessionTestController::index
 
 
 
