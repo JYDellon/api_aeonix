@@ -77,7 +77,6 @@ class EmailController extends AbstractController
             }
 
             return $this->redirectToRoute('message_result', [
-                'title' => 'Succès',
                 'message' => 'Emails envoyés avec succès.',
             ]);
         } catch (\Exception $e) {
@@ -94,7 +93,7 @@ class EmailController extends AbstractController
     #[Route('/message/result', name: 'message_result', methods: ['GET'])]
     public function messageResult(Request $request): Response
     {
-        $title = $request->query->get('title', 'Information');
+        $title = $request->query->get('title', '');
         $message = $request->query->get('message', '');
 
         return $this->render('email/message_result.html.twig', [

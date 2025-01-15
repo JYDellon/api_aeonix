@@ -23,16 +23,28 @@ class PageVisitAdminController extends AbstractController
     {
         $this->doctrine = $doctrine;
     }
-
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(): Response
     {
         // Utilisez l'objet doctrine injecté pour accéder au repository
         $visits = $this->doctrine->getRepository(PageVisit::class)->findAll();
-
+    
         return $this->render('admin/page_visits.html.twig', [
             'visits' => $visits,
         ]);
     }
+
+
+    
+    // public function index(): Response
+    // {
+    //     // Utilisez l'objet doctrine injecté pour accéder au repository
+    //     $visits = $this->doctrine->getRepository(PageVisit::class)->findAll();
+
+    //     return $this->render('admin/page_visits.html.twig', [
+    //         'visits' => $visits,
+    //     ]);
+    // }
 
 
     
